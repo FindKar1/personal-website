@@ -1,26 +1,70 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #eee7d8;
+  --paper-light: #f6f0e3;
+  --ink: #171511;
+  --graphite: #4d4940;
+  --rust: #a84d37;
+  --blueprint: #5e7c86;
+  --sepia: #8a6d4f;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-background: var(--paper);
+  --color-foreground: var(--ink);
+  --color-paper: var(--paper);
+  --color-paper-light: var(--paper-light);
+  --color-ink: var(--ink);
+  --color-graphite: var(--graphite);
+  --color-rust: var(--rust);
+  --color-blueprint: var(--blueprint);
+  --color-sepia: var(--sepia);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-cormorant);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--paper);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(168, 77, 55, 0.08), transparent 26rem),
+    radial-gradient(circle at 90% 24%, rgba(94, 124, 134, 0.12), transparent 30rem),
+    linear-gradient(180deg, #f4eddf 0%, var(--paper) 48%, #e9dec9 100%);
+  color: var(--ink);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: rgba(168, 77, 55, 0.24);
+}
+
+.paper-grain {
+  background-image:
+    linear-gradient(rgba(23, 21, 17, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23, 21, 17, 0.03) 1px, transparent 1px),
+    radial-gradient(circle at 20% 30%, rgba(23, 21, 17, 0.055), transparent 1px),
+    radial-gradient(circle at 72% 82%, rgba(168, 77, 55, 0.07), transparent 1.4px);
+  background-size: 42px 42px, 42px 42px, 13px 13px, 19px 19px;
+}
+
+.archive-rule {
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(23, 21, 17, 0.18) 0 1px,
+    transparent 1px 12px
+  );
+}
+
+.hand-drawn {
+  filter: url(#roughen);
 }
