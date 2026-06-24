@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { EssayCard, SectionLabel } from "@/components/ArchivePieces";
+import { LiteraturePostCard, SectionLabel } from "@/components/ArchivePieces";
 import { PageShell } from "@/components/SiteFrame";
 import { essays } from "@/lib/site-data";
 
@@ -29,8 +29,8 @@ export default function WritingPage() {
       </section>
       <section className="px-5 pb-24 sm:px-8">
         <div className="mx-auto grid max-w-7xl gap-5 lg:grid-cols-3">
-          {essays.map((essay) => (
-            <EssayCard key={essay.slug} {...essay} />
+          {essays.map((essay, index) => (
+            <LiteraturePostCard key={essay.slug} {...essay} index={index} />
           ))}
         </div>
       </section>

@@ -2,49 +2,106 @@ import Link from "next/link";
 
 export function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mb-5 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.28em] text-rust">
+    <div className="mb-5 flex items-center justify-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-rust md:justify-start">
       <span className="h-px w-10 bg-rust/45" />
       {children}
+      <span className="h-px w-10 bg-rust/45 md:hidden" />
     </div>
   );
 }
 
-export function EssayCard({
+export function HeroImagePanel() {
+  return (
+    <div className="relative mx-auto aspect-[0.92/1] w-[min(74vw,470px)] overflow-hidden bg-[#f6f1e7] shadow-[0_28px_90px_rgba(36,31,22,0.18)] ring-1 ring-ink/8">
+      <div className="absolute inset-0 paper-grain opacity-35" />
+      <svg viewBox="0 0 520 565" className="absolute inset-0 h-full w-full" aria-hidden="true">
+        <defs>
+          <radialGradient id="portraitGlow" cx="50%" cy="34%" r="66%">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.88" />
+            <stop offset="58%" stopColor="#e8e1d4" stopOpacity="0.72" />
+            <stop offset="100%" stopColor="#cfc5b4" stopOpacity="0.22" />
+          </radialGradient>
+          <filter id="softInk" x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="3" seed="7" />
+            <feDisplacementMap in="SourceGraphic" scale="5" />
+          </filter>
+        </defs>
+        <rect width="520" height="565" fill="url(#portraitGlow)" />
+        <path d="M166 398 C182 320 226 280 278 265 C330 250 384 278 404 334 C426 398 398 482 336 510 C276 538 184 500 166 398Z" fill="#171511" fillOpacity="0.86" />
+        <path d="M278 111 C238 108 204 132 188 164 C151 171 128 210 139 252 C113 283 122 330 154 349 C165 391 208 416 256 405 C296 427 350 411 372 371 C420 352 434 296 407 259 C419 214 392 172 352 160 C336 130 310 113 278 111Z" fill="#171511" fillOpacity="0.92" filter="url(#softInk)" />
+        <path d="M246 181 C211 204 198 250 210 292 C220 330 250 359 286 363 C332 368 374 333 382 285 C391 236 362 190 319 177 C292 169 266 170 246 181Z" fill="#efe8dc" />
+        <path d="M213 282 C177 286 158 271 147 244 C158 236 184 235 209 249" fill="#171511" fillOpacity="0.83" />
+        <path d="M238 226 C266 217 300 215 334 229" fill="none" stroke="#171511" strokeOpacity="0.35" strokeWidth="4" strokeLinecap="round" />
+        <path d="M242 274 C268 286 300 284 327 270" fill="none" stroke="#171511" strokeOpacity="0.45" strokeWidth="3" strokeLinecap="round" />
+        <path d="M327 249 C342 260 347 282 337 301" fill="none" stroke="#171511" strokeOpacity="0.38" strokeWidth="3" strokeLinecap="round" />
+        {Array.from({ length: 24 }).map((_, index) => {
+          const x = 105 + ((index * 37) % 325);
+          const y = 82 + ((index * 53) % 312);
+          const r = 16 + (index % 5) * 7;
+          return (
+            <circle
+              key={index}
+              cx={x}
+              cy={y}
+              r={r}
+              fill="none"
+              stroke="#171511"
+              strokeOpacity={0.08 + (index % 4) * 0.035}
+              strokeWidth="2"
+            />
+          );
+        })}
+        <path d="M94 472 C152 436 196 432 250 456 C306 480 354 474 425 426" fill="none" stroke="#a84d37" strokeOpacity="0.62" strokeWidth="2" />
+        <path d="M118 500 C206 466 280 504 410 462" fill="none" stroke="#171511" strokeOpacity="0.18" strokeWidth="2" />
+      </svg>
+      <div className="absolute bottom-5 left-5 rotate-[-7deg] font-serif text-5xl italic tracking-[-0.08em] text-ink/75">
+        Kar
+      </div>
+      <div className="absolute bottom-5 right-5 border border-ink/10 bg-paper/65 px-3 py-2 font-mono text-[9px] uppercase tracking-[0.18em] text-graphite backdrop-blur-sm">
+        field image / draft
+      </div>
+    </div>
+  );
+}
+
+export function LiteraturePostCard({
   eyebrow,
   date,
   title,
   description,
   tags,
+  index,
 }: {
   eyebrow: string;
   date: string;
   title: string;
   description: string;
   tags: string[];
+  index: number;
 }) {
   return (
-    <article className="group relative flex min-h-[310px] flex-col justify-between overflow-hidden border border-ink/14 bg-paper-light p-6 shadow-[0_20px_70px_rgba(32,26,16,0.08)] transition-transform duration-500 hover:-translate-y-1">
-      <div className="absolute inset-0 paper-grain opacity-55" />
-      <div className="relative z-10">
-        <div className="mb-10 flex items-center justify-between gap-5 border-b border-ink/10 pb-4 font-mono text-[10px] uppercase tracking-[0.22em] text-graphite/70">
-          <span>{eyebrow}</span>
-          <span>{date}</span>
-        </div>
-        <h3 className="font-serif text-4xl leading-[0.92] tracking-[-0.055em] text-ink">
+    <article className="group">
+      <div className="relative aspect-[1.48/1] overflow-hidden bg-[#d8d2c4] ring-1 ring-ink/10">
+        <div className="absolute inset-0 paper-grain opacity-45" />
+        <svg viewBox="0 0 480 324" className="absolute inset-0 h-full w-full" aria-hidden="true">
+          <rect width="480" height="324" fill={index % 2 === 0 ? "#cfd5d3" : "#d5c7b4"} opacity="0.58" />
+          <path d="M0 240 C90 198 152 246 226 206 C314 158 378 188 480 126 L480 324 L0 324Z" fill={index % 2 === 0 ? "#6f7c75" : "#7a5d4c"} opacity="0.42" />
+          <path d="M70 238 C122 174 184 188 232 130 C286 68 370 74 424 112" fill="none" stroke="#171511" strokeOpacity="0.23" strokeWidth="2" />
+          <path d="M58 84 C170 124 282 64 424 104" fill="none" stroke="#171511" strokeOpacity="0.15" strokeWidth="2" strokeDasharray="5 9" />
+          <circle cx={index % 2 === 0 ? 348 : 120} cy={index % 2 === 0 ? 96 : 110} r="44" fill="#f4eddf" opacity="0.45" />
+          <path d="M96 272 L420 272" stroke="#171511" strokeOpacity="0.18" />
+        </svg>
+      </div>
+      <div className="mt-4 border-b border-ink/12 pb-5">
+        <p className="font-serif text-sm italic text-rust/80">{date}</p>
+        <h3 className="mt-1 font-serif text-3xl leading-[0.92] tracking-[-0.05em] text-ink transition-colors group-hover:text-rust">
           {title}
         </h3>
-      </div>
-      <div className="relative z-10 mt-8">
-        <p className="max-w-md text-sm leading-6 text-graphite">{description}</p>
-        <div className="mt-6 flex flex-wrap gap-2">
-          {tags.map((tag) => (
-            <span
-              key={tag}
-              className="border border-blueprint/25 bg-blueprint/5 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-blueprint"
-            >
-              {tag}
-            </span>
-          ))}
+        <p className="mt-3 line-clamp-3 text-sm leading-6 text-graphite">{description}</p>
+        <div className="mt-4 flex flex-wrap gap-2 font-mono text-[9px] uppercase tracking-[0.18em] text-graphite/75">
+          <span>{eyebrow}</span>
+          <span>|</span>
+          <span>{tags[0]}</span>
         </div>
       </div>
     </article>
@@ -75,62 +132,6 @@ export function ProjectCard({
         {status}
       </div>
     </article>
-  );
-}
-
-export function PlateDiagram() {
-  return (
-    <div className="relative min-h-[520px] overflow-hidden border border-ink/14 bg-[#eee5d2] shadow-[0_30px_100px_rgba(25,20,12,0.12)]">
-      <div className="absolute inset-0 paper-grain opacity-70" />
-      <div className="absolute inset-6 border border-ink/10" />
-      <svg
-        viewBox="0 0 640 760"
-        className="absolute inset-0 h-full w-full"
-        aria-hidden="true"
-      >
-        <defs>
-          <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
-            <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#5e7c86" strokeOpacity="0.16" strokeWidth="1" />
-          </pattern>
-          <radialGradient id="wash" cx="50%" cy="42%" r="55%">
-            <stop offset="0%" stopColor="#f4ead3" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#d9c9ad" stopOpacity="0.16" />
-          </radialGradient>
-        </defs>
-        <rect width="640" height="760" fill="url(#grid)" />
-        <rect width="640" height="760" fill="url(#wash)" />
-        <path d="M320 108 C445 124 532 224 520 360 C506 520 384 596 268 554 C154 512 104 360 170 242 C202 184 250 126 320 108Z" fill="none" stroke="#171511" strokeOpacity="0.48" strokeWidth="1.4" />
-        <path d="M320 160 C396 170 454 230 450 318 C444 424 365 478 286 452 C207 426 178 328 218 252 C240 212 274 172 320 160Z" fill="none" stroke="#a84d37" strokeOpacity="0.62" strokeWidth="1.2" />
-        <path d="M318 224 C362 234 390 270 384 318 C376 382 326 408 282 386 C238 364 234 302 260 264 C274 244 294 226 318 224Z" fill="none" stroke="#5e7c86" strokeOpacity="0.82" strokeWidth="1.5" />
-        {Array.from({ length: 15 }).map((_, index) => {
-          const y = 118 + index * 34;
-          const width = 80 + (index % 5) * 22;
-          return (
-            <path
-              key={index}
-              d={`M${84 + index * 3} ${y} C ${180 + width} ${y - 24}, ${390 - width / 2} ${y + 40}, ${548 - index * 4} ${y + 6}`}
-              fill="none"
-              stroke={index % 3 === 0 ? "#a84d37" : "#171511"}
-              strokeOpacity={index % 3 === 0 ? "0.26" : "0.13"}
-              strokeWidth="1"
-            />
-          );
-        })}
-        <circle cx="320" cy="318" r="7" fill="#a84d37" />
-        <circle cx="218" cy="252" r="4" fill="#171511" fillOpacity="0.65" />
-        <circle cx="450" cy="318" r="4" fill="#171511" fillOpacity="0.65" />
-        <circle cx="286" cy="452" r="4" fill="#171511" fillOpacity="0.65" />
-        <path d="M320 318 L522 210" stroke="#171511" strokeOpacity="0.34" strokeWidth="1" strokeDasharray="4 8" />
-        <path d="M320 318 L118 456" stroke="#171511" strokeOpacity="0.34" strokeWidth="1" strokeDasharray="4 8" />
-        <path d="M320 318 L486 572" stroke="#171511" strokeOpacity="0.34" strokeWidth="1" strokeDasharray="4 8" />
-      </svg>
-      <div className="absolute left-8 top-8 border border-ink/12 bg-paper/75 p-3 font-mono text-[10px] uppercase leading-5 tracking-[0.18em] text-graphite backdrop-blur-sm">
-        Archive plate<br />KD-001<br />systems / simulation
-      </div>
-      <div className="absolute bottom-8 right-8 max-w-[220px] border border-rust/25 bg-rust/8 p-4 text-sm leading-6 text-graphite backdrop-blur-sm">
-        A site for essays, experiments, diagrams, projects, and half-finished maps of the future.
-      </div>
-    </div>
   );
 }
 
