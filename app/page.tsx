@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 const aboutSections = [
   {
     label: "origin",
@@ -5,7 +9,7 @@ const aboutSections = [
       "I don't think I've changed much.",
       "I was a weird kid, born in a rural town in northern India.",
       "When I was 3 my family moved to California. It was 5 of us crammed into a tiny 1 bedroom apartment just south of Oak Park, Sacramento, CA. The neighbors were kind.. but you learned pretty quickly which streets not to wander down.",
-      "Fortunately, my parents worked hard and we made it to the suburbs of Natomas. Nothing posh but at least I could ride my bike around the neighborhoods without worry.",
+      "Fortunately, my parents worked hard and we made it to the suburbs of Natomas. Still in Sacramento and not super posh but it was the kind of place I could ride my bike around the neighborhood without worry.",
     ],
   },
   {
@@ -79,7 +83,137 @@ const aboutSections = [
   },
 ];
 
+const profileTabs = ["about", "reading", "archive", "notes"] as const;
+
+type ProfileTab = (typeof profileTabs)[number];
+
+const readingSections = [
+  {
+    category: "Systems",
+    description:
+      "Civilization, power, institutions, complexity, economics, technology.",
+    books: [
+      ["The Origins of Political Order", "Francis Fukuyama"],
+      ["Understanding Complexity", "Scott E. Page"],
+      ["Sapiens", "Yuval Noah Harari"],
+      ["A World Without Work", "Daniel Susskind"],
+      ["Life Force", "Tony Robbins"],
+      ["The Art of War", "Sun Tzu"],
+      ["The Prince", "Niccolo Machiavelli"],
+      ["The Book of Five Rings", "Miyamoto Musashi"],
+      ["1984", "George Orwell"],
+      ["Astrophysics for People in a Hurry", "Neil deGrasse Tyson"],
+      ["A Mind for Numbers", "Barbara Oakley"],
+      ["Foundational Concepts in Neuroscience", "David Presti"],
+    ],
+  },
+  {
+    category: "Mind",
+    description:
+      "Philosophy, psychology, spirituality, trauma, attention, behavior.",
+    books: [
+      ["Meditations", "Marcus Aurelius"],
+      ["Man's Search for Meaning", "Viktor E. Frankl"],
+      ["On the Shortness of Life", "Seneca"],
+      ["The Power of Now", "Eckhart Tolle"],
+      ["A New Earth", "Eckhart Tolle"],
+      ["The Untethered Soul", "Michael A. Singer"],
+      ["The Four Agreements", "Don Miguel Ruiz"],
+      ["The Fifth Agreement", "Don Miguel Ruiz"],
+      ["The Mastery of Love", "Don Miguel Ruiz"],
+      ["The Mastery of Self", "Don Miguel Ruiz"],
+      ["The Seat of the Soul", "Gary Zukav"],
+      ["The Body Keeps the Score", "Bessel van der Kolk"],
+      ["Incognito", "David Eagleman"],
+      ["The Power of Habit", "Charles Duhigg"],
+      ["Daring Greatly", "Brene Brown"],
+      ["Awaken the Giant Within", "Tony Robbins"],
+      ["The Subtle Art of Not Giving a F*ck", "Mark Manson"],
+      ["Unfu*k Yourself", "Gary John Bishop"],
+      ["Think Like a Monk", "Jay Shetty"],
+      ["What to Say When You Talk to Yourself", "Shad Helmstetter"],
+      ["The Secret", "Rhonda Byrne"],
+      ["Joy", "Alexander Lowen"],
+      ["King, Warrior, Magician, Lover", "Robert Moore"],
+    ],
+  },
+  {
+    category: "Building",
+    description:
+      "Startups, leadership, sales, negotiation, operating, creative work.",
+    books: [
+      ["Zero to One", "Peter Thiel"],
+      ["The Hard Thing About Hard Things", "Ben Horowitz"],
+      ["Traction", "Gino Wickman"],
+      ["Never Split the Difference", "Chris Voss"],
+      ["Exactly What to Say", "Phil M. Jones"],
+      ["Secrets of Closing the Sale", "Zig Ziglar"],
+      ["The 21 Irrefutable Laws of Leadership", "John C. Maxwell"],
+      ["The 15 Invaluable Laws of Growth", "John C. Maxwell"],
+      ["Outliers", "Malcolm Gladwell"],
+      ["Blink", "Malcolm Gladwell"],
+      ["Talking to Strangers", "Malcolm Gladwell"],
+      ["Supercommunicators", "Charles Duhigg"],
+      ["The War of Art", "Steven Pressfield"],
+      ["High Performance Habits", "Brendon Burchard"],
+      ["Can't Hurt Me", "David Goggins"],
+      ["Think and Grow Rich", "Napoleon Hill"],
+      ["How to Own Your Own Mind", "Napoleon Hill"],
+      ["How to Fail at Almost Everything and Still Win Big", "Scott Adams"],
+      ["The Richest Man in Babylon", "George S. Clason"],
+      ["Let the Elephants Run", "David Usher"],
+      ["Fluent in 3 Months", "Benny Lewis"],
+    ],
+  },
+  {
+    category: "Story",
+    description: "Fiction, memoir, myth, biography, narrative.",
+    books: [
+      ["Shantaram", "Gregory David Roberts"],
+      ["The Sympathizer", "Viet Thanh Nguyen"],
+      ["The Song of Achilles", "Madeline Miller"],
+      ["Piranesi", "Susanna Clarke"],
+      ["The Kite Runner", "Khaled Hosseini"],
+      ["Gates of Fire", "Steven Pressfield"],
+      ["The Alchemist", "Paulo Coelho"],
+      ["Manual of the Warrior of Light", "Paulo Coelho"],
+      ["Manuscript Found in Accra", "Paulo Coelho"],
+      ["The Hitchhiker's Guide to the Galaxy", "Douglas Adams"],
+      ["The Girl with the Dragon Tattoo", "Stieg Larsson"],
+      ["The Fountainhead", "Ayn Rand"],
+      ["The Inheritors", "William Golding"],
+      ["The Catcher in the Rye", "J.D. Salinger"],
+      ["The Outsiders", "S.E. Hinton"],
+      ["My Side of the Mountain", "Jean Craighead George"],
+      ["Percy Jackson and the Olympians", "Rick Riordan"],
+      ["Harry Potter", "J.K. Rowling"],
+      ["The Shiva Trilogy", "Amish Tripathi"],
+      ["Surely You're Joking, Mr. Feynman!", "Richard Feynman"],
+      ["What Do You Care What Other People Think?", "Richard Feynman"],
+      ["Red Notice", "Bill Browder"],
+      ["Will", "Will Smith"],
+      ["When I Stop Talking, You'll Know I'm Dead", "Jerry Weintraub"],
+    ],
+  },
+];
+
 export default function Home() {
+  const [activeTab, setActiveTab] = useState<ProfileTab>(() => {
+    if (typeof window === "undefined") {
+      return "about";
+    }
+
+    const hash = window.location.hash.replace("#", "");
+    return profileTabs.includes(hash as ProfileTab)
+      ? (hash as ProfileTab)
+      : "about";
+  });
+
+  const selectTab = (tab: ProfileTab) => {
+    setActiveTab(tab);
+    window.history.replaceState(null, "", `#${tab}`);
+  };
+
   return (
     <main
       className="min-h-screen bg-white px-6 py-8 text-ink sm:px-10 sm:py-12"
@@ -257,26 +391,139 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mt-14">
-          <h2 className="font-mono text-base font-semibold uppercase tracking-normal text-ink">
-            About
-          </h2>
-          <div className="mt-5 max-w-4xl space-y-10 text-base leading-7 text-graphite">
-            {aboutSections.map((section, sectionIndex) => (
-              <div
-                key={section.label}
-                className="grid gap-4 border-t border-ink/10 pt-6 first:border-t-0 first:pt-0 sm:grid-cols-[8rem_1fr]"
-              >
-                <div className="font-mono text-xs leading-7 uppercase text-graphite/50">
-                  {String(sectionIndex + 1).padStart(2, "0")} / {section.label}
-                </div>
-                <div className="space-y-4">
-                  {section.paragraphs.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
+        <section className="mt-14" id={activeTab}>
+          <div className="flex flex-col gap-4 border-b border-ink/10 pb-3 sm:flex-row sm:items-end sm:justify-between">
+            <h2 className="font-mono text-base font-semibold uppercase tracking-normal text-ink">
+              {activeTab}
+            </h2>
+            <div className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs uppercase text-graphite/50">
+              {profileTabs.map((tab) => (
+                <button
+                  key={tab}
+                  type="button"
+                  onClick={() => selectTab(tab)}
+                  className={`cursor-pointer transition-colors ${
+                    activeTab === tab
+                      ? "text-ink underline decoration-ink/30 underline-offset-4"
+                      : "hover:text-ink"
+                  }`}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div key={activeTab} className="profile-panel mt-5">
+            {activeTab === "about" && (
+              <div className="max-w-4xl space-y-10 text-base leading-7 text-graphite">
+                {aboutSections.map((section, sectionIndex) => (
+                  <div
+                    key={section.label}
+                    className="grid gap-4 border-t border-ink/10 pt-6 first:border-t-0 first:pt-0 sm:grid-cols-[8rem_1fr]"
+                  >
+                    <div className="font-mono text-xs leading-7 uppercase text-graphite/50">
+                      {String(sectionIndex + 1).padStart(2, "0")} /{" "}
+                      {section.label}
+                    </div>
+                    <div className="space-y-4">
+                      {section.paragraphs.map((paragraph) => (
+                        <p key={paragraph}>{paragraph}</p>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {activeTab === "reading" && (
+              <div className="max-w-4xl">
+                <p className="max-w-2xl text-base leading-7 text-graphite">
+                  A partial, imperfectly remembered record of books that shaped
+                  how I think.
+                </p>
+
+                <div className="mt-8 space-y-10">
+                  {readingSections.map((section) => (
+                    <div
+                      key={section.category}
+                      className="grid gap-4 border-t border-ink/10 pt-6 first:border-t-0 first:pt-0 sm:grid-cols-[8rem_1fr]"
+                    >
+                      <div>
+                        <p className="font-mono text-xs leading-6 uppercase text-graphite/50">
+                          {section.category}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="max-w-2xl text-sm leading-6 text-graphite/70">
+                          {section.description}
+                        </p>
+                        <div className="mt-4 divide-y divide-ink/10 border-y border-ink/10">
+                          {section.books.map(([title, author]) => (
+                            <div
+                              key={`${section.category}-${title}`}
+                              className="grid gap-1 py-2.5 text-sm leading-6 sm:grid-cols-[1.35fr_1fr] sm:items-center"
+                            >
+                              <p className="font-medium text-ink">{title}</p>
+                              <p className="text-graphite/60 sm:text-right">
+                                {author}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
                   ))}
                 </div>
               </div>
-            ))}
+            )}
+
+            {activeTab === "archive" && (
+              <div className="max-w-4xl">
+                <p className="max-w-2xl text-base leading-7 text-graphite">
+                  A quiet index of talks, photos, demos, decks, and artifacts
+                  from work in public.
+                </p>
+                <div className="mt-5 divide-y divide-ink/10 border-y border-ink/10 text-sm">
+                  {[
+                    "Photos",
+                    "Talks & Video",
+                    "Demos",
+                    "Decks & Artifacts",
+                  ].map((category) => (
+                    <div
+                      key={category}
+                      className="grid gap-1 py-3 sm:grid-cols-[1fr_2fr]"
+                    >
+                      <p className="font-medium text-ink">{category}</p>
+                      <p className="text-graphite/50">Items to be added.</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {activeTab === "notes" && (
+              <div className="max-w-4xl">
+                <p className="max-w-2xl text-base leading-7 text-graphite">
+                  Collected principles, quotes, and fragments that shape how I
+                  think.
+                </p>
+                <div className="mt-5 divide-y divide-ink/10 border-y border-ink/10 text-sm">
+                  {["Principles", "Collected Quotes", "Fragments"].map(
+                    (category) => (
+                      <div
+                        key={category}
+                        className="grid gap-1 py-3 sm:grid-cols-[1fr_2fr]"
+                      >
+                        <p className="font-medium text-ink">{category}</p>
+                        <p className="text-graphite/50">Notes to be added.</p>
+                      </div>
+                    ),
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </section>
       </div>
