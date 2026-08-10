@@ -1,61 +1,82 @@
 const aboutSections = [
-  [
-    "I don't think I've changed much.",
-    "I was a weird kid, born in a rural town in northern India.",
-    "When I was 3 my family moved to California. It was 5 of us crammed into a tiny 1 bedroom apartment just south of Oak Park, Sacramento, CA. The neighbors were kind.. but you learned pretty quickly which streets not to wander down.",
-    "Fortunately, my parents worked hard and we made it to the suburbs of Natomas. Nothing posh but at least I could ride my bike around the neighborhoods without worry.",
-  ],
-  [
-    "From the outside, my childhood probably looked pretty normal. Science fairs, skateboarding, soccer games, and the occasional family vacation.",
-    "If you looked closer, you'd see things were shaky at home. I'd always worry whether the police would be at our door on my walks home from elementary school. I remember many nights spent in hospitals, McDonalds parking lots, or relying on the generosity of strangers.",
-    "My rock was always my mom. She never let me miss a day of school or a soccer game. I remember one night when she drove herself to the hospital covered in blood. We spent the night there together, and the next morning she still drove me to school.",
-    "To survive, you learned to pay attention. To notice shifts in energy. To calm people down. To understand what someone needed before they said it out loud. Later, that same instinct helped me in sales, leadership, and product building.",
-    "My story is not unique. Most of us aren't born holding pocket aces. If we were, we wouldn't have become the same people. So I am learning to be grateful for the lows as much as the highs.",
-  ],
-  [
-    "My mother was an angel, and I wish I could say I made it easy on her.",
-    "At four, I snuck out of my daycare to explore the neighborhood. The police found me a half mile away sitting on the curb of an intersection.",
-    "At five, I was sneaking out of the house and knocking on neighbors' doors asking if I could tour their homes. Surprisingly, a lot of them said yes, and we became friends. At seven, my parents found me digging two-foot holes all over the backyard because I was convinced I'd find fossils.",
-    'At eight, after becoming obsessed with Dexter\'s Laboratory cartoon, I turned my bedroom closet into a "lab" and started mixing every substance I could find in the house. For the record, bleach and vinegar do not mix well.',
-    "I have been told these are not normal things.",
-    "There are more stories, but some are probably better left off the internet. Basically, I was curious about everything and usually off doing something questionable. Eventually, I started recruiting the other kids. Their parents were less thrilled.",
-    "When I wasn't doing that, I was reading fiction, encyclopedias, or whatever else I could get my hands on. Collecting information long before I knew what to do with it.",
-    "It only took me 20 years and a stack of self-assessments to realize I have a pinch of the 'tism and a dash of ADHD. Who would've figured.",
-  ],
-  [
-    "Fortunately that same wiring meant that I was pretty good at the school thing, and most other things I picked up, without trying all that hard.",
-    'In middle school, I was placed in an accelerated math and science program. I almost immediately landed on academic probation because I refused to do the assignments. My teacher was baffled. She pulled me aside and said, "You scored higher on the math entrance exam than any student before you. The faculty wanted to put you in high school math in sixth grade."',
-    "In eighth grade that same teacher caught me copying my friend's math homework and suspended me. Oops.",
-    "Eventually, I got my shit together long enough to win our local science fair and make it to the district competition. I built two functioning hovercrafts out of plywood, tarp, and leaf blowers. They floated three or four inches off the ground, and yes, you could sit on them.",
-    "The only problem was that they had to be plugged in, so you only got about twenty feet of glory before someone had to push you back. Still cool.",
-  ],
-  [
-    "Around that same age, my experiments moved from the backyard to the computer.",
-    "I became obsessed with RuneScape, a massive online medieval game where thousands of players shared the same world. It had a complex in-game economy, 24 unique skills, and the social dynamics felt surprisingly real.",
-    "What hooked me was the scale. Playing normally meant thousands of hours of grinding, which of course meant I wanted to find a way around it. It was also a place where I could talk to people without the usual baggage of age, status, or appearance, and study how they behaved when all they had were words, incentives, and a little avatar on a screen.",
-    "Naturally I started testing the limits of both the game and the people inside it.",
-    "One early discovery was that your avatar changed how people treated you. If I played as a female character, strangers were more generous and more likely to engage. If I played as a male character, not so much. I was twelve, so naturally I turned that observation into a morally questionable little automation experiment. I wrote scripts that asked other players for free stuff while I was away from the keyboard.",
-    "That made me a lot of in-game currency.",
-    "That's also where my love affair with automation began.",
-    "Later I discovered auto-clickers and wrote some very basic scripts for color detection. Stringing together basic automations to gather in-game resources, like wood, fish, and ores, which you could then sell on their Grand Exchange system for in-game currency.",
-    "Eventually, I bought almost everything I wanted in the game and ran out of things to do with the money. So naturally, I looked outside the game and found online exchanges where people traded in-game currency for real-world cash. The exchange rate was trash, but at twelve a few thousand dollars was a fortune.",
-    "I was not thinking about engineering or startups back then. I just liked systems. Games, people, incentives, rules, loopholes, and leverage.",
-    "That thread has followed me ever since.",
-  ],
-  [
-    "I have founded companies, worked on products, sold things, built things, broken things, and learned the hard way that being clever is not the same as being useful.",
-    "The older I get, the more interested I am in building things that actually help people. Tools that make work easier, ideas easier to express, and complicated systems easier to navigate.",
-    "I am still that curious kid in a lot of ways. Still collecting information. Still testing assumptions. Still drawn to strange corners of the world.",
-    "The difference is that now I care a lot more about what the work does for other people.",
-  ],
-  [
-    "In my twenties, I took big swings and went broad. I founded companies, sold things, built things, and broke things. Learning from both the wins and the times I fell flat on my face.",
-    "In my thirties, I'm trying to turn that breadth into depth while adding some stability to life. I'm most interested in work at the intersection of technology and society. AI, robotics, space, infrastructure, and the systems that shape how people live.",
-    "Those fields come with as many moral and psychological questions as technical ones. That is part of what draws me to them. I want to earn my place in rooms where technology is not just built, but developed, distributed, and adopted with care.",
-    "For a long time, the world rewarded specialization. People got very good at very specific things. I think the next era will reward people who can move between disciplines, connect ideas, and build things that no single field could have produced on its own.",
-    "That has always been where I feel most alive. Somewhere between the machine and the people using it, between the system and the social contract behind it.",
-    "If you've made it this far, maybe you're my kind of human and we should connect.",
-  ],
+  {
+    label: "origin",
+    paragraphs: [
+      "I don't think I've changed much.",
+      "I was a weird kid, born in a rural town in northern India.",
+      "When I was 3 my family moved to California. It was 5 of us crammed into a tiny 1 bedroom apartment just south of Oak Park, Sacramento, CA. The neighbors were kind.. but you learned pretty quickly which streets not to wander down.",
+      "Fortunately, my parents worked hard and we made it to the suburbs of Natomas. Nothing posh but at least I could ride my bike around the neighborhoods without worry.",
+    ],
+  },
+  {
+    label: "home",
+    paragraphs: [
+      "From the outside, my childhood probably looked pretty normal. Science fairs, skateboarding, soccer games, and the occasional family vacation.",
+      "If you looked closer, you'd see things were shaky at home. I'd always worry whether the police would be at our door on my walks home from elementary school. I remember many nights spent in hospitals, McDonalds parking lots, or relying on the generosity of strangers.",
+      "My rock was always my mom. She never let me miss a day of school or a soccer game. I remember one night when she drove herself to the hospital covered in blood. We spent the night there together, and the next morning she still drove me to school.",
+      "To survive, you learned to pay attention. To notice shifts in energy. To calm people down. To understand what someone needed before they said it out loud. Later, that same instinct helped me in sales, leadership, and product building.",
+      "My story is not unique. Most of us aren't born holding pocket aces. If we were, we wouldn't have become the same people. So I am learning to be grateful for the lows as much as the highs.",
+    ],
+  },
+  {
+    label: "curiosity",
+    paragraphs: [
+      "My mother was an angel, and I wish I could say I made it easy on her.",
+      "At four, I snuck out of my daycare to explore the neighborhood. The police found me a half mile away sitting on the curb of an intersection.",
+      "At five, I was sneaking out of the house and knocking on neighbors' doors asking if I could tour their homes. Surprisingly, a lot of them said yes, and we became friends. At seven, my parents found me digging two-foot holes all over the backyard because I was convinced I'd find fossils.",
+      'At eight, after becoming obsessed with Dexter\'s Laboratory cartoon, I turned my bedroom closet into a "lab" and started mixing every substance I could find in the house. For the record, bleach and vinegar do not mix well.',
+      "I have been told these are not normal things.",
+      "There are more stories, but some are probably better left off the internet. Basically, I was curious about everything and usually off doing something questionable. Eventually, I started recruiting the other kids. Their parents were less thrilled.",
+      "When I wasn't doing that, I was reading fiction, encyclopedias, or whatever else I could get my hands on. Collecting information long before I knew what to do with it.",
+      "It only took me 20 years and a stack of self-assessments to realize I have a pinch of the 'tism and a dash of ADHD. Who would've figured.",
+    ],
+  },
+  {
+    label: "school",
+    paragraphs: [
+      "Fortunately that same wiring meant that I was pretty good at the school thing, and most other things I picked up, without trying all that hard.",
+      'In middle school, I was placed in an accelerated math and science program. I almost immediately landed on academic probation because I refused to do the assignments. My teacher was baffled. She pulled me aside and said, "You scored higher on the math entrance exam than any student before you. The faculty wanted to put you in high school math in sixth grade."',
+      "In eighth grade that same teacher caught me copying my friend's math homework and suspended me. Oops.",
+      "Eventually, I got my shit together long enough to win our local science fair and make it to the district competition. I built two functioning hovercrafts out of plywood, tarp, and leaf blowers. They floated three or four inches off the ground, and yes, you could sit on them.",
+      "The only problem was that they had to be plugged in, so you only got about twenty feet of glory before someone had to push you back. Still cool.",
+    ],
+  },
+  {
+    label: "systems",
+    paragraphs: [
+      "Around that same age, my experiments moved from the backyard to the computer.",
+      "I became obsessed with RuneScape, a massive online medieval game where thousands of players shared the same world. It had a complex in-game economy, 24 unique skills, and the social dynamics felt surprisingly real.",
+      "What hooked me was the scale. Playing normally meant thousands of hours of grinding, which of course meant I wanted to find a way around it. It was also a place where I could talk to people without the usual baggage of age, status, or appearance, and study how they behaved when all they had were words, incentives, and a little avatar on a screen.",
+      "Naturally I started testing the limits of both the game and the people inside it.",
+      "One early discovery was that your avatar changed how people treated you. If I played as a female character, strangers were more generous and more likely to engage. If I played as a male character, not so much. I was twelve, so naturally I turned that observation into a morally questionable little automation experiment. I wrote scripts that asked other players for free stuff while I was away from the keyboard.",
+      "That made me a lot of in-game currency.",
+      "That's also where my love affair with automation began.",
+      "Later I discovered auto-clickers and wrote some very basic scripts for color detection. Stringing together basic automations to gather in-game resources, like wood, fish, and ores, which you could then sell on their Grand Exchange system for in-game currency.",
+      "Eventually, I bought almost everything I wanted in the game and ran out of things to do with the money. So naturally, I looked outside the game and found online exchanges where people traded in-game currency for real-world cash. The exchange rate was trash, but at twelve a few thousand dollars was a fortune.",
+      "I was not thinking about engineering or startups back then. I just liked systems. Games, people, incentives, rules, loopholes, and leverage.",
+      "That thread has followed me ever since.",
+    ],
+  },
+  {
+    label: "usefulness",
+    paragraphs: [
+      "I have founded companies, worked on products, sold things, built things, broken things, and learned the hard way that being clever is not the same as being useful.",
+      "The older I get, the more interested I am in building things that actually help people. Tools that make work easier, ideas easier to express, and complicated systems easier to navigate.",
+      "I am still that curious kid in a lot of ways. Still collecting information. Still testing assumptions. Still drawn to strange corners of the world.",
+      "The difference is that now I care a lot more about what the work does for other people.",
+    ],
+  },
+  {
+    label: "now",
+    paragraphs: [
+      "In my twenties, I took big swings and went broad. I founded companies, sold things, built things, and broke things. Learning from both the wins and the times I fell flat on my face.",
+      "In my thirties, I'm trying to turn that breadth into depth while adding some stability to life. I'm most interested in work at the intersection of technology and society. AI, robotics, space, infrastructure, and the systems that shape how people live.",
+      "Those fields come with as many moral and psychological questions as technical ones. That is part of what draws me to them. I want to earn my place in rooms where technology is not just built, but developed, distributed, and adopted with care.",
+      "For a long time, the world rewarded specialization. People got very good at very specific things. I think the next era will reward people who can move between disciplines, connect ideas, and build things that no single field could have produced on its own.",
+      "That has always been where I feel most alive. Somewhere between the machine and the people using it, between the system and the social contract behind it.",
+      "If you've made it this far, maybe you're my kind of human and we should connect.",
+    ],
+  },
 ];
 
 export default function Home() {
@@ -243,12 +264,17 @@ export default function Home() {
           <div className="mt-5 max-w-4xl space-y-10 text-sm leading-6 text-graphite">
             {aboutSections.map((section, sectionIndex) => (
               <div
-                key={sectionIndex}
-                className="space-y-4 border-t border-ink/10 pt-6 first:border-t-0 first:pt-0"
+                key={section.label}
+                className="grid gap-4 border-t border-ink/10 pt-6 first:border-t-0 first:pt-0 sm:grid-cols-[8rem_1fr]"
               >
-                {section.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
+                <div className="font-mono text-[11px] uppercase text-graphite/45">
+                  {String(sectionIndex + 1).padStart(2, "0")} / {section.label}
+                </div>
+                <div className="space-y-4">
+                  {section.paragraphs.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
