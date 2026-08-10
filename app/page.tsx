@@ -1,140 +1,181 @@
-import { HeroImagePanel, LiteraturePostCard, ProjectCard, SectionLabel, TextLink } from "@/components/ArchivePieces";
-import { PageShell } from "@/components/SiteFrame";
-import { essays, labFragments, projects } from "@/lib/site-data";
-
 export default function Home() {
   return (
-    <PageShell>
-      <section className="relative min-h-[calc(100vh-65px)] overflow-hidden bg-[#dedbcc] px-5 pb-16 pt-12 sm:px-8 lg:pb-20 lg:pt-16">
-        <div className="absolute inset-0 paper-grain opacity-28" />
-        <div className="relative mx-auto max-w-7xl">
-          <div className="mb-12 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.24em] text-graphite/70">
-            <span>Personal journal</span>
-            <span className="hidden sm:inline">Writing / Systems / Lab</span>
-          </div>
-
-          <div className="relative mx-auto flex min-h-[610px] max-w-6xl items-center justify-center">
-            <div className="absolute left-0 right-0 top-[42%] z-20 hidden -translate-y-1/2 items-center justify-between lg:flex">
-              <span className="font-serif text-[clamp(8rem,14vw,13.5rem)] leading-none tracking-[-0.085em] text-ink">
-                KAR
-              </span>
-              <span className="font-serif text-[clamp(8rem,14vw,13.5rem)] leading-none tracking-[-0.085em] text-ink">
-                DHILLON
-              </span>
-            </div>
-
-            <div className="relative z-10 flex flex-col items-center">
-              <div className="mb-6 text-center lg:hidden">
-                <h1 className="font-serif text-[clamp(5.6rem,18vw,9rem)] leading-[0.75] tracking-[-0.085em] text-ink">
-                  Kar
-                  <br />
-                  Dhillon
-                </h1>
-              </div>
-              <HeroImagePanel />
-              <div className="mt-8 flex h-9 w-9 items-center justify-center rounded-full border border-ink/30 font-serif text-2xl text-ink/70">
-                ↓
-              </div>
-            </div>
-
-            <div className="absolute bottom-4 left-0 z-30 hidden max-w-[260px] -rotate-3 border border-ink/10 bg-paper-light/75 p-4 shadow-[0_20px_60px_rgba(32,26,16,0.12)] backdrop-blur-sm md:block">
-              <p className="font-serif text-2xl leading-[0.95] tracking-[-0.05em] text-ink">
-                Notes from software, science, infrastructure, and simulation.
-              </p>
-            </div>
-
-            <div className="absolute bottom-0 right-0 z-30 hidden w-[270px] border border-ink/10 bg-paper-light/85 p-5 shadow-[0_20px_60px_rgba(32,26,16,0.12)] backdrop-blur-sm md:block">
-              <p className="font-serif text-2xl leading-[0.95] tracking-[-0.04em] text-ink">
-                Subscribe to the archive
-              </p>
-              <p className="mt-3 text-xs leading-5 text-graphite">
-                Essays, diagrams, and public notes from the workbench. Newsletter layer coming soon.
-              </p>
-              <div className="mt-5 flex items-center border-b border-ink/25 pb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-graphite/60">
-                Your email <span className="ml-auto text-ink">↗</span>
-              </div>
-            </div>
-          </div>
-
-          <p className="mx-auto mt-10 max-w-3xl text-center font-serif text-3xl leading-[1.05] tracking-[-0.04em] text-ink sm:text-5xl">
-            A literary-scientific home for essays, experiments, systems, and half-finished maps of the future.
+    <main
+      className="min-h-screen bg-white px-6 py-8 text-ink sm:px-10 sm:py-12"
+      style={{
+        backgroundImage: [
+          "radial-gradient(circle at 18% 12%, rgba(23, 21, 17, 0.018), transparent 22rem)",
+          "radial-gradient(circle at 84% 72%, rgba(94, 124, 134, 0.025), transparent 26rem)",
+          "repeating-linear-gradient(0deg, rgba(23, 21, 17, 0.016) 0 1px, transparent 1px 5px)",
+          "repeating-linear-gradient(90deg, rgba(23, 21, 17, 0.01) 0 1px, transparent 1px 7px)",
+          "radial-gradient(circle, rgba(23, 21, 17, 0.08) 0 0.45px, transparent 0.65px)",
+        ].join(", "),
+        backgroundSize: "auto, auto, 100% 9px, 11px 100%, 17px 17px",
+      }}
+    >
+      <div className="mx-auto max-w-5xl">
+        <header className="mb-10">
+          <h1 className="font-mono text-base font-semibold uppercase tracking-normal text-ink">
+            Kar Dhillon
+          </h1>
+          <p className="mt-4 max-w-4xl text-sm leading-6 text-graphite">
+            Founder, product strategist, and operator focused on turning
+            ambitious technical ideas into clear products, teams, and companies.
+            I work across AI, automation, and emerging technologies, helping
+            shape vision, stress-test strategy, and align the people and
+            resources needed to bring complex systems into the real world.
           </p>
-        </div>
-      </section>
+        </header>
 
-      <section className="bg-[#f3f0e8] px-5 py-20 sm:px-8 lg:py-24">
-        <div className="mx-auto max-w-5xl text-center">
-          <p className="font-serif text-sm italic text-rust/80">New field notes</p>
-          <h2 className="mt-2 font-serif text-5xl leading-[0.95] tracking-[-0.055em] text-ink sm:text-7xl">
-            Latest writing
+        <section>
+          <h2 className="font-mono text-base font-semibold uppercase tracking-normal text-ink">
+            My work &amp; projects
           </h2>
-          <div className="mx-auto mt-5 h-px w-24 bg-ink/20" />
-        </div>
-        <div className="mx-auto mt-10 grid max-w-6xl gap-x-6 gap-y-12 md:grid-cols-3">
-          {essays.map((essay, index) => (
-            <LiteraturePostCard key={essay.slug} {...essay} index={index} />
-          ))}
-        </div>
-      </section>
-
-      <section className="bg-[#dedbcc] px-5 py-16 sm:px-8 lg:py-20">
-        <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-[0.7fr_1fr_0.55fr] md:items-center">
-          <h2 className="font-serif text-4xl leading-[0.95] tracking-[-0.045em] text-ink sm:text-5xl">
-            Systems, projects, and strange little machines.
-          </h2>
-          <p className="text-sm leading-7 text-graphite">
-            This is the personal layer: not a corporate landing page, not a résumé, but a reading room for the work around Bytespace, bot0, scientific replication, frontier companies, and the design of useful AI systems.
-          </p>
-          <div className="flex justify-start md:justify-end">
-            <TextLink href="/projects">Read more</TextLink>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#f3f0e8] px-5 py-20 sm:px-8 lg:py-24">
-        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.38fr_1fr]">
-          <div>
-            <SectionLabel>Project index</SectionLabel>
-            <h2 className="font-serif text-5xl leading-[0.95] tracking-[-0.055em] text-ink sm:text-7xl">
-              What I am building.
-            </h2>
-          </div>
-          <div>
-            {projects.slice(0, 3).map((project) => (
-              <ProjectCard key={project.name} {...project} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="relative overflow-hidden bg-[#dedbcc] px-5 py-20 sm:px-8 lg:py-24">
-        <div className="absolute inset-0 paper-grain opacity-28" />
-        <div className="relative mx-auto max-w-7xl">
-          <div className="grid gap-8 md:grid-cols-[0.7fr_1fr] md:items-end">
-            <div>
-              <SectionLabel>Lab fragments</SectionLabel>
-              <h2 className="font-serif text-5xl leading-[0.95] tracking-[-0.055em] text-ink sm:text-7xl">
-                Before it becomes polished.
-              </h2>
-            </div>
-            <p className="max-w-2xl text-base leading-8 text-graphite">
-              Loose research trails, diagrams, visual studies, and speculative notes. This section should eventually feel like a drawer full of annotated plates.
-            </p>
-          </div>
-          <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {labFragments.slice(0, 8).map((fragment, index) => (
-              <div key={fragment} className="min-h-28 border border-ink/12 bg-paper-light/65 p-4">
-                <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-rust">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <p className="mt-6 font-serif text-2xl leading-none tracking-[-0.04em] text-ink">
-                  {fragment}
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            <div className="min-h-44 border border-ink/15 bg-white/35 p-5 text-ink">
+              <div className="flex h-full flex-col">
+                <p className="text-base font-semibold">Bytespace Labs</p>
+                <p className="mt-3 max-w-md text-sm leading-6 text-graphite">
+                  Healthcare AI infrastructure for turning clinical work into
+                  usable data, automation, and intelligence systems.
                 </p>
+                <div className="mt-auto flex items-center justify-between gap-4 pt-8 text-sm">
+                  <a
+                    href="https://www.bytespace.ai"
+                    className="font-medium text-ink underline decoration-ink/25 underline-offset-4 transition-colors hover:decoration-ink"
+                  >
+                    bytespace labs -&gt;
+                  </a>
+                  <span className="text-graphite/70">Founder &amp; CEO</span>
+                </div>
               </div>
-            ))}
+            </div>
+
+            <div className="min-h-44 border border-ink/15 bg-white/35 p-5 text-ink">
+              <div className="flex h-full flex-col">
+                <p className="text-base font-semibold">Bot0 Agent Harness</p>
+                <p className="mt-3 max-w-md text-sm leading-6 text-graphite">
+                  Agent tooling for building, testing, and operating AI systems
+                  across real software workflows.
+                </p>
+                <div className="mt-auto flex items-center justify-between gap-4 pt-8 text-sm">
+                  <a
+                    href="https://www.bot0.dev"
+                    className="font-medium text-ink underline decoration-ink/25 underline-offset-4 transition-colors hover:decoration-ink"
+                  >
+                    bot0.dev -&gt;
+                  </a>
+                  <span className="text-graphite/70">Founder &amp; CEO</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="min-h-44 border border-ink/15 bg-white/35 p-5 text-ink">
+              <div className="flex h-full flex-col">
+                <p className="text-base font-semibold">Cmd0 Chrome Extension</p>
+                <p className="mt-3 max-w-2xl text-sm leading-6 text-graphite">
+                  Web automation product for building and managing AI agents
+                  across websites, workflows, and business operations.
+                </p>
+                <div className="mt-auto flex items-center justify-between gap-4 pt-8 text-sm">
+                  <a
+                    href="https://www.cmd0.dev"
+                    className="font-medium text-ink underline decoration-ink/25 underline-offset-4 transition-colors hover:decoration-ink"
+                  >
+                    cmd0.dev -&gt;
+                  </a>
+                  <span className="text-graphite/70">Founder &amp; CEO</span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              aria-hidden="true"
+              className="hidden min-h-44 border border-dashed border-ink/15 md:block"
+              style={{
+                backgroundImage:
+                  "repeating-linear-gradient(135deg, rgba(23, 21, 17, 0.035) 0 1px, transparent 1px 10px)",
+              }}
+            />
           </div>
-        </div>
-      </section>
-    </PageShell>
+
+          <div className="mt-10">
+            <h3 className="text-base font-semibold text-ink">Experience</h3>
+            <div className="mt-4 divide-y divide-ink/10 border-y border-ink/10">
+              {[
+                {
+                  company: "Bytespace Labs",
+                  role: "Founder & CEO",
+                  focus: "Software & AI",
+                  period: "May 2024 - Present",
+                },
+                {
+                  company: "Certa",
+                  role: "VP, Business Development",
+                  focus: "Software",
+                  period: "Dec 2021 - Mar 2023",
+                },
+                {
+                  company: "6x7 Networks",
+                  role: "Head of Growth",
+                  focus: "Hardware & Infra",
+                  period: "Sep 2018 - Nov 2021",
+                },
+                {
+                  company: "Paladin Partners",
+                  role: "Founder & Executive Director",
+                  focus: "Consulting",
+                  period: "Jul 2017 - Oct 2019",
+                },
+                {
+                  company: "Startup Grind Berkeley",
+                  role: "Founder & Chapter Director",
+                  focus: "Events / Community",
+                  period: "Jul 2018 - Jan 2022",
+                },
+                {
+                  company: "UC Berkeley Sutardja Center (SCET)",
+                  role: "Student Instructor",
+                  focus: "Education",
+                  period: "Nov 2016 - Dec 2017",
+                },
+              ].map((experience) => (
+                <div
+                  key={`${experience.company}-${experience.role}`}
+                  className="grid gap-1 py-3 text-sm sm:grid-cols-[1.05fr_1fr_0.75fr_0.8fr] sm:gap-4"
+                >
+                  <p className="font-medium text-ink">{experience.company}</p>
+                  <p className="text-graphite">{experience.role}</p>
+                  <p className="text-graphite/70">{experience.focus}</p>
+                  <p className="text-graphite/70 sm:text-right">
+                    {experience.period}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-14">
+          <h2 className="font-mono text-base font-semibold uppercase tracking-normal text-ink">
+            Latest Writing &amp; Research
+          </h2>
+          <div className="mt-4 border-y border-ink/10">
+            <a
+              href="https://www.bytespace.ai/blog/simulations-are-theories-of-what-matters"
+              className="grid gap-1 py-3 text-sm sm:grid-cols-[1.4fr_0.7fr_0.6fr] sm:gap-4"
+            >
+              <p className="font-medium text-ink underline decoration-ink/20 underline-offset-4 transition-colors hover:decoration-ink">
+                Simulations Are Theories of What Matters
+              </p>
+              <p className="text-graphite/70">Bytespace Labs</p>
+              <p className="text-graphite/70 sm:text-right">
+                June 23, 2026
+              </p>
+            </a>
+          </div>
+        </section>
+      </div>
+    </main>
   );
 }
