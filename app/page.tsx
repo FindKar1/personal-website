@@ -99,7 +99,7 @@ export default function Home() {
           <h1 className="font-mono text-base font-semibold uppercase tracking-normal text-ink">
             Kar Dhillon
           </h1>
-          <p className="mt-4 max-w-4xl text-sm leading-6 text-graphite">
+          <p className="mt-4 max-w-4xl text-base leading-7 text-graphite">
             Founder, product strategist, and operator focused on turning
             ambitious technical ideas into clear products, teams, and companies.
             I work across AI, automation, and emerging technologies, helping
@@ -116,7 +116,7 @@ export default function Home() {
             <div className="min-h-44 border border-ink/15 bg-white/35 p-5 text-ink">
               <div className="flex h-full flex-col">
                 <p className="text-base font-semibold">Bytespace Labs</p>
-                <p className="mt-3 max-w-md text-sm leading-6 text-graphite">
+                <p className="mt-3 max-w-md text-base leading-7 text-graphite">
                   Healthcare AI infrastructure for turning clinical work into
                   usable data, automation, and intelligence systems.
                 </p>
@@ -135,7 +135,7 @@ export default function Home() {
             <div className="min-h-44 border border-ink/15 bg-white/35 p-5 text-ink">
               <div className="flex h-full flex-col">
                 <p className="text-base font-semibold">Bot0 Agent Harness</p>
-                <p className="mt-3 max-w-md text-sm leading-6 text-graphite">
+                <p className="mt-3 max-w-md text-base leading-7 text-graphite">
                   Agent tooling for building, testing, and operating AI systems
                   across real software workflows.
                 </p>
@@ -154,7 +154,7 @@ export default function Home() {
             <div className="min-h-44 border border-ink/15 bg-white/35 p-5 text-ink">
               <div className="flex h-full flex-col">
                 <p className="text-base font-semibold">Cmd0 Chrome Extension</p>
-                <p className="mt-3 max-w-2xl text-sm leading-6 text-graphite">
+                <p className="mt-3 max-w-2xl text-base leading-7 text-graphite">
                   Web automation product for building and managing AI agents
                   across websites, workflows, and business operations.
                 </p>
@@ -261,13 +261,13 @@ export default function Home() {
           <h2 className="font-mono text-base font-semibold uppercase tracking-normal text-ink">
             About
           </h2>
-          <div className="mt-5 max-w-4xl space-y-10 text-sm leading-6 text-graphite">
+          <div className="mt-5 max-w-4xl space-y-10 text-base leading-7 text-graphite">
             {aboutSections.map((section, sectionIndex) => (
               <div
                 key={section.label}
                 className="grid gap-4 border-t border-ink/10 pt-6 first:border-t-0 first:pt-0 sm:grid-cols-[8rem_1fr]"
               >
-                <div className="font-mono text-[11px] uppercase text-graphite/45">
+                <div className="font-mono text-xs leading-7 uppercase text-graphite/50">
                   {String(sectionIndex + 1).padStart(2, "0")} / {section.label}
                 </div>
                 <div className="space-y-4">
