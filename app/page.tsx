@@ -1,6 +1,9 @@
-"use client";
-
-import { useState } from "react";
+import Image from "next/image";
+import {
+  archiveArtifactSections,
+  notesArtifactSections,
+  type MediaSection,
+} from "./media-artifacts";
 
 const aboutSections = [
   {
@@ -87,6 +90,125 @@ const profileTabs = ["about", "reading", "archive", "notes"] as const;
 
 type ProfileTab = (typeof profileTabs)[number];
 
+type HomeProps = {
+  searchParams?: Promise<{
+    tab?: string;
+  }>;
+};
+
+const getProfileTab = (tab?: string): ProfileTab =>
+  profileTabs.includes(tab as ProfileTab) ? (tab as ProfileTab) : "about";
+
+function MediaSectionList({ sections }: { sections: MediaSection[] }) {
+  return (
+    <div className="mt-5 divide-y divide-ink/10 border-y border-ink/10">
+      {sections.map((section) => (
+        <div
+          key={section.label}
+          className="grid gap-4 py-5 sm:grid-cols-[8rem_1fr]"
+        >
+          <div className="space-y-2">
+            <p className="font-mono text-xs leading-6 uppercase text-graphite/50">
+              {section.label}
+            </p>
+            <p className="text-sm leading-6 text-graphite/55">
+              {section.description}
+            </p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {section.items.map((artifact) => (
+              <figure
+                key={artifact.src}
+                className={artifact.variant === "wide" ? "sm:col-span-2" : ""}
+              >
+                <Image
+                  src={artifact.src}
+                  alt={artifact.alt}
+                  width={artifact.width}
+                  height={artifact.height}
+                  unoptimized
+                  sizes={
+                    artifact.variant === "wide"
+                      ? "(min-width: 640px) 768px, 100vw"
+                      : "(min-width: 640px) 376px, 100vw"
+                  }
+                  className="w-full border border-ink/10 object-cover"
+                />
+                <figcaption className="mt-2 text-sm leading-6 text-graphite/60">
+                  {artifact.caption}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+const demoVideos = [
+  {
+    title: "Demo 01",
+    href: "https://youtu.be/pJ7KURKD3bY?si=ymdT2jLFfNyVu4DM",
+    embed: "https://www.youtube-nocookie.com/embed/pJ7KURKD3bY",
+  },
+  {
+    title: "Demo 02",
+    href: "https://www.youtube.com/watch?v=cqB8DlUrhcs",
+    embed: "https://www.youtube-nocookie.com/embed/cqB8DlUrhcs",
+  },
+  {
+    title: "Demo 03",
+    href: "https://www.youtube.com/watch?v=QpovlqBSlFU",
+    embed: "https://www.youtube-nocookie.com/embed/QpovlqBSlFU",
+  },
+  {
+    title: "Demo 04",
+    href: "https://www.youtube.com/watch?v=I98lt9UsOxc&t=111s",
+    embed: "https://www.youtube-nocookie.com/embed/I98lt9UsOxc?start=111",
+  },
+];
+
+function DemoVideoSection() {
+  return (
+    <div className="mt-5 grid gap-4 border-y border-ink/10 py-5 sm:grid-cols-[8rem_1fr]">
+      <div className="space-y-2">
+        <p className="font-mono text-xs leading-6 uppercase text-graphite/50">
+          demos
+        </p>
+        <p className="text-sm leading-6 text-graphite/55">
+          Product videos, talks, and walkthroughs.
+        </p>
+      </div>
+      <div className="grid gap-5 sm:grid-cols-2">
+        {demoVideos.map((video) => (
+          <figure key={video.embed}>
+            <div className="aspect-video w-full overflow-hidden border border-ink/10 bg-ink/[0.03]">
+              <iframe
+                src={video.embed}
+                title={video.title}
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="h-full w-full"
+              />
+            </div>
+            <figcaption className="mt-2 flex items-center justify-between gap-3 text-sm leading-6 text-graphite/60">
+              <span>{video.title}</span>
+              <a
+                href={video.href}
+                className="font-medium text-ink underline decoration-ink/20 underline-offset-4 transition-colors hover:decoration-ink"
+              >
+                YouTube
+              </a>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 const readingSections = [
   {
     category: "Systems",
@@ -148,6 +270,7 @@ const readingSections = [
       ["Never Split the Difference", "Chris Voss"],
       ["Exactly What to Say", "Phil M. Jones"],
       ["Secrets of Closing the Sale", "Zig Ziglar"],
+      ["Leaders Eat Last", "Simon Sinek"],
       ["The 21 Irrefutable Laws of Leadership", "John C. Maxwell"],
       ["The 15 Invaluable Laws of Growth", "John C. Maxwell"],
       ["Outliers", "Malcolm Gladwell"],
@@ -197,22 +320,9 @@ const readingSections = [
   },
 ];
 
-export default function Home() {
-  const [activeTab, setActiveTab] = useState<ProfileTab>(() => {
-    if (typeof window === "undefined") {
-      return "about";
-    }
-
-    const hash = window.location.hash.replace("#", "");
-    return profileTabs.includes(hash as ProfileTab)
-      ? (hash as ProfileTab)
-      : "about";
-  });
-
-  const selectTab = (tab: ProfileTab) => {
-    setActiveTab(tab);
-    window.history.replaceState(null, "", `#${tab}`);
-  };
+export default async function Home({ searchParams }: HomeProps) {
+  const params = await searchParams;
+  const activeTab = getProfileTab(params?.tab);
 
   return (
     <main
@@ -337,16 +447,16 @@ export default function Home() {
                   period: "Sep 2018 - Nov 2021",
                 },
                 {
-                  company: "Paladin Partners",
-                  role: "Founder & Executive Director",
-                  focus: "Consulting",
-                  period: "Jul 2017 - Oct 2019",
-                },
-                {
                   company: "Startup Grind Berkeley",
                   role: "Founder & Chapter Director",
                   focus: "Events / Community",
                   period: "Jul 2018 - Jan 2022",
+                },
+                {
+                  company: "Paladin Partners",
+                  role: "Founder & Executive Director",
+                  focus: "Consulting",
+                  period: "Jul 2017 - Oct 2019",
                 },
                 {
                   company: "UC Berkeley Sutardja Center (SCET)",
@@ -391,17 +501,16 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mt-14" id={activeTab}>
+        <section className="mt-14" id="profile">
           <div className="flex flex-col gap-4 border-b border-ink/10 pb-3 sm:flex-row sm:items-end sm:justify-between">
             <h2 className="font-mono text-base font-semibold uppercase tracking-normal text-ink">
               {activeTab}
             </h2>
             <div className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs uppercase text-graphite/50">
               {profileTabs.map((tab) => (
-                <button
+                <a
                   key={tab}
-                  type="button"
-                  onClick={() => selectTab(tab)}
+                  href={`/?tab=${tab}#profile`}
                   className={`cursor-pointer transition-colors ${
                     activeTab === tab
                       ? "text-ink underline decoration-ink/30 underline-offset-4"
@@ -409,7 +518,7 @@ export default function Home() {
                   }`}
                 >
                   {tab}
-                </button>
+                </a>
               ))}
             </div>
           </div>
@@ -484,22 +593,8 @@ export default function Home() {
                   A quiet index of talks, photos, demos, decks, and artifacts
                   from work in public.
                 </p>
-                <div className="mt-5 divide-y divide-ink/10 border-y border-ink/10 text-sm">
-                  {[
-                    "Photos",
-                    "Talks & Video",
-                    "Demos",
-                    "Decks & Artifacts",
-                  ].map((category) => (
-                    <div
-                      key={category}
-                      className="grid gap-1 py-3 sm:grid-cols-[1fr_2fr]"
-                    >
-                      <p className="font-medium text-ink">{category}</p>
-                      <p className="text-graphite/50">Items to be added.</p>
-                    </div>
-                  ))}
-                </div>
+                <DemoVideoSection />
+                <MediaSectionList sections={archiveArtifactSections} />
               </div>
             )}
 
@@ -509,23 +604,39 @@ export default function Home() {
                   Collected principles, quotes, and fragments that shape how I
                   think.
                 </p>
-                <div className="mt-5 divide-y divide-ink/10 border-y border-ink/10 text-sm">
-                  {["Principles", "Collected Quotes", "Fragments"].map(
-                    (category) => (
-                      <div
-                        key={category}
-                        className="grid gap-1 py-3 sm:grid-cols-[1fr_2fr]"
-                      >
-                        <p className="font-medium text-ink">{category}</p>
-                        <p className="text-graphite/50">Notes to be added.</p>
-                      </div>
-                    ),
-                  )}
-                </div>
+                <MediaSectionList sections={notesArtifactSections} />
               </div>
             )}
           </div>
         </section>
+
+        <footer className="mt-16 border-t border-ink/10 pt-5">
+          <div className="grid gap-2 text-sm leading-6 sm:grid-cols-[8rem_1fr]">
+            <p className="font-mono text-xs uppercase text-graphite/50">
+              contact
+            </p>
+            <div className="flex flex-wrap gap-x-5 gap-y-1">
+              <a
+                href="mailto:hello@example.com"
+                className="font-medium text-ink underline decoration-ink/20 underline-offset-4 transition-colors hover:decoration-ink"
+              >
+                Email
+              </a>
+              <a
+                href="https://www.linkedin.com/in/kardhillon/"
+                className="font-medium text-ink underline decoration-ink/20 underline-offset-4 transition-colors hover:decoration-ink"
+              >
+                LinkedIn
+              </a>
+              <a
+                href="https://github.com/FindKar1"
+                className="font-medium text-ink underline decoration-ink/20 underline-offset-4 transition-colors hover:decoration-ink"
+              >
+                GitHub
+              </a>
+            </div>
+          </div>
+        </footer>
       </div>
     </main>
   );
