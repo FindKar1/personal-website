@@ -5,6 +5,7 @@ export type MediaArtifact = {
   height: number;
   caption: string;
   variant?: "standard" | "wide";
+  objectPosition?: string;
 };
 
 export type MediaSection = {
@@ -181,6 +182,105 @@ export const notesArtifactSections: MediaSection[] = [
         "height": 1600,
         "caption": "A wall of collected phrases, reminders, and quotes.",
         "variant": "wide"
+      }
+    ]
+  }
+];
+
+export const workArtifactSections: MediaSection[] = [
+  {
+    "label": "work",
+    "description": "Selected moments from infrastructure, venture building, community, healthcare, and environmental work.",
+    "items": [
+      {
+        "src": "/media/optimized/archive-infrastructure-rooftop-panorama.webp",
+        "alt": "Rooftop infrastructure survey above the city.",
+        "width": 1600,
+        "height": 373,
+        "caption": "Rooftop infrastructure survey above the city.",
+        "variant": "wide"
+      },
+      {
+        "src": "/media/optimized/archive-infrastructure-underground-bore.webp",
+        "alt": "Field work from an infrastructure deployment.",
+        "width": 1200,
+        "height": 1600,
+        "caption": "Field work from an infrastructure deployment.",
+        "variant": "standard"
+      },
+      {
+        "src": "/media/optimized/archive-infrastructure-basement-network-build.webp",
+        "alt": "Basement network build with boards, racks, and equipment.",
+        "width": 1600,
+        "height": 974,
+        "caption": "Basement network build with boards, racks, and equipment.",
+        "variant": "wide"
+      },
+      {
+        "src": "/media/optimized/archive-early-ventures-google-fca-stage.webp",
+        "alt": "Stage moment from a startup program.",
+        "width": 1600,
+        "height": 1185,
+        "caption": "Stage moment from a startup program.",
+        "variant": "wide"
+      },
+      {
+        "src": "/media/optimized/archive-early-ventures-workshop-team.webp",
+        "alt": "Workshop team session with laptops and notes.",
+        "width": 1600,
+        "height": 1205,
+        "caption": "Workshop team session with laptops and notes.",
+        "variant": "standard"
+      },
+      {
+        "src": "/media/optimized/archive-professional-vendor-showcase-fixed.webp",
+        "alt": "Vendor showcase from a healthcare event.",
+        "width": 768,
+        "height": 1024,
+        "caption": "Vendor showcase from a healthcare event.",
+        "variant": "standard",
+        "objectPosition": "center 18%"
+      },
+      {
+        "src": "/media/optimized/archive-professional-rainforest-office.webp",
+        "alt": "Rainforest Partnership office session.",
+        "width": 1600,
+        "height": 1257,
+        "caption": "Rainforest Partnership office session.",
+        "variant": "standard"
+      },
+      {
+        "src": "/media/optimized/archive-startup-grind-startup-grind-sac-tv.webp",
+        "alt": "Startup Grind Berkeley launch event moment.",
+        "width": 1179,
+        "height": 664,
+        "caption": "Startup Grind Berkeley launch event moment.",
+        "variant": "wide"
+      },
+      {
+        "src": "/media/optimized/archive-infrastructure-equipment-storage-fixed.webp",
+        "alt": "Hardware inventory staged for deployment.",
+        "width": 480,
+        "height": 360,
+        "caption": "Hardware inventory staged for deployment.",
+        "variant": "standard"
+      },
+      {
+        "src": "/media/optimized/archive-infrastructure-mobile-rack-fixed.webp",
+        "alt": "Mobile network rack for field testing.",
+        "width": 768,
+        "height": 1024,
+        "caption": "Mobile network rack for field testing.",
+        "variant": "standard"
+      },
+      {
+        "src": "/media/optimized/archive-startup-grind-proclamation.webp",
+        "alt": "City of Berkeley proclamation recognizing Startup Grind Berkeley.",
+        "width": 779,
+        "height": 1008,
+        "caption": "City of Berkeley proclamation recognizing Startup Grind Berkeley.",
+        "variant": "standard",
+        "objectPosition": "center top"
       }
     ]
   }

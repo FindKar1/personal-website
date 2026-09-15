@@ -2,6 +2,7 @@ import Image from "next/image";
 import {
   archiveArtifactSections,
   notesArtifactSections,
+  workArtifactSections,
   type MediaSection,
 } from "./media-artifacts";
 
@@ -11,40 +12,41 @@ const aboutSections = [
     paragraphs: [
       "I don't think I've changed much.",
       "I was a weird kid, born in a rural town in northern India.",
-      "When I was 3 my family moved to California. It was 5 of us crammed into a tiny 1 bedroom apartment just south of Oak Park, Sacramento, CA. The neighbors were kind.. but you learned pretty quickly which streets not to wander down.",
-      "Fortunately, my parents worked hard and we made it to the suburbs of Natomas. Still in Sacramento and not super posh but it was the kind of place I could ride my bike around the neighborhood without worry.",
+      "When I was three, my family moved to California. There were five of us crammed into a tiny one-bedroom apartment just south of Oak Park in Sacramento. The neighbors were kind... but you learned pretty quickly which streets not to wander down.",
+      "Fortunately, my parents worked hard and we made it to the suburbs of Natomas. It was still Sac, and not super posh, but I could ride my bike around the neighborhood without worry.",
     ],
   },
   {
     label: "home",
     paragraphs: [
-      "From the outside, my childhood probably looked pretty normal. Science fairs, skateboarding, soccer games, and the occasional family vacation.",
-      "If you looked closer, you'd see things were shaky at home. I'd always worry whether the police would be at our door on my walks home from elementary school. I remember many nights spent in hospitals, McDonalds parking lots, or relying on the generosity of strangers.",
-      "My rock was always my mom. She never let me miss a day of school or a soccer game. I remember one night when she drove herself to the hospital covered in blood. We spent the night there together, and the next morning she still drove me to school.",
-      "To survive, you learned to pay attention. To notice shifts in energy. To calm people down. To understand what someone needed before they said it out loud. Later, that same instinct helped me in sales, leadership, and product building.",
-      "My story is not unique. Most of us aren't born holding pocket aces. If we were, we wouldn't have become the same people. So I am learning to be grateful for the lows as much as the highs.",
+      "From the outside, my childhood probably looked pretty normal. Taekwondo, skateboarding, soccer games, and the occasional family vacation.",
+      "If you looked closer, you'd see things were shaky at home. On my walks home from elementary school, I'd always worry whether the police would be at our door. I remember nights spent in hospitals and McDonald's parking lots, and how often we relied on the generosity of strangers.",
+      "My rock was always my mom. She never let me miss a day of school or soccer practice. I remember one night when she drove herself to the hospital covered in blood. We spent the night there together, and the next morning she still drove me to school.",
+      "To survive, you learned to pay attention. To notice shifts in energy. To calm people down. To understand what someone needed before they said it out loud. That habit stayed with me. I still want to understand what's going on underneath what people say and do.",
+      "My story isn't unique. Most of us aren't born holding pocket aces. If we were, we wouldn't have become the same people. So I'm learning to be as grateful for the lows as I am for the highs.",
     ],
   },
   {
     label: "curiosity",
     paragraphs: [
-      "My mother was an angel, and I wish I could say I made it easy on her.",
-      "At four, I snuck out of my daycare to explore the neighborhood. The police found me a half mile away sitting on the curb of an intersection.",
-      "At five, I was sneaking out of the house and knocking on neighbors' doors asking if I could tour their homes. Surprisingly, a lot of them said yes, and we became friends. At seven, my parents found me digging two-foot holes all over the backyard because I was convinced I'd find fossils.",
-      'At eight, after becoming obsessed with Dexter\'s Laboratory cartoon, I turned my bedroom closet into a "lab" and started mixing every substance I could find in the house. For the record, bleach and vinegar do not mix well.',
+      "Through all of that, my mother was an angel. I wish I could say I made it easy on her.",
+      "At four, I snuck out of my daycare to explore the neighborhood. The police found me a half mile away sitting on the curb at an intersection.",
+      "At five, I was sneaking out of the house and knocking on neighbors' doors asking if I could tour their homes. Surprisingly, many said yes, and we became friends.",
+      "At seven, an archaeology documentary convinced me I'd find fossils in our backyard. My parents found me digging two-foot holes all over it.",
+      'At eight, after becoming obsessed with the cartoon Dexter\'s Laboratory, I turned my bedroom closet into a "lab" and started mixing every substance I could find in the house. For the record, bleach and vinegar do not mix well.',
       "I have been told these are not normal things.",
-      "There are more stories, but some are probably better left off the internet. Basically, I was curious about everything and usually off doing something questionable. Eventually, I started recruiting the other kids. Their parents were less thrilled.",
-      "When I wasn't doing that, I was reading fiction, encyclopedias, or whatever else I could get my hands on. Collecting information long before I knew what to do with it.",
-      "It only took me 20 years and a stack of self-assessments to realize I have a pinch of the 'tism and a dash of ADHD. Who would've figured.",
+      "I was curious about everything and usually off doing something questionable. Eventually, I started recruiting the other kids. Their parents were less thrilled.",
+      "When I wasn't doing that, I was reading fiction, encyclopedias, the dictionary, or whatever else I could get my hands on. Collecting information long before I knew what to do with it.",
+      "It only took me twenty years and a stack of autism and ADHD self-assessments to go, \"Well, that explains a few things.\"",
     ],
   },
   {
     label: "school",
     paragraphs: [
-      "Fortunately that same wiring meant that I was pretty good at the school thing, and most other things I picked up, without trying all that hard.",
-      'In middle school, I was placed in an accelerated math and science program. I almost immediately landed on academic probation because I refused to do the assignments. My teacher was baffled. She pulled me aside and said, "You scored higher on the math entrance exam than any student before you. The faculty wanted to put you in high school math in sixth grade."',
-      "In eighth grade that same teacher caught me copying my friend's math homework and suspended me. Oops.",
-      "Eventually, I got my shit together long enough to win our local science fair and make it to the district competition. I built two functioning hovercrafts out of plywood, tarp, and leaf blowers. They floated three or four inches off the ground, and yes, you could sit on them.",
+      "School came pretty easily to me. Learning how to follow through took longer.",
+      "In middle school, I was placed in an accelerated math and science program. I almost immediately landed on academic probation because I refused to do the assignments.",
+      'My teacher was baffled. One day she pulled me aside and said, "You scored so high on the entrance exam that the faculty wanted to put you in high school math in sixth grade."',
+      "Eventually, I got my shit together and won our local science fair, which took me to the district competition. I'd built two functioning hovercrafts out of plywood, tarp, and leaf blowers. They floated three or four inches off the ground, and yes, you could sit on them.",
       "The only problem was that they had to be plugged in, so you only got about twenty feet of glory before someone had to push you back. Still cool.",
     ],
   },
@@ -52,36 +54,41 @@ const aboutSections = [
     label: "systems",
     paragraphs: [
       "Around that same age, my experiments moved from the backyard to the computer.",
-      "I became obsessed with RuneScape, a massive online medieval game where thousands of players shared the same world. It had a complex in-game economy, 24 unique skills, and the social dynamics felt surprisingly real.",
-      "What hooked me was the scale. Playing normally meant thousands of hours of grinding, which of course meant I wanted to find a way around it. It was also a place where I could talk to people without the usual baggage of age, status, or appearance, and study how they behaved when all they had were words, incentives, and a little avatar on a screen.",
-      "Naturally I started testing the limits of both the game and the people inside it.",
-      "One early discovery was that your avatar changed how people treated you. If I played as a female character, strangers were more generous and more likely to engage. If I played as a male character, not so much. I was twelve, so naturally I turned that observation into a morally questionable little automation experiment. I wrote scripts that asked other players for free stuff while I was away from the keyboard.",
-      "That made me a lot of in-game currency.",
+      "I became obsessed with RuneScape, a massive online medieval game where thousands of players shared the same world. It had a complex in-game economy and 24 unique skills. The social dynamics felt surprisingly real.",
+      "What hooked me was the scale. Playing normally meant thousands of hours of grinding, which of course meant I wanted to find a way around it.",
+      "It was also a place where I could talk to people without the usual baggage of age, status, or what I looked like in real life. I could study how they behaved when all they had were words, incentives, and a little avatar on a screen.",
+      "I started testing the limits of both the game and the people inside it.",
+      "One early discovery was that strangers were more generous if I played as a female character. I was twelve, so naturally I turned that observation into a morally questionable little automation experiment. I wrote scripts that asked other players for free stuff while I was away from the keyboard.",
       "That's also where my love affair with automation began.",
-      "Later I discovered auto-clickers and wrote some very basic scripts for color detection. Stringing together basic automations to gather in-game resources, like wood, fish, and ores, which you could then sell on their Grand Exchange system for in-game currency.",
-      "Eventually, I bought almost everything I wanted in the game and ran out of things to do with the money. So naturally, I looked outside the game and found online exchanges where people traded in-game currency for real-world cash. The exchange rate was trash, but at twelve a few thousand dollars was a fortune.",
+      "Later, I discovered auto-clickers and started writing basic color-detection scripts to gather wood, fish, and ores. I could sell those resources for in-game currency without spending hours collecting them myself.",
+      "Eventually, I bought almost everything I wanted in the game and ran out of things to do with the money. So I looked outside the game and found online exchanges where people traded in-game currency for real-world cash. The exchange rate was trash, but at twelve a few thousand dollars was a fortune.",
       "I was not thinking about engineering or startups back then. I just liked systems. Games, people, incentives, rules, loopholes, and leverage.",
-      "That thread has followed me ever since.",
     ],
   },
   {
     label: "usefulness",
     paragraphs: [
-      "I have founded companies, worked on products, sold things, built things, broken things, and learned the hard way that being clever is not the same as being useful.",
-      "The older I get, the more interested I am in building things that actually help people. Tools that make work easier, ideas easier to express, and complicated systems easier to navigate.",
-      "I am still that curious kid in a lot of ways. Still collecting information. Still testing assumptions. Still drawn to strange corners of the world.",
+      "That curiosity followed me into college, where I started as a physics major on a pre-med track. But I quickly realized I wasn't ready to commit the next decade of my life to a path I was already questioning.",
+      "I wanted to learn everything.",
+      "At UC Berkeley, I took courses in psychology, chemistry, biology, physics, philosophy, economics, and political science. I was learning from Nobel laureates and people who had spent their lives studying things I'd barely heard of. How could I pass up the chance to learn from them?",
+      "I also found my way to the Sutardja Center for Entrepreneurship and Technology at Cal. Starting a company sounded like a pretty good excuse to keep learning about all of it. Except now I'd have to figure out how to make something useful out of what I knew.",
+      "The summer after freshman year, I went to Nice, France, for the European Innovation Academy. A hundred teams had a month to turn an idea into a startup. We pitched in front of 400 people and placed 11th.",
+      "I was hooked.",
+      "Two years later, I was back at the same accelerator, this time as a mentor in Turin, Italy. That's where I founded Paladin Partners. We spent a month living out of a 5x8 ft room getting the company off the ground. The work eventually took us to Lisbon, Estonia, South Korea, and California.",
+      "Since then, I've closed tens of millions in business and worked across software, infrastructure, events, and even nonprofits. The settings kept changing, but my questions stayed the same. How does this work? Why do people do it this way? Could we make it better?",
+      "I've learned the hard way that being clever is not the same as being useful. The older I get, the more interested I am in building things that actually help people. Tools that make work easier, ideas easier to express, and complicated systems easier to navigate.",
+      "In a lot of ways, I'm still that curious kid. Still collecting information. Still testing assumptions. Still drawn to strange corners of the world.",
       "The difference is that now I care a lot more about what the work does for other people.",
     ],
   },
   {
     label: "now",
     paragraphs: [
-      "In my twenties, I took big swings and went broad. I founded companies, sold things, built things, and broke things. Learning from both the wins and the times I fell flat on my face.",
-      "In my thirties, I'm trying to turn that breadth into depth while adding some stability to life. I'm most interested in work at the intersection of technology and society. AI, robotics, space, infrastructure, and the systems that shape how people live.",
-      "Those fields come with as many moral and psychological questions as technical ones. That is part of what draws me to them. I want to earn my place in rooms where technology is not just built, but developed, distributed, and adopted with care.",
-      "For a long time, the world rewarded specialization. People got very good at very specific things. I think the next era will reward people who can move between disciplines, connect ideas, and build things that no single field could have produced on its own.",
-      "That has always been where I feel most alive. Somewhere between the machine and the people using it, between the system and the social contract behind it.",
-      "If you've made it this far, maybe you're my kind of human and we should connect.",
+      "In my twenties, I took big swings and tried a lot of different things. In my thirties, I'm more deliberate about where I go deep and what I commit to building.",
+      "I'm most interested in work at the intersection of technology and society. AI, robotics, space, infrastructure, and the systems that shape how people live.",
+      "Those fields don't just raise technical questions. They raise moral and psychological ones too. That's part of what draws me to them. I want a hand in how those technologies are built, who gets access to them, and what they actually do for people.",
+      "That's where I've always felt most alive. Somewhere between the machine and the people using it, between the system and the social contract behind it.",
+      "If you've made it this far, maybe you're my kind of human. We should talk.",
     ],
   },
 ];
@@ -146,26 +153,152 @@ function MediaSectionList({ sections }: { sections: MediaSection[] }) {
   );
 }
 
-const demoVideos = [
+const workCollageClasses = [
+  "col-span-1 aspect-[4/3] sm:col-span-3",
+  "col-span-1 aspect-[4/3] sm:col-span-3",
+  "col-span-1 aspect-[4/3] sm:col-span-2",
+  "col-span-1 aspect-[4/3] sm:col-span-2",
+  "col-span-1 aspect-[4/3] sm:col-span-2",
+  "col-span-1 aspect-[4/3] sm:col-span-3",
+  "col-span-1 aspect-[4/3] sm:col-span-3",
+];
+
+function WorkPhotoCollage({ sections }: { sections: MediaSection[] }) {
+  const [section] = sections;
+  const [hero, ...items] = section.items;
+  const collageItems = items.slice(0, -3);
+  const [equipmentInventory, mobileRack, proclamation] = items.slice(-3);
+
+  return (
+    <div className="mt-5 grid gap-4 border-y border-ink/10 py-5 sm:grid-cols-[8rem_1fr]">
+      <div className="space-y-2">
+        <p className="font-mono text-xs leading-6 uppercase text-graphite/50">
+          {section.label}
+        </p>
+        <p className="text-sm leading-6 text-graphite/55">
+          {section.description}
+        </p>
+      </div>
+      <div className="space-y-1">
+        <Image
+          src={hero.src}
+          alt={hero.alt}
+          width={hero.width}
+          height={hero.height}
+          unoptimized
+          priority
+          sizes="(min-width: 640px) 768px, 100vw"
+          className="w-full border border-ink/10 object-cover"
+        />
+        <div className="grid grid-cols-2 gap-1 sm:grid-cols-6">
+          {collageItems.map((artifact, index) => (
+            <div
+              key={artifact.src}
+              className={`overflow-hidden border border-ink/10 bg-ink/[0.03] ${
+                workCollageClasses[index] ?? "col-span-1 aspect-[4/3] sm:col-span-2"
+              }`}
+            >
+              <Image
+                src={artifact.src}
+                alt={artifact.alt}
+                width={artifact.width}
+                height={artifact.height}
+                unoptimized
+                sizes="(min-width: 640px) 256px, 50vw"
+                className="h-full w-full object-cover"
+                style={
+                  artifact.objectPosition
+                    ? { objectPosition: artifact.objectPosition }
+                    : undefined
+                }
+              />
+            </div>
+          ))}
+          <div className="col-span-2 grid grid-cols-1 gap-1 sm:col-span-6 sm:grid-cols-3">
+            {[equipmentInventory, mobileRack].map((artifact) => (
+              <div
+                key={artifact.src}
+                className="aspect-[4/3] overflow-hidden border border-ink/10 bg-ink/[0.03] sm:aspect-auto sm:h-full"
+              >
+                <Image
+                  src={artifact.src}
+                  alt={artifact.alt}
+                  width={artifact.width}
+                  height={artifact.height}
+                  unoptimized
+                  sizes="(min-width: 640px) 256px, 100vw"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            ))}
+            <div className="aspect-[779/1008] overflow-hidden border border-ink/10 bg-white">
+              <Image
+                src={proclamation.src}
+                alt={proclamation.alt}
+                width={proclamation.width}
+                height={proclamation.height}
+                unoptimized
+                sizes="(min-width: 640px) 256px, 100vw"
+                className="h-full w-full object-contain"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const demoVideoSections = [
   {
-    title: "Demo 01",
-    href: "https://youtu.be/pJ7KURKD3bY?si=ymdT2jLFfNyVu4DM",
-    embed: "https://www.youtube-nocookie.com/embed/pJ7KURKD3bY",
+    label: "Bytespace",
+    videos: [
+      {
+        title: "Bytespace 01",
+        href: "https://youtu.be/pJ7KURKD3bY?si=ymdT2jLFfNyVu4DM",
+        embed: "https://www.youtube-nocookie.com/embed/pJ7KURKD3bY",
+      },
+      {
+        title: "Bytespace 02",
+        href: "https://www.youtube.com/watch?v=cqB8DlUrhcs",
+        embed: "https://www.youtube-nocookie.com/embed/cqB8DlUrhcs",
+      },
+      {
+        title: "Bytespace 03",
+        href: "https://www.youtube.com/watch?v=QpovlqBSlFU",
+        embed: "https://www.youtube-nocookie.com/embed/QpovlqBSlFU",
+      },
+      {
+        title: "Bytespace 04",
+        href: "https://www.youtube.com/watch?v=I98lt9UsOxc&t=111s",
+        embed: "https://www.youtube-nocookie.com/embed/I98lt9UsOxc?start=111",
+      },
+    ],
   },
   {
-    title: "Demo 02",
-    href: "https://www.youtube.com/watch?v=cqB8DlUrhcs",
-    embed: "https://www.youtube-nocookie.com/embed/cqB8DlUrhcs",
-  },
-  {
-    title: "Demo 03",
-    href: "https://www.youtube.com/watch?v=QpovlqBSlFU",
-    embed: "https://www.youtube-nocookie.com/embed/QpovlqBSlFU",
-  },
-  {
-    title: "Demo 04",
-    href: "https://www.youtube.com/watch?v=I98lt9UsOxc&t=111s",
-    embed: "https://www.youtube-nocookie.com/embed/I98lt9UsOxc?start=111",
+    label: "Startup Grind",
+    videos: [
+      {
+        title: "Startup Grind 01",
+        href: "https://youtu.be/ZFfbFVjDqMM?si=BmZQTt2vGcjNzfDX",
+        embed: "https://www.youtube-nocookie.com/embed/ZFfbFVjDqMM",
+      },
+      {
+        title: "Startup Grind 02",
+        href: "https://youtu.be/Y1DWrK9R4I4?si=CbwS0M4w-ohHwWB9",
+        embed: "https://www.youtube-nocookie.com/embed/Y1DWrK9R4I4",
+      },
+      {
+        title: "Startup Grind 03",
+        href: "https://youtu.be/N8lgfk0Hk24?si=YxY1GAk3e86EkbZI",
+        embed: "https://www.youtube-nocookie.com/embed/N8lgfk0Hk24",
+      },
+      {
+        title: "Startup Grind 04",
+        href: "https://youtu.be/UuJfzXmvSjo?si=5l-YUN7T5kC_tIH2",
+        embed: "https://www.youtube-nocookie.com/embed/UuJfzXmvSjo",
+      },
+    ],
   },
 ];
 
@@ -180,29 +313,38 @@ function DemoVideoSection() {
           Product videos, talks, and walkthroughs.
         </p>
       </div>
-      <div className="grid gap-5 sm:grid-cols-2">
-        {demoVideos.map((video) => (
-          <figure key={video.embed}>
-            <div className="aspect-video w-full overflow-hidden border border-ink/10 bg-ink/[0.03]">
-              <iframe
-                src={video.embed}
-                title={video.title}
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                className="h-full w-full"
-              />
+      <div className="space-y-7">
+        {demoVideoSections.map((section) => (
+          <div key={section.label}>
+            <p className="mb-3 font-mono text-xs leading-6 uppercase text-graphite/50">
+              {section.label}
+            </p>
+            <div className="grid gap-5 sm:grid-cols-2">
+              {section.videos.map((video) => (
+                <figure key={video.embed}>
+                  <div className="aspect-video w-full overflow-hidden border border-ink/10 bg-ink/[0.03]">
+                    <iframe
+                      src={video.embed}
+                      title={video.title}
+                      loading="lazy"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      className="h-full w-full"
+                    />
+                  </div>
+                  <figcaption className="mt-2 flex items-center justify-between gap-3 text-sm leading-6 text-graphite/60">
+                    <span>{video.title}</span>
+                    <a
+                      href={video.href}
+                      className="font-medium text-ink underline decoration-ink/20 underline-offset-4 transition-colors hover:decoration-ink"
+                    >
+                      YouTube
+                    </a>
+                  </figcaption>
+                </figure>
+              ))}
             </div>
-            <figcaption className="mt-2 flex items-center justify-between gap-3 text-sm leading-6 text-graphite/60">
-              <span>{video.title}</span>
-              <a
-                href={video.href}
-                className="font-medium text-ink underline decoration-ink/20 underline-offset-4 transition-colors hover:decoration-ink"
-              >
-                YouTube
-              </a>
-            </figcaption>
-          </figure>
+          </div>
         ))}
       </div>
     </div>
@@ -593,6 +735,7 @@ export default async function Home({ searchParams }: HomeProps) {
                   A quiet index of talks, photos, demos, decks, and artifacts
                   from work in public.
                 </p>
+                <WorkPhotoCollage sections={workArtifactSections} />
                 <DemoVideoSection />
                 <MediaSectionList sections={archiveArtifactSections} />
               </div>
