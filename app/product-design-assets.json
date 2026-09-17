@@ -1,0 +1,686 @@
+{
+  "workflow-builder": {
+    "preview": {
+      "src": "/media/product/workflow-builder-preview.webp",
+      "width": 1440,
+      "height": 810
+    },
+    "full": {
+      "src": "/media/product/workflow-builder-full.webp",
+      "width": 2800,
+      "height": 1575
+    }
+  },
+  "agent-run": {
+    "preview": {
+      "src": "/media/product/agent-run-preview.webp",
+      "width": 1440,
+      "height": 810
+    },
+    "full": {
+      "src": "/media/product/agent-run-full.webp",
+      "width": 2800,
+      "height": 1575
+    }
+  },
+  "agent-library": {
+    "preview": {
+      "src": "/media/product/agent-library-preview.webp",
+      "width": 1440,
+      "height": 836
+    },
+    "full": {
+      "src": "/media/product/agent-library-full.webp",
+      "width": 2800,
+      "height": 1626
+    }
+  },
+  "agent-world": {
+    "preview": {
+      "src": "/media/product/agent-world-preview.webp",
+      "width": 1092,
+      "height": 500
+    },
+    "full": {
+      "src": "/media/product/agent-world-full.webp",
+      "width": 1092,
+      "height": 500
+    }
+  },
+  "characters": {
+    "preview": {
+      "src": "/media/product/characters-preview.webp",
+      "width": 1100,
+      "height": 1945
+    },
+    "full": {
+      "src": "/media/product/characters-full.webp",
+      "width": 2800,
+      "height": 4950
+    }
+  },
+  "worlds": {
+    "preview": {
+      "src": "/media/product/worlds-preview.webp",
+      "width": 1100,
+      "height": 1123
+    },
+    "full": {
+      "src": "/media/product/worlds-full.webp",
+      "width": 2291,
+      "height": 2339
+    }
+  },
+  "browser-modern": {
+    "preview": {
+      "src": "/media/product/browser-modern-preview.webp",
+      "width": 1440,
+      "height": 881
+    },
+    "full": {
+      "src": "/media/product/browser-modern-full.webp",
+      "width": 1492,
+      "height": 913
+    }
+  },
+  "browser-legacy": {
+    "preview": {
+      "src": "/media/product/browser-legacy-preview.webp",
+      "width": 1440,
+      "height": 881
+    },
+    "full": {
+      "src": "/media/product/browser-legacy-full.webp",
+      "width": 1492,
+      "height": 913
+    }
+  },
+  "office-network": {
+    "preview": {
+      "src": "/media/product/office-network-preview.webp",
+      "width": 1440,
+      "height": 929
+    },
+    "full": {
+      "src": "/media/product/office-network-full.webp",
+      "width": 2800,
+      "height": 1806
+    }
+  },
+  "office-process": {
+    "preview": {
+      "src": "/media/product/office-process-preview.webp",
+      "width": 1440,
+      "height": 929
+    },
+    "full": {
+      "src": "/media/product/office-process-full.webp",
+      "width": 2800,
+      "height": 1806
+    }
+  },
+  "office-landscape": {
+    "preview": {
+      "src": "/media/product/office-landscape-preview.webp",
+      "width": 1440,
+      "height": 570
+    },
+    "full": {
+      "src": "/media/product/office-landscape-full.webp",
+      "width": 2800,
+      "height": 1108
+    }
+  },
+  "early-agent": {
+    "preview": {
+      "src": "/media/product/early-agent-preview.webp",
+      "width": 573,
+      "height": 752
+    },
+    "full": {
+      "src": "/media/product/early-agent-full.webp",
+      "width": 573,
+      "height": 752
+    }
+  },
+  "automation-scenes": {
+    "preview": {
+      "src": "/media/product/automation-scenes-preview.webp",
+      "width": 1440,
+      "height": 1170
+    },
+    "full": {
+      "src": "/media/product/automation-scenes-full.webp",
+      "width": 2410,
+      "height": 1958
+    }
+  },
+  "product-composition": {
+    "preview": {
+      "src": "/media/product/product-composition-preview.webp",
+      "width": 1440,
+      "height": 1084
+    },
+    "full": {
+      "src": "/media/product/product-composition-full.webp",
+      "width": 2800,
+      "height": 2109
+    }
+  },
+  "desktop-composition": {
+    "preview": {
+      "src": "/media/product/desktop-composition-preview.webp",
+      "width": 1440,
+      "height": 1349
+    },
+    "full": {
+      "src": "/media/product/desktop-composition-full.webp",
+      "width": 2800,
+      "height": 2623
+    }
+  },
+  "business-landscape": {
+    "preview": {
+      "src": "/media/product/business-landscape-preview.webp",
+      "width": 1200,
+      "height": 630
+    },
+    "full": {
+      "src": "/media/product/business-landscape-full.webp",
+      "width": 1200,
+      "height": 630
+    }
+  },
+  "brand-instrument": {
+    "preview": {
+      "src": "/media/product/brand-instrument-preview.webp",
+      "width": 557,
+      "height": 529
+    },
+    "full": {
+      "src": "/media/product/brand-instrument-full.webp",
+      "width": 557,
+      "height": 529
+    }
+  },
+  "founders-composition": {
+    "preview": {
+      "src": "/media/product/founders-composition-preview.webp",
+      "width": 1100,
+      "height": 701
+    },
+    "full": {
+      "src": "/media/product/founders-composition-full.webp",
+      "width": 1100,
+      "height": 701
+    }
+  },
+  "launch-illustration": {
+    "preview": {
+      "src": "/media/product/launch-illustration-preview.webp",
+      "width": 1440,
+      "height": 2508
+    },
+    "full": {
+      "src": "/media/product/launch-illustration-full.webp",
+      "width": 2800,
+      "height": 4877
+    }
+  },
+  "early-access": {
+    "preview": {
+      "src": "/media/product/early-access-preview.webp",
+      "width": 1440,
+      "height": 158
+    },
+    "full": {
+      "src": "/media/product/early-access-full.webp",
+      "width": 2800,
+      "height": 307
+    }
+  },
+  "shirt-design": {
+    "preview": {
+      "src": "/media/product/shirt-design-preview.webp",
+      "width": 1440,
+      "height": 2124
+    },
+    "full": {
+      "src": "/media/product/shirt-design-full.webp",
+      "width": 2800,
+      "height": 4130
+    }
+  },
+  "icon-ai": {
+    "preview": {
+      "src": "/media/product/icon-ai-preview.webp",
+      "width": 320,
+      "height": 373
+    },
+    "full": {
+      "src": "/media/product/icon-ai-full.webp",
+      "width": 377,
+      "height": 439
+    }
+  },
+  "icon-control": {
+    "preview": {
+      "src": "/media/product/icon-control-preview.webp",
+      "width": 320,
+      "height": 318
+    },
+    "full": {
+      "src": "/media/product/icon-control-full.webp",
+      "width": 371,
+      "height": 369
+    }
+  },
+  "icon-identity": {
+    "preview": {
+      "src": "/media/product/icon-identity-preview.webp",
+      "width": 320,
+      "height": 329
+    },
+    "full": {
+      "src": "/media/product/icon-identity-full.webp",
+      "width": 371,
+      "height": 382
+    }
+  },
+  "icon-web": {
+    "preview": {
+      "src": "/media/product/icon-web-preview.webp",
+      "width": 320,
+      "height": 324
+    },
+    "full": {
+      "src": "/media/product/icon-web-full.webp",
+      "width": 371,
+      "height": 376
+    }
+  },
+  "icon-security": {
+    "preview": {
+      "src": "/media/product/icon-security-preview.webp",
+      "width": 320,
+      "height": 315
+    },
+    "full": {
+      "src": "/media/product/icon-security-full.webp",
+      "width": 371,
+      "height": 365
+    }
+  },
+  "icon-space": {
+    "preview": {
+      "src": "/media/product/icon-space-preview.webp",
+      "width": 320,
+      "height": 332
+    },
+    "full": {
+      "src": "/media/product/icon-space-full.webp",
+      "width": 694,
+      "height": 720
+    }
+  },
+  "labs-cover": {
+    "preview": {
+      "src": "/media/product/labs-cover-preview.webp",
+      "width": 1200,
+      "height": 630
+    },
+    "full": {
+      "src": "/media/product/labs-cover-full.webp",
+      "width": 1200,
+      "height": 630
+    }
+  },
+  "labs-biology": {
+    "preview": {
+      "src": "/media/product/labs-biology-preview.webp",
+      "width": 640,
+      "height": 1137
+    },
+    "full": {
+      "src": "/media/product/labs-biology-full.webp",
+      "width": 941,
+      "height": 1672
+    }
+  },
+  "labs-anatomy": {
+    "preview": {
+      "src": "/media/product/labs-anatomy-preview.webp",
+      "width": 640,
+      "height": 1137
+    },
+    "full": {
+      "src": "/media/product/labs-anatomy-full.webp",
+      "width": 941,
+      "height": 1672
+    }
+  },
+  "labs-materials": {
+    "preview": {
+      "src": "/media/product/labs-materials-preview.webp",
+      "width": 640,
+      "height": 1137
+    },
+    "full": {
+      "src": "/media/product/labs-materials-full.webp",
+      "width": 941,
+      "height": 1672
+    }
+  },
+  "labs-curiosity": {
+    "preview": {
+      "src": "/media/product/labs-curiosity-preview.webp",
+      "width": 640,
+      "height": 1137
+    },
+    "full": {
+      "src": "/media/product/labs-curiosity-full.webp",
+      "width": 941,
+      "height": 1672
+    }
+  },
+  "bot-octopus": {
+    "preview": {
+      "src": "/media/product/bot-octopus-preview.webp",
+      "width": 1086,
+      "height": 1448
+    },
+    "full": {
+      "src": "/media/product/bot-octopus-full.webp",
+      "width": 1086,
+      "height": 1448
+    }
+  },
+  "bot-models": {
+    "preview": {
+      "src": "/media/product/bot-models-preview.webp",
+      "width": 600,
+      "height": 800
+    },
+    "full": {
+      "src": "/media/product/bot-models-full.webp",
+      "width": 1086,
+      "height": 1448
+    }
+  },
+  "bot-data": {
+    "preview": {
+      "src": "/media/product/bot-data-preview.webp",
+      "width": 600,
+      "height": 900
+    },
+    "full": {
+      "src": "/media/product/bot-data-full.webp",
+      "width": 1024,
+      "height": 1536
+    }
+  },
+  "bot-compute": {
+    "preview": {
+      "src": "/media/product/bot-compute-preview.webp",
+      "width": 600,
+      "height": 800
+    },
+    "full": {
+      "src": "/media/product/bot-compute-full.webp",
+      "width": 1086,
+      "height": 1448
+    }
+  },
+  "bot-team": {
+    "preview": {
+      "src": "/media/product/bot-team-preview.webp",
+      "width": 600,
+      "height": 600
+    },
+    "full": {
+      "src": "/media/product/bot-team-full.webp",
+      "width": 1254,
+      "height": 1254
+    }
+  },
+  "agent-run-light": {
+    "preview": {
+      "src": "/media/product/agent-run-light-preview.webp",
+      "width": 1440,
+      "height": 810
+    },
+    "full": {
+      "src": "/media/product/agent-run-light-full.webp",
+      "width": 2000,
+      "height": 1125
+    }
+  },
+  "character-sales": {
+    "preview": {
+      "src": "/media/product/character-sales-preview.webp",
+      "width": 248,
+      "height": 497
+    },
+    "full": {
+      "src": "/media/product/character-sales-full.webp",
+      "width": 248,
+      "height": 497
+    }
+  },
+  "character-scientist": {
+    "preview": {
+      "src": "/media/product/character-scientist-preview.webp",
+      "width": 268,
+      "height": 497
+    },
+    "full": {
+      "src": "/media/product/character-scientist-full.webp",
+      "width": 268,
+      "height": 497
+    }
+  },
+  "character-doctor": {
+    "preview": {
+      "src": "/media/product/character-doctor-preview.webp",
+      "width": 238,
+      "height": 497
+    },
+    "full": {
+      "src": "/media/product/character-doctor-full.webp",
+      "width": 238,
+      "height": 497
+    }
+  },
+  "character-construction": {
+    "preview": {
+      "src": "/media/product/character-construction-preview.webp",
+      "width": 360,
+      "height": 482
+    },
+    "full": {
+      "src": "/media/product/character-construction-full.webp",
+      "width": 371,
+      "height": 497
+    }
+  },
+  "character-samurai": {
+    "preview": {
+      "src": "/media/product/character-samurai-preview.webp",
+      "width": 349,
+      "height": 497
+    },
+    "full": {
+      "src": "/media/product/character-samurai-full.webp",
+      "width": 349,
+      "height": 497
+    }
+  },
+  "character-ice": {
+    "preview": {
+      "src": "/media/product/character-ice-preview.webp",
+      "width": 305,
+      "height": 497
+    },
+    "full": {
+      "src": "/media/product/character-ice-full.webp",
+      "width": 305,
+      "height": 497
+    }
+  },
+  "character-space": {
+    "preview": {
+      "src": "/media/product/character-space-preview.webp",
+      "width": 299,
+      "height": 497
+    },
+    "full": {
+      "src": "/media/product/character-space-full.webp",
+      "width": 299,
+      "height": 497
+    }
+  },
+  "character-code": {
+    "preview": {
+      "src": "/media/product/character-code-preview.webp",
+      "width": 358,
+      "height": 497
+    },
+    "full": {
+      "src": "/media/product/character-code-full.webp",
+      "width": 358,
+      "height": 497
+    }
+  },
+  "office-interface": {
+    "preview": {
+      "src": "/media/product/office-interface-preview.webp",
+      "width": 1440,
+      "height": 772
+    },
+    "full": {
+      "src": "/media/product/office-interface-full.webp",
+      "width": 1780,
+      "height": 954
+    }
+  },
+  "extension-popup": {
+    "preview": {
+      "src": "/media/product/extension-popup-preview.webp",
+      "width": 1440,
+      "height": 1440
+    },
+    "full": {
+      "src": "/media/product/extension-popup-full.webp",
+      "width": 2800,
+      "height": 2800
+    }
+  },
+  "agent-cursor": {
+    "preview": {
+      "src": "/media/product/agent-cursor-preview.webp",
+      "width": 1084,
+      "height": 566
+    },
+    "full": {
+      "src": "/media/product/agent-cursor-full.webp",
+      "width": 1084,
+      "height": 566
+    }
+  },
+  "world-landscape": {
+    "preview": {
+      "src": "/media/product/world-landscape-preview.webp",
+      "width": 1440,
+      "height": 505
+    },
+    "full": {
+      "src": "/media/product/world-landscape-full.webp",
+      "width": 2402,
+      "height": 842
+    }
+  },
+  "portal-space": {
+    "preview": {
+      "src": "/media/product/portal-space-preview.webp",
+      "width": 986,
+      "height": 1032
+    },
+    "full": {
+      "src": "/media/product/portal-space-full.webp",
+      "width": 986,
+      "height": 1032
+    }
+  },
+  "portal-energy": {
+    "preview": {
+      "src": "/media/product/portal-energy-preview.webp",
+      "width": 987,
+      "height": 1032
+    },
+    "full": {
+      "src": "/media/product/portal-energy-full.webp",
+      "width": 987,
+      "height": 1032
+    }
+  },
+  "portal-garden": {
+    "preview": {
+      "src": "/media/product/portal-garden-preview.webp",
+      "width": 987,
+      "height": 1032
+    },
+    "full": {
+      "src": "/media/product/portal-garden-full.webp",
+      "width": 987,
+      "height": 1032
+    }
+  },
+  "portal-gateway": {
+    "preview": {
+      "src": "/media/product/portal-gateway-preview.webp",
+      "width": 1440,
+      "height": 1291
+    },
+    "full": {
+      "src": "/media/product/portal-gateway-full.webp",
+      "width": 2620,
+      "height": 2348
+    }
+  },
+  "agent-world-light": {
+    "preview": {
+      "src": "/media/product/agent-world-light-preview.webp",
+      "width": 1440,
+      "height": 1468
+    },
+    "full": {
+      "src": "/media/product/agent-world-light-full.webp",
+      "width": 2538,
+      "height": 2588
+    }
+  },
+  "desktop-shell": {
+    "preview": {
+      "src": "/media/product/desktop-shell-preview.webp",
+      "width": 1440,
+      "height": 1288
+    },
+    "full": {
+      "src": "/media/product/desktop-shell-full.webp",
+      "width": 2800,
+      "height": 2505
+    }
+  },
+  "labs-statue": {
+    "preview": {
+      "src": "/media/product/labs-statue-preview.webp",
+      "width": 1086,
+      "height": 1448
+    },
+    "full": {
+      "src": "/media/product/labs-statue-full.webp",
+      "width": 1086,
+      "height": 1448
+    }
+  }
+}

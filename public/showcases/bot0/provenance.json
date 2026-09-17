@@ -1,0 +1,34 @@
+{
+  "repository": "https://github.com/FindKar1/portfolio-sites",
+  "revision": "2d6b1cb5cedb87dca4a720e6494ca21dbf27c0e1",
+  "entry": "apps/bot0/src/components/bytespace-clone/Bot0TerminalSection.tsx",
+  "sourceFiles": [
+    "packages/desktop/src/components/Terminal/RichPromptInput.tsx",
+    "packages/core/src/models.ts",
+    "packages/desktop/src/components/Terminal/OverlayCloseButton.tsx",
+    "packages/desktop/src/components/Terminal/modelDirectory.ts",
+    "packages/desktop/src/components/Terminal/MyModelsPanel.tsx",
+    "packages/desktop/src/components/Terminal/localContextEstimator.ts",
+    "packages/desktop/src/components/Terminal/ContextFooter.tsx",
+    "packages/desktop/src/components/Terminal/Tooltip.tsx",
+    "packages/desktop/src/components/Terminal/CroppedImage.tsx",
+    "packages/desktop/src/context/ThemeContext.tsx",
+    "packages/desktop/src/components/ThemeModeToggle.tsx",
+    "packages/desktop/src/components/Terminal/WorkspaceSwitchingOverlay.tsx",
+    "packages/desktop/src/platform-ui.ts",
+    "packages/desktop/src/hooks/usePlatformUi.ts",
+    "packages/desktop/src/components/Terminal/NetworkSidebar.tsx",
+    "packages/desktop/src/components/Terminal/statusBarLabels.ts",
+    "packages/desktop/src/components/Terminal/StatusBar.tsx",
+    "apps/bot0/src/components/bytespace-clone/Bot0TerminalSection.tsx"
+  ],
+  "adaptations": [
+    "Export original shell",
+    "Local image adapter",
+    "Browser-only model exports",
+    "Local asset paths",
+    "In-memory demo config and unavailable live catalog",
+    "Responsive frame with session/notebook tabs",
+    "Network disabled by CSP"
+  ]
+}

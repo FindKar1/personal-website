@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { PortfolioCollection } from "@/components/PortfolioCollection";
+import { ProductDesign } from "@/components/ProductDesign";
 import { ArchiveTalks, ProductDemos } from "@/components/PortfolioVideos";
 import { LegacyProfileLinks } from "@/components/LegacyProfileLinks";
 import { getProfileLocation, profileLabels, profileTabs, type QueryValue } from "./profile-navigation";
@@ -476,7 +477,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
   return (
     <main
-      className="min-h-screen bg-white px-6 py-8 text-ink sm:px-10 sm:py-12"
+      className={`min-h-screen bg-white px-6 py-8 text-ink sm:px-10 sm:py-12 ${activeTab === "product" ? "overflow-x-clip" : ""}`}
       style={{
         backgroundImage: [
           "radial-gradient(circle at 18% 12%, rgba(23, 21, 17, 0.018), transparent 22rem)",
@@ -764,8 +765,8 @@ export default async function Home({ searchParams }: HomeProps) {
             )}
 
             {activeTab === "notebook" && (
-              <div className="mb-8 max-w-4xl">
-                <p className="text-base leading-7 text-graphite">
+              <div className="mb-8 w-full">
+                <p className="max-w-4xl text-base leading-7 text-graphite">
                   Sketches, questions, and books that have shaped how I think.
                 </p>
                 <nav aria-label="Notebook views" className="mt-5 flex gap-6 border-b border-ink/10 font-mono text-sm">
@@ -781,7 +782,7 @@ export default async function Home({ searchParams }: HomeProps) {
             )}
 
             {activeTab === "notebook" && notebookView === "reading" && (
-              <div className="max-w-4xl">
+              <div className="w-full">
                 <p className="max-w-4xl text-base leading-7 text-graphite">
                   I&apos;ve spent a lot of my life following one question into
                   the next. These are some of the books I&apos;ve picked up
@@ -825,7 +826,7 @@ export default async function Home({ searchParams }: HomeProps) {
             )}
 
             {activeTab === "archive" && (
-              <div className="max-w-4xl">
+              <div className="w-full">
                 <p className="max-w-4xl text-base leading-7 text-graphite">
                   I&apos;ve spent a lot of time moving between very different
                   worlds. Rooftops and data centers, startup workshops, healthcare
@@ -840,7 +841,7 @@ export default async function Home({ searchParams }: HomeProps) {
             )}
 
             {activeTab === "notebook" && notebookView === "notes" && (
-              <div className="max-w-4xl">
+              <div className="w-full">
                 <p className="max-w-4xl text-base leading-7 text-graphite">
                   Before an idea becomes something useful, it usually looks a
                   little like this. Mindmaps, whiteboards, half-formed plans,
@@ -854,7 +855,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
             {activeTab === "systems" && <PortfolioCollection collection="systems" />}
             {activeTab === "product" && (
-              <PortfolioCollection collection="product"><ProductDemos /></PortfolioCollection>
+              <ProductDesign><ProductDemos /></ProductDesign>
             )}
           </div>
         </section>

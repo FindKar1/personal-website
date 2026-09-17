@@ -158,8 +158,8 @@ export function PortfolioCollection({ collection, children }: { collection: "sys
   }
 
   return (
-    <div className="max-w-4xl">
-      <p className="text-base leading-7 text-graphite">
+    <div className="w-full">
+      <p className="max-w-4xl text-base leading-7 text-graphite">
         {isProduct ? (
           <>I like making complex ideas tangible. Interfaces, working demos, and visual stories from building Bytespace, from how the product works to how we explain it.</>
         ) : (

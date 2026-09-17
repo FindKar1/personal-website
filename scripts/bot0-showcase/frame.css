@@ -1,0 +1,22 @@
+html, body, #root { height: 100%; width: 100%; margin: 0; overflow: hidden; }
+body { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+* { letter-spacing: 0; }
+button { cursor: pointer; }
+button:focus-visible, [contenteditable]:focus-visible { outline: 2px solid #57717b; outline-offset: -2px; }
+.showcase-frame { height: 100%; display: flex; flex-direction: column; }
+.showcase-shell { flex: 1; min-height: 0; }
+.bytespace-terminal-shell { font-size: 12px !important; }
+.bytespace-terminal-main > .app-no-drag { background: #fffdf8 !important; }
+.mobile-views { display: none; }
+@media (max-width: 700px) {
+  .mobile-views { display: flex; flex: 0 0 42px; background: #f0ebdf; border-bottom: 1px solid #d8d2c8; }
+  .mobile-views button { flex: 1; font: inherit; font-size: 12px; border: 0; border-bottom: 2px solid transparent; }
+  .mobile-views button[aria-pressed="true"] { border-bottom-color: #766b5d; background: #fffdf8; }
+  .bytespace-terminal-sidebar, .bytespace-terminal-shell > .pointer-events-none { display: none !important; }
+  .bytespace-terminal-main { grid-template-columns: minmax(0, 1fr) !important; }
+  .bytespace-terminal-topbar { padding-left: 12px !important; }
+  .bytespace-terminal-topbar > div:last-child > span:not(:last-of-type) { display: none; }
+  .view-session .bytespace-terminal-workspace-panel { display: none; }
+  .view-notebook .bytespace-terminal-session-column { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
