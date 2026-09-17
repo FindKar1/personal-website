@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowDown, ArrowRight, ChevronLeft, ChevronRight, Download, FileText, Maximize2, RotateCcw, X, ZoomIn, ZoomOut } from "lucide-react";
 import assets from "@/app/systems-assets.json";
 import designAssets from "@/app/bytespace-design-assets.json";
@@ -71,6 +70,7 @@ const sections: ArtifactGroup[] = [
 ];
 
 const completeDesigns = artifacts.filter((artifact) => artifact.poster);
+const productArtifactIds = new Set<Artifact["id"]>(["bytespace-interface", ...completeDesigns.map((artifact) => artifact.id)]);
 
 function artifactImage(id: Artifact["id"], full = false) {
   if (id in designAssets) {
@@ -90,14 +90,17 @@ const documents = [
 
 const iconButton = "inline-flex h-10 w-10 shrink-0 items-center justify-center border border-ink/15 bg-white text-ink transition-colors hover:bg-ink/5 disabled:cursor-not-allowed disabled:opacity-30 focus-visible:outline-2 focus-visible:outline-offset-2";
 
-export function SystemsPortfolio() {
+export function PortfolioCollection({ collection, children }: { collection: "systems" | "product"; children?: ReactNode }) {
+  const isProduct = collection === "product";
+  const collectionArtifacts = artifacts.filter((artifact) => productArtifactIds.has(artifact.id) === isProduct);
+  const collectionSections = sections.filter((section) => (section.id === "product-design") === isProduct);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [zoom, setZoom] = useState(1);
   const dialog = useRef<HTMLDialogElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLElement | null>(null);
   const isOpen = activeIndex !== null;
-  const active = activeIndex === null ? null : artifacts[activeIndex];
+  const active = activeIndex === null ? null : collectionArtifacts[activeIndex];
   const activeImage = active ? artifactImage(active.id, true) : null;
 
   useEffect(() => {
@@ -120,15 +123,15 @@ export function SystemsPortfolio() {
   }
 
   function move(direction: number) {
-    setActiveIndex((index) => index === null ? null : (index + direction + artifacts.length) % artifacts.length);
+    setActiveIndex((index) => index === null ? null : (index + direction + collectionArtifacts.length) % collectionArtifacts.length);
     setZoom(1);
     stage.current?.scrollTo(0, 0);
   }
 
   function renderArtifact(id: Artifact["id"], compact = false) {
-    const index = artifacts.findIndex((artifact) => artifact.id === id);
+    const index = collectionArtifacts.findIndex((artifact) => artifact.id === id);
     if (index === -1) throw new Error(`Missing portfolio artifact: ${id}`);
-    const artifact = artifacts[index];
+    const artifact = collectionArtifacts[index];
     const isSupporting = artifact.layout === "supporting";
     const isWide = Boolean(artifact.layout);
 
@@ -136,7 +139,7 @@ export function SystemsPortfolio() {
       <figure key={id} className={isWide ? "col-span-full min-w-0" : "min-w-0"}>
         <div className={isSupporting ? "grid items-start gap-4 sm:grid-cols-[minmax(0,17rem)_minmax(0,1fr)] sm:gap-6" : ""}>
           <button type="button" onClick={() => open(index)} aria-label={`Enlarge ${artifact.title}`} title={`Enlarge ${artifact.title}`} className={`group relative block w-full cursor-zoom-in overflow-hidden border border-ink/15 bg-white focus-visible:outline-2 focus-visible:outline-offset-4 ${isSupporting ? "max-w-[17rem]" : ""}`}>
-            <Image {...artifactImage(id)} alt={artifact.title} unoptimized loading={id === "business-process" ? "eager" : "lazy"} sizes={isSupporting ? "272px" : isWide ? "896px" : "(min-width: 640px) 438px, 100vw"} className="h-auto w-full" />
+            <Image {...artifactImage(id)} alt={artifact.title} unoptimized loading={index === 0 ? "eager" : "lazy"} sizes={isSupporting ? "272px" : isWide ? "896px" : "(min-width: 640px) 438px, 100vw"} className="h-auto w-full" />
             <span aria-hidden="true" className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center border border-ink/10 bg-white/95 text-ink opacity-90 transition-opacity group-hover:opacity-100"><Maximize2 size={15} /></span>
           </button>
           <figcaption className={isSupporting ? "sm:pt-2" : "mt-3"}>
@@ -157,19 +160,29 @@ export function SystemsPortfolio() {
   return (
     <div className="max-w-4xl">
       <p className="text-base leading-7 text-graphite">
-        I tend to see businesses as systems. How decisions get made, how work
-        moves between people, and where things get stuck. These are some of the
-        frameworks, workflow maps, and product designs I&apos;ve made while
-        figuring out what to improve and where AI can actually help.
+        {isProduct ? (
+          <>I like making complex ideas tangible. Interfaces, working demos, and visual stories from building Bytespace, from how the product works to how we explain it.</>
+        ) : (
+          <>I tend to see businesses as systems. How decisions get made, how work
+          moves between people, and where things get stuck. These are some of the
+          frameworks, workflow maps, and AI architectures I&apos;ve made while
+          figuring out what to improve and where automation can actually help.</>
+        )}
       </p>
 
-      <nav aria-label="Systems and design sections" className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-xs leading-6 text-graphite/75 sm:text-sm">
-        {sections.map((section) => <a key={section.id} href={`#${section.id}`} className="underline decoration-ink/20 underline-offset-4 hover:text-ink">{section.title}</a>)}
-        <a href="#complete-designs" className="underline decoration-ink/20 underline-offset-4 hover:text-ink">Complete designs</a>
-        <a href="#full-documents" className="inline-flex items-center gap-1 underline decoration-ink/20 underline-offset-4 hover:text-ink">Full documents <ArrowDown size={13} aria-hidden="true" /></a>
+      <nav aria-label={isProduct ? "Product and design sections" : "Systems sections"} className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-xs leading-6 text-graphite/75 sm:text-sm">
+        {collectionSections.map((section) => <a key={section.id} href={`#${section.id}`} className="underline decoration-ink/20 underline-offset-4 hover:text-ink">{section.title}</a>)}
+        {isProduct ? (
+          <>
+            <a href="#complete-designs" className="underline decoration-ink/20 underline-offset-4 hover:text-ink">Complete designs</a>
+            <a href="#product-demo" className="underline decoration-ink/20 underline-offset-4 hover:text-ink">Demos</a>
+          </>
+        ) : (
+          <a href="#full-documents" className="inline-flex items-center gap-1 underline decoration-ink/20 underline-offset-4 hover:text-ink">Full documents <ArrowDown size={13} aria-hidden="true" /></a>
+        )}
       </nav>
 
-      {sections.map((section) => (
+      {collectionSections.map((section) => (
         <section key={section.id} id={section.id} aria-labelledby={`${section.id}-title`} className="mt-12 scroll-mt-6 border-t border-ink/15 pt-8 sm:pt-10">
           <div className="mb-8 grid gap-3 sm:mb-10 sm:grid-cols-[11rem_1fr] sm:gap-6">
             <h3 id={`${section.id}-title`} className="font-mono text-sm font-medium text-ink">{section.title}</h3>
@@ -201,10 +214,11 @@ export function SystemsPortfolio() {
               {section.items.map((id) => renderArtifact(id))}
             </div>
           )}
-          {section.id === "product-design" && <Link href="/?tab=archive#product-demo" className="mt-3 inline-flex min-h-9 items-center gap-2 text-sm text-graphite underline decoration-ink/20 underline-offset-4 hover:text-ink">Bytespace product demo <ArrowRight size={14} aria-hidden="true" /></Link>}
         </section>
       ))}
 
+      {isProduct && (
+        <>
       <section id="complete-designs" aria-labelledby="complete-designs-title" className="mt-12 scroll-mt-6 border-t border-ink/15 pt-8 sm:pt-10">
         <div className="mb-8 grid gap-3 sm:mb-10 sm:grid-cols-[11rem_1fr] sm:gap-6">
           <h3 id="complete-designs-title" className="font-mono text-sm font-medium text-ink">Complete designs</h3>
@@ -213,7 +227,7 @@ export function SystemsPortfolio() {
         <div className="grid grid-cols-2 items-start gap-x-2 gap-y-24 pb-20 md:grid-cols-4">
           {completeDesigns.map((artifact) => (
             <figure key={artifact.id} className="relative min-w-0">
-              <button type="button" aria-label={`View complete ${artifact.title}`} title={`View complete ${artifact.title}`} onClick={() => open(artifacts.indexOf(artifact))} className="block w-full cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-4">
+              <button type="button" aria-label={`View complete ${artifact.title}`} title={`View complete ${artifact.title}`} onClick={() => open(collectionArtifacts.indexOf(artifact))} className="block w-full cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-4">
                 <Image {...artifactImage(artifact.id)} alt={`${artifact.title}, complete original composition`} unoptimized loading="lazy" className="block h-auto w-full" />
               </button>
               <figcaption className="absolute inset-x-0 top-full mt-3">
@@ -224,7 +238,11 @@ export function SystemsPortfolio() {
           ))}
         </div>
       </section>
+          {children}
+        </>
+      )}
 
+      {!isProduct && (
       <section id="full-documents" aria-labelledby="full-documents-title" className="mt-12 scroll-mt-6 border-t border-ink/15 pt-8 sm:pt-10">
         <h3 id="full-documents-title" className="font-mono text-sm font-medium text-ink">Full documents</h3>
         <div className="mt-8 divide-y divide-ink/10 border-b border-ink/10 sm:mt-10">
@@ -241,6 +259,7 @@ export function SystemsPortfolio() {
           ))}
         </div>
       </section>
+      )}
 
       <dialog ref={dialog} aria-labelledby="artifact-title" aria-describedby="artifact-detail" className="systems-dialog" onCancel={() => setActiveIndex(null)} onClick={(event) => { if (event.target === event.currentTarget) setActiveIndex(null); }} onKeyDown={(event) => { if (event.key === "ArrowRight") { event.preventDefault(); move(1); } if (event.key === "ArrowLeft") { event.preventDefault(); move(-1); } }}>
         {active && activeImage && (
@@ -255,7 +274,7 @@ export function SystemsPortfolio() {
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-ink/10 px-3 py-2">
               <div className="flex items-center gap-2">
                 <button type="button" title="Previous image" aria-label="Previous image" onClick={() => move(-1)} className={iconButton}><ChevronLeft size={18} /></button>
-                <span className="w-16 shrink-0 whitespace-nowrap text-center font-mono text-xs text-graphite" aria-live="polite">{activeIndex! + 1} / {artifacts.length}</span>
+                <span className="w-16 shrink-0 whitespace-nowrap text-center font-mono text-xs text-graphite" aria-live="polite">{activeIndex! + 1} / {collectionArtifacts.length}</span>
                 <button type="button" title="Next image" aria-label="Next image" onClick={() => move(1)} className={iconButton}><ChevronRight size={18} /></button>
               </div>
               <div className="flex items-center gap-1">

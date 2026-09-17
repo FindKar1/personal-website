@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { YouTubeVideo } from "@/components/YouTubeVideo";
-import { SystemsPortfolio } from "@/components/SystemsPortfolio";
+import { PortfolioCollection } from "@/components/PortfolioCollection";
+import { ArchiveTalks, ProductDemos } from "@/components/PortfolioVideos";
+import { LegacyProfileLinks } from "@/components/LegacyProfileLinks";
+import { getProfileLocation, profileLabels, profileTabs, type QueryValue } from "./profile-navigation";
 import {
   archiveArtifactSections,
   notesArtifactSections,
@@ -97,18 +99,12 @@ const aboutSections = [
   },
 ];
 
-const profileTabs = ["about", "archive", "documents", "notes", "reading"] as const;
-
-type ProfileTab = (typeof profileTabs)[number];
-
 type HomeProps = {
   searchParams?: Promise<{
-    tab?: string;
+    tab?: QueryValue;
+    view?: QueryValue;
   }>;
 };
-
-const getProfileTab = (tab?: string): ProfileTab =>
-  profileTabs.includes(tab as ProfileTab) ? (tab as ProfileTab) : "about";
 
 function ArchivePreview() {
   const photos = workArtifactSections[0].items.filter((artifact) =>
@@ -351,109 +347,6 @@ function WorkPhotoCollage({ sections }: { sections: MediaSection[] }) {
   );
 }
 
-const demoVideoSections = [
-  {
-    label: "Bytespace",
-    videos: [
-      {
-        title: "Bytespace 01",
-        href: "https://youtu.be/pJ7KURKD3bY?si=ymdT2jLFfNyVu4DM",
-        embed: "https://www.youtube-nocookie.com/embed/pJ7KURKD3bY",
-      },
-      {
-        title: "Bytespace 02",
-        href: "https://www.youtube.com/watch?v=cqB8DlUrhcs",
-        embed: "https://www.youtube-nocookie.com/embed/cqB8DlUrhcs",
-      },
-      {
-        title: "Bytespace 03",
-        href: "https://www.youtube.com/watch?v=QpovlqBSlFU",
-        embed: "https://www.youtube-nocookie.com/embed/QpovlqBSlFU",
-      },
-      {
-        title: "Bytespace 04",
-        href: "https://www.youtube.com/watch?v=I98lt9UsOxc&t=111s",
-        embed: "https://www.youtube-nocookie.com/embed/I98lt9UsOxc?start=111",
-      },
-    ],
-  },
-  {
-    label: "Startup Grind",
-    videos: [
-      {
-        title: "Startup Grind 01",
-        href: "https://youtu.be/ZFfbFVjDqMM?si=BmZQTt2vGcjNzfDX",
-        embed: "https://www.youtube-nocookie.com/embed/ZFfbFVjDqMM",
-      },
-      {
-        title: "Startup Grind 02",
-        href: "https://youtu.be/Y1DWrK9R4I4?si=CbwS0M4w-ohHwWB9",
-        embed: "https://www.youtube-nocookie.com/embed/Y1DWrK9R4I4",
-      },
-      {
-        title: "Startup Grind 03",
-        href: "https://youtu.be/N8lgfk0Hk24?si=YxY1GAk3e86EkbZI",
-        embed: "https://www.youtube-nocookie.com/embed/N8lgfk0Hk24",
-      },
-      {
-        title: "Startup Grind 04",
-        href: "https://youtu.be/UuJfzXmvSjo?si=5l-YUN7T5kC_tIH2",
-        embed: "https://www.youtube-nocookie.com/embed/UuJfzXmvSjo",
-      },
-    ],
-  },
-];
-
-function DemoVideoSection() {
-  return (
-    <div className="mt-5 grid gap-4 border-t border-ink/10 py-5 sm:grid-cols-[8rem_1fr]">
-      <div className="space-y-2">
-        <p className="font-mono text-xs leading-6 uppercase text-graphite/50">
-          demos
-        </p>
-        <p className="text-sm leading-6 text-graphite/55">
-          Some things are easier to show.
-        </p>
-      </div>
-      <div className="space-y-7">
-        <figure id="product-demo" className="scroll-mt-6">
-          <p className="mb-3 font-mono text-xs leading-6 uppercase text-graphite/50">
-            Bytespace product demo
-          </p>
-          <video
-            controls
-            playsInline
-            preload="none"
-            width={1920}
-            height={1080}
-            poster="/media/videos/bytespace-product-demo.jpg"
-            aria-label="Bytespace product demo showing a logistics workflow"
-            className="aspect-video w-full border border-ink/10 bg-black"
-          >
-            <source src="/media/videos/bytespace-product-demo.mp4" type="video/mp4" />
-            <a href="/media/videos/bytespace-product-demo.mp4">Open the Bytespace product demo</a>
-          </video>
-          <figcaption className="mt-2 text-sm leading-6 text-graphite/70">
-            An earlier Bytespace product, shown through a logistics workflow.
-          </figcaption>
-        </figure>
-        {demoVideoSections.map((section) => (
-          <div key={section.label}>
-            <p className="mb-3 font-mono text-xs leading-6 uppercase text-graphite/50">
-              {section.label}
-            </p>
-            <div className="grid gap-5 sm:grid-cols-2">
-              {section.videos.map((video) => (
-                <YouTubeVideo key={video.embed} {...video} />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 const readingSections = [
   {
     category: "Systems",
@@ -574,7 +467,7 @@ const readingSections = [
 
 export default async function Home({ searchParams }: HomeProps) {
   const params = await searchParams;
-  const activeTab = getProfileTab(params?.tab);
+  const { tab: activeTab, view: notebookView } = getProfileLocation(params?.tab, params?.view);
   const isAbout = activeTab === "about";
   const notesPreview = [
     notesArtifactSections[0].items[0],
@@ -595,6 +488,7 @@ export default async function Home({ searchParams }: HomeProps) {
         backgroundSize: "auto, auto, 100% 9px, 11px 100%, 17px 17px",
       }}
     >
+      <LegacyProfileLinks tab={params?.tab} />
       <div className="mx-auto max-w-5xl">
         <header className="mb-8">
           <div className="flex flex-col gap-3 border-b border-ink/15 pb-3 md:flex-row md:items-center md:justify-between md:gap-8">
@@ -612,13 +506,13 @@ export default async function Home({ searchParams }: HomeProps) {
                   key={tab}
                   href={`/?tab=${tab}`}
                   aria-current={activeTab === tab ? "page" : undefined}
-                  className={`inline-flex min-h-11 items-center border-b-2 capitalize transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 ${
+                  className={`inline-flex min-h-11 items-center whitespace-nowrap border-b-2 transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 ${
                     activeTab === tab
                       ? "border-ink font-semibold text-ink"
                       : "border-transparent text-graphite hover:border-ink/30 hover:text-ink"
                   }`}
                 >
-                  {tab === "documents" ? "Systems & Design" : tab}
+                  {profileLabels[tab]}
                 </Link>
               ))}
             </nav>
@@ -808,10 +702,10 @@ export default async function Home({ searchParams }: HomeProps) {
                   Selected Writing &amp; Systems
                 </h2>
                 <Link
-                  href="/?tab=documents"
+                  href="/?tab=systems"
                   className="inline-flex min-h-9 items-center gap-2 text-sm text-graphite underline decoration-ink/20 underline-offset-4 hover:text-ink hover:decoration-ink"
                 >
-                  Systems &amp; Design <span aria-hidden="true">&rarr;</span>
+                  Systems <span aria-hidden="true">&rarr;</span>
                 </Link>
               </div>
               <div className="mt-4 border-t border-ink/10">
@@ -841,7 +735,7 @@ export default async function Home({ searchParams }: HomeProps) {
             id="profile-heading"
             className={isAbout ? "font-mono text-base font-semibold uppercase tracking-normal text-ink" : "sr-only"}
           >
-            {isAbout ? "About Me" : activeTab === "documents" ? "Systems & Design" : activeTab}
+            {isAbout ? "About Me" : profileLabels[activeTab]}
           </h2>
 
           <div
@@ -869,7 +763,24 @@ export default async function Home({ searchParams }: HomeProps) {
               </div>
             )}
 
-            {activeTab === "reading" && (
+            {activeTab === "notebook" && (
+              <div className="mb-8 max-w-4xl">
+                <p className="text-base leading-7 text-graphite">
+                  Sketches, questions, and books that have shaped how I think.
+                </p>
+                <nav aria-label="Notebook views" className="mt-5 flex gap-6 border-b border-ink/10 font-mono text-sm">
+                  {(["notes", "reading"] as const).map((view) => (
+                    <Link key={view} href={`/?tab=notebook&view=${view}`} scroll={false}
+                      aria-current={notebookView === view ? "page" : undefined}
+                      className={`inline-flex min-h-11 items-center border-b-2 capitalize transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 ${notebookView === view ? "border-ink font-semibold text-ink" : "border-transparent text-graphite/65 hover:border-ink/30 hover:text-ink"}`}>
+                      {view}
+                    </Link>
+                  ))}
+                </nav>
+              </div>
+            )}
+
+            {activeTab === "notebook" && notebookView === "reading" && (
               <div className="max-w-4xl">
                 <p className="max-w-4xl text-base leading-7 text-graphite">
                   I&apos;ve spent a lot of my life following one question into
@@ -919,16 +830,16 @@ export default async function Home({ searchParams }: HomeProps) {
                   I&apos;ve spent a lot of time moving between very different
                   worlds. Rooftops and data centers, startup workshops, healthcare
                   events, and rooms full of people building something. These are
-                  a few photos, demos, and moments I&apos;ve kept from along the
+                  a few photos, conversations, and moments I&apos;ve kept from along the
                   way.
                 </p>
                 <WorkPhotoCollage sections={workArtifactSections} />
-                <DemoVideoSection />
+                <ArchiveTalks />
                 <PeoplePhotoCollage section={archiveArtifactSections[0]} />
               </div>
             )}
 
-            {activeTab === "notes" && (
+            {activeTab === "notebook" && notebookView === "notes" && (
               <div className="max-w-4xl">
                 <p className="max-w-4xl text-base leading-7 text-graphite">
                   Before an idea becomes something useful, it usually looks a
@@ -941,7 +852,10 @@ export default async function Home({ searchParams }: HomeProps) {
               </div>
             )}
 
-            {activeTab === "documents" && <SystemsPortfolio />}
+            {activeTab === "systems" && <PortfolioCollection collection="systems" />}
+            {activeTab === "product" && (
+              <PortfolioCollection collection="product"><ProductDemos /></PortfolioCollection>
+            )}
           </div>
         </section>
 
@@ -955,14 +869,14 @@ export default async function Home({ searchParams }: HomeProps) {
                 Notes
               </h2>
               <Link
-                href="/?tab=notes"
+                href="/?tab=notebook&view=notes"
                 className="inline-flex min-h-9 items-center gap-2 text-sm text-graphite underline decoration-ink/20 underline-offset-4 hover:text-ink hover:decoration-ink"
               >
                 More notes <span aria-hidden="true">&rarr;</span>
               </Link>
             </div>
             <Link
-              href="/?tab=notes"
+              href="/?tab=notebook&view=notes"
               aria-label="Explore the notes"
               className="grid items-start gap-3 focus-visible:outline-2 focus-visible:outline-offset-4 sm:grid-cols-[minmax(0,2.03fr)_minmax(0,1fr)]"
             >
