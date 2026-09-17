@@ -94,6 +94,31 @@ body {
   animation: profile-panel-in 180ms ease-out;
 }
 
+.systems-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(1200px, calc(100vw - 24px));
+  max-width: none;
+  max-height: 94dvh;
+  padding: 0;
+  border: 1px solid rgba(23, 21, 17, 0.2);
+  color: var(--ink);
+}
+
+.systems-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.systems-viewer-stage {
+  height: min(65dvh, 720px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .profile-panel { animation: none; }
+}
+
 @keyframes profile-panel-in {
   from {
     opacity: 0;

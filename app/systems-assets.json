@@ -1,0 +1,127 @@
+{
+  "business-process": {
+    "src": "/media/systems/business-process.webp",
+    "width": 2400,
+    "height": 1350
+  },
+  "revenue-machine": {
+    "src": "/media/systems/revenue-machine.webp",
+    "width": 2400,
+    "height": 1350
+  },
+  "healthcare-system": {
+    "src": "/media/systems/healthcare-system.webp",
+    "width": 2400,
+    "height": 1350
+  },
+  "patient-journey": {
+    "src": "/media/systems/patient-journey.webp",
+    "width": 2400,
+    "height": 1350
+  },
+  "doctor-journey": {
+    "src": "/media/systems/doctor-journey.webp",
+    "width": 2400,
+    "height": 1350
+  },
+  "revenue-cycle": {
+    "src": "/media/systems/revenue-cycle.webp",
+    "width": 2400,
+    "height": 1350
+  },
+  "marketing-acquisition": {
+    "src": "/media/systems/marketing-acquisition.webp",
+    "width": 2400,
+    "height": 1350
+  },
+  "human-agent-architecture": {
+    "src": "/media/systems/human-agent-architecture.webp",
+    "width": 2401,
+    "height": 1192
+  },
+  "research-workflow": {
+    "src": "/media/systems/research-workflow.webp",
+    "width": 2401,
+    "height": 1523
+  },
+  "phased-rollout": {
+    "src": "/media/systems/phased-rollout.webp",
+    "width": 2401,
+    "height": 2332
+  },
+  "bytespace-interface": {
+    "src": "/media/systems/bytespace-interface.png",
+    "width": 1634,
+    "height": 702
+  },
+  "operations-map": {
+    "src": "/media/systems/operations-map.webp",
+    "width": 2400,
+    "height": 1350
+  },
+  "tech-stack": {
+    "src": "/media/systems/tech-stack.webp",
+    "width": 2400,
+    "height": 1350
+  },
+  "implementation": {
+    "src": "/media/systems/implementation.webp",
+    "width": 2400,
+    "height": 1350
+  },
+  "agent-operating-model": {
+    "src": "/media/systems/agent-operating-model.webp",
+    "width": 2400,
+    "height": 1303
+  },
+  "shared-memory": {
+    "src": "/media/systems/shared-memory.webp",
+    "width": 2400,
+    "height": 1146
+  },
+  "bytespace-org-chart": {
+    "src": "/media/systems/bytespace-org-chart.webp",
+    "width": 2209,
+    "height": 1810
+  },
+  "systems-processes-procedures": {
+    "src": "/media/systems/systems-processes-procedures.webp",
+    "width": 2400,
+    "height": 1350
+  },
+  "agile-execution": {
+    "src": "/media/systems/agile-execution.webp",
+    "width": 2400,
+    "height": 1350
+  },
+  "organization-overview": {
+    "src": "/media/systems/organization-overview.webp",
+    "width": 2400,
+    "height": 1350
+  },
+  "role-fundamentals": {
+    "src": "/media/systems/role-fundamentals.webp",
+    "width": 2400,
+    "height": 1350
+  },
+  "reporting": {
+    "src": "/media/systems/reporting.webp",
+    "width": 2400,
+    "height": 1350
+  },
+  "marketing-system": {
+    "src": "/media/systems/marketing-system.webp",
+    "width": 2400,
+    "height": 1350
+  },
+  "sales-system": {
+    "src": "/media/systems/sales-system.webp",
+    "width": 2400,
+    "height": 1350
+  },
+  "lead-to-customer": {
+    "src": "/media/systems/lead-to-customer.webp",
+    "width": 2400,
+    "height": 1350
+  }
+}

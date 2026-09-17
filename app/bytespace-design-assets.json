@@ -1,0 +1,74 @@
+{
+  "product-roadmap": {
+    "preview": {
+      "src": "/media/systems/bytespace/product-roadmap-preview.webp",
+      "width": 640,
+      "height": 2508
+    },
+    "full": {
+      "src": "/media/systems/bytespace/product-roadmap.webp",
+      "width": 2400,
+      "height": 9406
+    }
+  },
+  "product-roadmap-detail": {
+    "preview": {
+      "src": "/media/systems/bytespace/product-roadmap-detail-preview.webp",
+      "width": 1200,
+      "height": 988
+    },
+    "full": {
+      "src": "/media/systems/bytespace/product-roadmap-detail.webp",
+      "width": 2400,
+      "height": 1975
+    }
+  },
+  "use-cases": {
+    "preview": {
+      "src": "/media/systems/bytespace/use-cases-preview.webp",
+      "width": 640,
+      "height": 3478
+    },
+    "full": {
+      "src": "/media/systems/bytespace/use-cases.webp",
+      "width": 2400,
+      "height": 13044
+    }
+  },
+  "use-cases-detail": {
+    "preview": {
+      "src": "/media/systems/bytespace/use-cases-detail-preview.webp",
+      "width": 1200,
+      "height": 540
+    },
+    "full": {
+      "src": "/media/systems/bytespace/use-cases-detail.webp",
+      "width": 2400,
+      "height": 1080
+    }
+  },
+  "company-overview": {
+    "preview": {
+      "src": "/media/systems/bytespace/company-overview-preview.webp",
+      "width": 640,
+      "height": 1610
+    },
+    "full": {
+      "src": "/media/systems/bytespace/company-overview.webp",
+      "width": 2400,
+      "height": 6039
+    }
+  },
+  "team-overview": {
+    "preview": {
+      "src": "/media/systems/bytespace/team-overview-preview.webp",
+      "width": 640,
+      "height": 1503
+    },
+    "full": {
+      "src": "/media/systems/bytespace/team-overview.webp",
+      "width": 2400,
+      "height": 5638
+    }
+  }
+}

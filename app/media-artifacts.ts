@@ -6,6 +6,7 @@ export type MediaArtifact = {
   caption: string;
   variant?: "standard" | "wide";
   objectPosition?: string;
+  cropAspectRatio?: number;
 };
 
 export type MediaSection = {
@@ -106,6 +107,14 @@ export const notesArtifactSections: MediaSection[] = [
         "height": 1200,
         "caption": "Operating model for vision, development, and fulfillment.",
         "variant": "wide"
+      },
+      {
+        "src": "/media/optimized/archive-operating-model-board.webp",
+        "alt": "Operating model notes from project generation through retained earnings.",
+        "width": 1024,
+        "height": 768,
+        "caption": "Operating model notes from project generation through retained earnings.",
+        "variant": "wide"
       }
     ]
   },
@@ -113,6 +122,14 @@ export const notesArtifactSections: MediaSection[] = [
     "label": "planning",
     "description": "Early operating notes, project plans, and messy strategy drafts.",
     "items": [
+      {
+        "src": "/media/optimized/archive-development-board.webp",
+        "alt": "Development and partnership planning from an early operating chapter.",
+        "width": 1024,
+        "height": 768,
+        "caption": "Development and partnership planning from an early operating chapter.",
+        "variant": "wide"
+      },
       {
         "src": "/media/optimized/notes-planning-sg-berkeley-team-plan.webp",
         "alt": "Early planning notes for Startup Grind Berkeley.",
@@ -168,6 +185,14 @@ export const notesArtifactSections: MediaSection[] = [
         "height": 1600,
         "caption": "Startup Grind Berkeley planning notes and partner map.",
         "variant": "standard"
+      },
+      {
+        "src": "/media/optimized/archive-workspace-startup-grind-mirror-board.webp",
+        "alt": "Startup Grind Berkeley planning board from a work desk.",
+        "width": 1200,
+        "height": 1600,
+        "caption": "Startup Grind Berkeley planning board from a work desk.",
+        "variant": "standard"
       }
     ]
   },
@@ -184,13 +209,35 @@ export const notesArtifactSections: MediaSection[] = [
         "variant": "wide"
       }
     ]
+  },
+  {
+    "label": "workspaces",
+    "description": "The rooms, walls, and desks where I worked through ideas.",
+    "items": [
+      {
+        "src": "/media/optimized/archive-studio-wall.webp",
+        "alt": "Workspace wall with maps, boards, notes, and early company artifacts.",
+        "width": 1024,
+        "height": 768,
+        "caption": "Workspace wall with maps, boards, notes, and early company artifacts.",
+        "variant": "wide"
+      },
+      {
+        "src": "/media/optimized/archive-workspace-early-room-wall.webp",
+        "alt": "Early room wall with desks, maps, boards, and plans.",
+        "width": 1600,
+        "height": 1200,
+        "caption": "Early room wall with desks, maps, boards, and plans.",
+        "variant": "wide"
+      }
+    ]
   }
 ];
 
 export const workArtifactSections: MediaSection[] = [
   {
     "label": "work",
-    "description": "Selected moments from infrastructure, venture building, community, healthcare, and environmental work.",
+    "description": "A few stops along the way.",
     "items": [
       {
         "src": "/media/optimized/archive-infrastructure-rooftop-panorama.webp",
@@ -288,196 +335,18 @@ export const workArtifactSections: MediaSection[] = [
 
 export const archiveArtifactSections: MediaSection[] = [
   {
-    "label": "highlights",
-    "description": "A fast scan of the strongest signals: infrastructure, product, community, and operating work.",
+    "label": "people",
+    "description": "Very little of this happened alone.",
     "items": [
-      {
-        "src": "/media/optimized/archive-infrastructure-rooftop-panorama.webp",
-        "alt": "Rooftop infrastructure survey above the city.",
-        "width": 1600,
-        "height": 373,
-        "caption": "Rooftop infrastructure survey above the city.",
-        "variant": "wide"
-      },
-      {
-        "src": "/media/optimized/archive-infrastructure-hardware-bench.webp",
-        "alt": "Lab bench with network equipment, power, and test systems.",
-        "width": 1600,
-        "height": 1039,
-        "caption": "Lab bench with network equipment, power, and test systems.",
-        "variant": "wide"
-      },
       {
         "src": "/media/optimized/archive-building-vercel-team-fixed.webp",
         "alt": "Bytespace team visit at Vercel.",
         "width": 768,
         "height": 1024,
         "caption": "Bytespace team visit at Vercel.",
-        "variant": "standard"
-      },
-      {
-        "src": "/media/optimized/archive-startup-grind-startup-grind-sac-tv.webp",
-        "alt": "Startup Grind Berkeley launch event moment.",
-        "width": 1179,
-        "height": 664,
-        "caption": "Startup Grind Berkeley launch event moment.",
-        "variant": "wide"
-      },
-      {
-        "src": "/media/optimized/archive-startup-grind-proclamation.webp",
-        "alt": "City of Berkeley proclamation recognizing Startup Grind Berkeley.",
-        "width": 779,
-        "height": 1008,
-        "caption": "City of Berkeley proclamation recognizing Startup Grind Berkeley.",
-        "variant": "standard"
-      },
-      {
-        "src": "/media/optimized/archive-professional-healthcare-presentation.webp",
-        "alt": "Healthcare presentation and vendor showcase.",
-        "width": 1600,
-        "height": 900,
-        "caption": "Healthcare presentation and vendor showcase.",
-        "variant": "wide"
-      },
-      {
-        "src": "/media/optimized/archive-operating-model-board.webp",
-        "alt": "Operating model notes from project generation through retained earnings.",
-        "width": 1024,
-        "height": 768,
-        "caption": "Operating model notes from project generation through retained earnings.",
-        "variant": "wide"
-      }
-    ]
-  },
-  {
-    "label": "infrastructure",
-    "description": "6x7 Networks: hardware, fiber, rooftops, network rooms, field deployments, and operating reality.",
-    "items": [
-      {
-        "src": "/media/optimized/archive-infrastructure-hardware-bench.webp",
-        "alt": "Lab bench with network equipment, power, and test systems.",
-        "width": 1600,
-        "height": 1039,
-        "caption": "Lab bench with network equipment, power, and test systems.",
-        "variant": "wide"
-      },
-      {
-        "src": "/media/optimized/archive-infrastructure-basement-lab-fixed.webp",
-        "alt": "Basement lab buildout with racks and equipment.",
-        "width": 1600,
-        "height": 1200,
-        "caption": "Basement lab buildout with racks and equipment.",
-        "variant": "wide"
-      },
-      {
-        "src": "/media/optimized/archive-infrastructure-server-racks-fixed.webp",
-        "alt": "Network racks during an infrastructure buildout.",
-        "width": 1600,
-        "height": 1200,
-        "caption": "Network racks during an infrastructure buildout.",
-        "variant": "wide"
-      },
-      {
-        "src": "/media/optimized/archive-infrastructure-cisco-nexus-units.webp",
-        "alt": "Cisco Nexus hardware staged for configuration.",
-        "width": 1600,
-        "height": 1600,
-        "caption": "Cisco Nexus hardware staged for configuration.",
-        "variant": "standard"
-      },
-      {
-        "src": "/media/optimized/archive-infrastructure-underground-bore.webp",
-        "alt": "Field work from an infrastructure deployment.",
-        "width": 1200,
-        "height": 1600,
-        "caption": "Field work from an infrastructure deployment.",
-        "variant": "standard"
-      },
-      {
-        "src": "/media/optimized/archive-infrastructure-equipment-storage-fixed.webp",
-        "alt": "Hardware inventory staged for deployment.",
-        "width": 480,
-        "height": 360,
-        "caption": "Hardware inventory staged for deployment.",
-        "variant": "standard"
-      },
-      {
-        "src": "/media/optimized/archive-infrastructure-fiber-rack.webp",
-        "alt": "Fiber and network equipment in the field.",
-        "width": 1200,
-        "height": 1600,
-        "caption": "Fiber and network equipment in the field.",
-        "variant": "standard"
-      },
-      {
-        "src": "/media/optimized/archive-infrastructure-mobile-rack-fixed.webp",
-        "alt": "Mobile network rack for field testing.",
-        "width": 768,
-        "height": 1024,
-        "caption": "Mobile network rack for field testing.",
-        "variant": "standard"
-      },
-      {
-        "src": "/media/optimized/archive-infrastructure-network-lab-shelves-fixed.webp",
-        "alt": "Network lab shelves with fiber and hardware systems.",
-        "width": 1600,
-        "height": 1200,
-        "caption": "Network lab shelves with fiber and hardware systems.",
-        "variant": "wide"
-      },
-      {
-        "src": "/media/optimized/archive-infrastructure-rooftop-panorama.webp",
-        "alt": "Rooftop infrastructure survey above the city.",
-        "width": 1600,
-        "height": 373,
-        "caption": "Rooftop infrastructure survey above the city.",
-        "variant": "wide"
-      },
-      {
-        "src": "/media/optimized/archive-infrastructure-basement-network-build.webp",
-        "alt": "Basement network build with boards, racks, and equipment.",
-        "width": 1600,
-        "height": 974,
-        "caption": "Basement network build with boards, racks, and equipment.",
-        "variant": "wide"
-      }
-    ]
-  },
-  {
-    "label": "community",
-    "description": "Startup Grind Berkeley, European Innovation Academy, founder events, and rooms built around people.",
-    "items": [
-      {
-        "src": "/media/optimized/archive-startup-grind-proclamation.webp",
-        "alt": "City of Berkeley proclamation recognizing Startup Grind Berkeley.",
-        "width": 779,
-        "height": 1008,
-        "caption": "City of Berkeley proclamation recognizing Startup Grind Berkeley.",
-        "variant": "standard"
-      },
-      {
-        "src": "/media/optimized/archive-startup-grind-startup-grind-bw.webp",
-        "alt": "Behind the scenes at a Startup Grind Berkeley event.",
-        "width": 1600,
-        "height": 1066,
-        "caption": "Behind the scenes at a Startup Grind Berkeley event.",
-        "variant": "wide"
-      },
-      {
-        "src": "/media/optimized/archive-startup-grind-startup-grind-speaker.webp",
-        "alt": "Speaking at Startup Grind Berkeley.",
-        "width": 1600,
-        "height": 1066,
-        "caption": "Speaking at Startup Grind Berkeley.",
-        "variant": "standard"
-      },
-      {
-        "src": "/media/optimized/archive-startup-grind-startup-grind-sac-tv.webp",
-        "alt": "Startup Grind Berkeley launch event moment.",
-        "width": 1600,
-        "height": 880,
-        "caption": "Startup Grind Berkeley launch event moment.",
-        "variant": "wide"
+        "variant": "standard",
+        "cropAspectRatio": 1,
+        "objectPosition": "center 40%"
       },
       {
         "src": "/media/optimized/archive-startup-grind-berkeley-bbq-group.webp",
@@ -485,14 +354,16 @@ export const archiveArtifactSections: MediaSection[] = [
         "width": 1200,
         "height": 1600,
         "caption": "Startup Grind Berkeley event group photo.",
-        "variant": "standard"
+        "variant": "standard",
+        "cropAspectRatio": 1,
+        "objectPosition": "center 90%"
       },
       {
-        "src": "/media/optimized/archive-early-ventures-eia-team.webp",
-        "alt": "Team photo from European Innovation Academy.",
+        "src": "/media/optimized/archive-startup-grind-startup-grind-bw.webp",
+        "alt": "Behind the scenes at a Startup Grind Berkeley event.",
         "width": 1600,
-        "height": 1200,
-        "caption": "Team photo from European Innovation Academy.",
+        "height": 1066,
+        "caption": "Behind the scenes at a Startup Grind Berkeley event.",
         "variant": "wide"
       },
       {
@@ -504,27 +375,19 @@ export const archiveArtifactSections: MediaSection[] = [
         "variant": "wide"
       },
       {
-        "src": "/media/optimized/archive-early-ventures-team-session.webp",
-        "alt": "Team session during an early venture program.",
+        "src": "/media/optimized/archive-early-ventures-eia-team.webp",
+        "alt": "Team photo from European Innovation Academy.",
         "width": 1600,
         "height": 1200,
-        "caption": "Team session during an early venture program.",
+        "caption": "Team photo from European Innovation Academy.",
         "variant": "wide"
       },
       {
-        "src": "/media/optimized/archive-early-ventures-formal-photo.webp",
-        "alt": "Formal photo from a professional trip.",
-        "width": 1200,
-        "height": 1600,
-        "caption": "Formal photo from a professional trip.",
-        "variant": "standard"
-      },
-      {
-        "src": "/media/optimized/archive-early-ventures-paladin-report.webp",
-        "alt": "Discovery month and pivot report from an early venture.",
-        "width": 900,
-        "height": 1600,
-        "caption": "Discovery month and pivot report from an early venture.",
+        "src": "/media/optimized/archive-early-ventures-program-break.webp",
+        "alt": "Break between sessions at an innovation program.",
+        "width": 1600,
+        "height": 1186,
+        "caption": "Break between sessions at an innovation program.",
         "variant": "standard"
       },
       {
@@ -536,6 +399,14 @@ export const archiveArtifactSections: MediaSection[] = [
         "variant": "wide"
       },
       {
+        "src": "/media/optimized/archive-early-ventures-innovation-workshop.webp",
+        "alt": "Workshop session around local innovation and startup ideas.",
+        "width": 1600,
+        "height": 1200,
+        "caption": "Workshop session around local innovation and startup ideas.",
+        "variant": "standard"
+      },
+      {
         "src": "/media/optimized/archive-early-ventures-korea-team-meal.webp",
         "alt": "Team meal during an international work trip.",
         "width": 1600,
@@ -544,12 +415,14 @@ export const archiveArtifactSections: MediaSection[] = [
         "variant": "wide"
       },
       {
-        "src": "/media/optimized/archive-early-ventures-google-fca-stage.webp",
-        "alt": "Stage moment from a startup program.",
+        "src": "/media/optimized/archive-early-ventures-team-dinner-small.webp",
+        "alt": "Small team dinner during an international program.",
         "width": 1600,
-        "height": 1185,
-        "caption": "Stage moment from a startup program.",
-        "variant": "wide"
+        "height": 1200,
+        "caption": "Small team dinner during an international program.",
+        "variant": "standard",
+        "cropAspectRatio": 1.6,
+        "objectPosition": "center bottom"
       },
       {
         "src": "/media/optimized/archive-early-ventures-team-dinner.webp",
@@ -560,97 +433,11 @@ export const archiveArtifactSections: MediaSection[] = [
         "variant": "wide"
       },
       {
-        "src": "/media/optimized/archive-early-ventures-innovation-workshop.webp",
-        "alt": "Workshop session around local innovation and startup ideas.",
-        "width": 1600,
-        "height": 1200,
-        "caption": "Workshop session around local innovation and startup ideas.",
-        "variant": "standard"
-      },
-      {
-        "src": "/media/optimized/archive-early-ventures-team-dinner-small.webp",
-        "alt": "Small team dinner during an international program.",
-        "width": 1600,
-        "height": 1200,
-        "caption": "Small team dinner during an international program.",
-        "variant": "standard"
-      },
-      {
-        "src": "/media/optimized/archive-early-ventures-workshop-team.webp",
-        "alt": "Workshop team session with laptops and notes.",
-        "width": 1600,
-        "height": 1205,
-        "caption": "Workshop team session with laptops and notes.",
-        "variant": "standard"
-      },
-      {
-        "src": "/media/optimized/archive-early-ventures-program-break.webp",
-        "alt": "Break between sessions at an innovation program.",
-        "width": 1600,
-        "height": 1186,
-        "caption": "Break between sessions at an innovation program.",
-        "variant": "standard"
-      }
-    ]
-  },
-  {
-    "label": "product",
-    "description": "Bytespace, Bot0, Cmd0, healthcare field work, and current company-building artifacts.",
-    "items": [
-      {
-        "src": "/media/optimized/archive-building-bytespace-desk-fixed.webp",
-        "alt": "Current building desk with design, code, and product work.",
-        "width": 1024,
-        "height": 768,
-        "caption": "Current building desk with design, code, and product work.",
-        "variant": "standard"
-      },
-      {
-        "src": "/media/optimized/archive-building-team-office-current-fixed.webp",
-        "alt": "Current team working session.",
-        "width": 768,
-        "height": 1024,
-        "caption": "Current team working session.",
-        "variant": "standard"
-      },
-      {
         "src": "/media/optimized/archive-building-bytespace-offsite-fixed.webp",
         "alt": "Bytespace working session and product discussion.",
         "width": 1024,
         "height": 768,
         "caption": "Bytespace working session and product discussion.",
-        "variant": "wide"
-      },
-      {
-        "src": "/media/optimized/archive-building-vercel-team-fixed.webp",
-        "alt": "Bytespace team visit at Vercel.",
-        "width": 768,
-        "height": 1024,
-        "caption": "Bytespace team visit at Vercel.",
-        "variant": "standard"
-      },
-      {
-        "src": "/media/optimized/archive-building-japan-bytespace.webp",
-        "alt": "Screenshots from early Bytespace traction in Japan.",
-        "width": 900,
-        "height": 1600,
-        "caption": "Screenshots from early Bytespace traction in Japan.",
-        "variant": "standard"
-      },
-      {
-        "src": "/media/optimized/archive-professional-vendor-showcase-fixed.webp",
-        "alt": "Vendor showcase from a healthcare event.",
-        "width": 768,
-        "height": 1024,
-        "caption": "Vendor showcase from a healthcare event.",
-        "variant": "standard"
-      },
-      {
-        "src": "/media/optimized/archive-professional-healthcare-presentation.webp",
-        "alt": "Healthcare presentation and vendor showcase.",
-        "width": 1600,
-        "height": 900,
-        "caption": "Healthcare presentation and vendor showcase.",
         "variant": "wide"
       },
       {
@@ -668,60 +455,6 @@ export const archiveArtifactSections: MediaSection[] = [
         "height": 1454,
         "caption": "Professional visit with robotics partners.",
         "variant": "standard"
-      }
-    ]
-  },
-  {
-    "label": "strategy",
-    "description": "Rainforest Partnership, Paladin, ULoop, and the operating maps behind early company work.",
-    "items": [
-      {
-        "src": "/media/optimized/archive-studio-wall.webp",
-        "alt": "Workspace wall with maps, boards, notes, and early company artifacts.",
-        "width": 1024,
-        "height": 768,
-        "caption": "Workspace wall with maps, boards, notes, and early company artifacts.",
-        "variant": "wide"
-      },
-      {
-        "src": "/media/optimized/archive-development-board.webp",
-        "alt": "Development and partnership planning from an early operating chapter.",
-        "width": 1024,
-        "height": 768,
-        "caption": "Development and partnership planning from an early operating chapter.",
-        "variant": "wide"
-      },
-      {
-        "src": "/media/optimized/archive-operating-model-board.webp",
-        "alt": "Operating model notes from project generation through retained earnings.",
-        "width": 1024,
-        "height": 768,
-        "caption": "Operating model notes from project generation through retained earnings.",
-        "variant": "wide"
-      },
-      {
-        "src": "/media/optimized/archive-workspace-early-room-wall.webp",
-        "alt": "Early room wall with desks, maps, boards, and plans.",
-        "width": 1600,
-        "height": 1200,
-        "caption": "Early room wall with desks, maps, boards, and plans.",
-        "variant": "wide"
-      },
-      {
-        "src": "/media/optimized/archive-workspace-startup-grind-mirror-board.webp",
-        "alt": "Startup Grind Berkeley planning board from a work desk.",
-        "width": 1200,
-        "height": 1600,
-        "caption": "Startup Grind Berkeley planning board from a work desk.",
-        "variant": "standard"
-      },
-      {
-        "src": "/media/optimized/archive-professional-rainforest-office.webp",
-        "alt": "Rainforest Partnership office session.",
-        "width": 1600,
-        "height": 1257,
-        "caption": "Rainforest Partnership office session.",
-        "variant": "standard"
       },
       {
         "src": "/media/optimized/archive-professional-rainforest-dinner.webp",
@@ -738,38 +471,6 @@ export const archiveArtifactSections: MediaSection[] = [
         "height": 1207,
         "caption": "Rainforest Partnership team moment.",
         "variant": "wide"
-      },
-      {
-        "src": "/media/optimized/archive-early-ventures-paladin-report.webp",
-        "alt": "Discovery month and pivot report from an early venture.",
-        "width": 900,
-        "height": 1600,
-        "caption": "Discovery month and pivot report from an early venture.",
-        "variant": "standard"
-      },
-      {
-        "src": "/media/optimized/archive-early-ventures-korea-team-meal.webp",
-        "alt": "Team meal during an international work trip.",
-        "width": 1600,
-        "height": 899,
-        "caption": "Team meal during an international work trip.",
-        "variant": "wide"
-      },
-      {
-        "src": "/media/optimized/archive-early-ventures-team-dinner.webp",
-        "alt": "Dinner with an international team.",
-        "width": 1600,
-        "height": 1600,
-        "caption": "Dinner with an international team.",
-        "variant": "wide"
-      },
-      {
-        "src": "/media/optimized/archive-early-ventures-team-dinner-small.webp",
-        "alt": "Small team dinner during an international program.",
-        "width": 1600,
-        "height": 1200,
-        "caption": "Small team dinner during an international program.",
-        "variant": "standard"
       }
     ]
   }

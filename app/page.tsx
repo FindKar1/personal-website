@@ -1,4 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
+import type { CSSProperties } from "react";
+import { YouTubeVideo } from "@/components/YouTubeVideo";
+import { SystemsPortfolio } from "@/components/SystemsPortfolio";
 import {
   archiveArtifactSections,
   notesArtifactSections,
@@ -93,7 +97,7 @@ const aboutSections = [
   },
 ];
 
-const profileTabs = ["about", "reading", "archive", "notes"] as const;
+const profileTabs = ["about", "archive", "documents", "notes", "reading"] as const;
 
 type ProfileTab = (typeof profileTabs)[number];
 
@@ -105,6 +109,49 @@ type HomeProps = {
 
 const getProfileTab = (tab?: string): ProfileTab =>
   profileTabs.includes(tab as ProfileTab) ? (tab as ProfileTab) : "about";
+
+function ArchivePreview() {
+  const photos = workArtifactSections[0].items.filter((artifact) =>
+    [
+      "/media/optimized/archive-infrastructure-rooftop-panorama.webp",
+      "/media/optimized/archive-infrastructure-basement-network-build.webp",
+      "/media/optimized/archive-startup-grind-startup-grind-sac-tv.webp",
+    ].includes(artifact.src),
+  );
+
+  return (
+    <section aria-label="From the archive" className="mb-10">
+      <Link
+        href="/?tab=archive"
+        aria-label="Explore the archive"
+        className="grid grid-cols-2 gap-1 focus-visible:outline-2 focus-visible:outline-offset-4 sm:grid-cols-3"
+      >
+        {photos.map((photo, index) => (
+          <Image
+            key={photo.src}
+            src={photo.src}
+            alt={photo.alt}
+            width={photo.width}
+            height={photo.height}
+            unoptimized
+            loading="eager"
+            sizes="(min-width: 640px) 340px, 50vw"
+            className={`h-36 w-full object-cover sm:h-48 lg:h-52 ${index === 2 ? "hidden sm:block" : ""}`}
+            style={{ objectPosition: index === 0 ? "66% center" : "center" }}
+          />
+        ))}
+      </Link>
+      <div className="mt-3 flex justify-end">
+        <Link
+          href="/?tab=archive"
+          className="inline-flex min-h-8 items-center gap-2 text-sm text-graphite underline decoration-ink/20 underline-offset-4 hover:text-ink hover:decoration-ink"
+        >
+          Explore the archive <span aria-hidden="true">&rarr;</span>
+        </Link>
+      </div>
+    </section>
+  );
+}
 
 function MediaSectionList({ sections }: { sections: MediaSection[] }) {
   return (
@@ -153,6 +200,61 @@ function MediaSectionList({ sections }: { sections: MediaSection[] }) {
   );
 }
 
+function PeoplePhotoCollage({ section }: { section: MediaSection }) {
+  const rows = Array.from({ length: Math.ceil(section.items.length / 2) }, (_, index) =>
+    section.items.slice(index * 2, index * 2 + 2),
+  );
+
+  return (
+    <section
+      aria-labelledby="people-heading"
+      className="mt-5 grid gap-4 border-y border-ink/10 py-5 sm:grid-cols-[8rem_1fr]"
+    >
+      <div className="space-y-2">
+        <h3 id="people-heading" className="font-mono text-xs leading-6 uppercase text-graphite/50">
+          {section.label}
+        </h3>
+        <p className="text-sm leading-6 text-graphite/55">
+          {section.description}
+        </p>
+      </div>
+      <div className="people-collage min-w-0 space-y-1">
+        {rows.map((row, index) => (
+          <div
+            key={row[0].src}
+            className={`grid gap-1 sm:grid-cols-[var(--people-columns)] ${
+              index === 0 ? "grid-cols-2" : "grid-cols-1"
+            }`}
+            style={{
+              "--people-columns": row
+                .map((photo) => `minmax(0, ${photo.cropAspectRatio ?? photo.width / photo.height}fr)`)
+                .join(" "),
+            } as CSSProperties}
+          >
+            {row.map((photo) => (
+              <figure
+                key={photo.src}
+                className="relative min-w-0 overflow-hidden border border-ink/10 bg-ink/[0.03]"
+                style={{ aspectRatio: photo.cropAspectRatio ?? photo.width / photo.height }}
+              >
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  fill
+                  unoptimized
+                  sizes={index === 0 ? "(min-width: 640px) 376px, 50vw" : "(min-width: 640px) 430px, 100vw"}
+                  className="object-cover"
+                  style={{ objectPosition: photo.objectPosition ?? "center" }}
+                />
+              </figure>
+            ))}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 const workCollageClasses = [
   "col-span-1 aspect-[4/3] sm:col-span-3",
   "col-span-1 aspect-[4/3] sm:col-span-3",
@@ -170,7 +272,7 @@ function WorkPhotoCollage({ sections }: { sections: MediaSection[] }) {
   const [equipmentInventory, mobileRack, proclamation] = items.slice(-3);
 
   return (
-    <div className="mt-5 grid gap-4 border-y border-ink/10 py-5 sm:grid-cols-[8rem_1fr]">
+    <div className="mt-5 grid gap-4 border-t border-ink/10 py-5 sm:grid-cols-[8rem_1fr]">
       <div className="space-y-2">
         <p className="font-mono text-xs leading-6 uppercase text-graphite/50">
           {section.label}
@@ -304,16 +406,37 @@ const demoVideoSections = [
 
 function DemoVideoSection() {
   return (
-    <div className="mt-5 grid gap-4 border-y border-ink/10 py-5 sm:grid-cols-[8rem_1fr]">
+    <div className="mt-5 grid gap-4 border-t border-ink/10 py-5 sm:grid-cols-[8rem_1fr]">
       <div className="space-y-2">
         <p className="font-mono text-xs leading-6 uppercase text-graphite/50">
           demos
         </p>
         <p className="text-sm leading-6 text-graphite/55">
-          Product videos, talks, and walkthroughs.
+          Some things are easier to show.
         </p>
       </div>
       <div className="space-y-7">
+        <figure id="product-demo" className="scroll-mt-6">
+          <p className="mb-3 font-mono text-xs leading-6 uppercase text-graphite/50">
+            Bytespace product demo
+          </p>
+          <video
+            controls
+            playsInline
+            preload="none"
+            width={1920}
+            height={1080}
+            poster="/media/videos/bytespace-product-demo.jpg"
+            aria-label="Bytespace product demo showing a logistics workflow"
+            className="aspect-video w-full border border-ink/10 bg-black"
+          >
+            <source src="/media/videos/bytespace-product-demo.mp4" type="video/mp4" />
+            <a href="/media/videos/bytespace-product-demo.mp4">Open the Bytespace product demo</a>
+          </video>
+          <figcaption className="mt-2 text-sm leading-6 text-graphite/70">
+            An earlier Bytespace product, shown through a logistics workflow.
+          </figcaption>
+        </figure>
         {demoVideoSections.map((section) => (
           <div key={section.label}>
             <p className="mb-3 font-mono text-xs leading-6 uppercase text-graphite/50">
@@ -321,27 +444,7 @@ function DemoVideoSection() {
             </p>
             <div className="grid gap-5 sm:grid-cols-2">
               {section.videos.map((video) => (
-                <figure key={video.embed}>
-                  <div className="aspect-video w-full overflow-hidden border border-ink/10 bg-ink/[0.03]">
-                    <iframe
-                      src={video.embed}
-                      title={video.title}
-                      loading="lazy"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                      className="h-full w-full"
-                    />
-                  </div>
-                  <figcaption className="mt-2 flex items-center justify-between gap-3 text-sm leading-6 text-graphite/60">
-                    <span>{video.title}</span>
-                    <a
-                      href={video.href}
-                      className="font-medium text-ink underline decoration-ink/20 underline-offset-4 transition-colors hover:decoration-ink"
-                    >
-                      YouTube
-                    </a>
-                  </figcaption>
-                </figure>
+                <YouTubeVideo key={video.embed} {...video} />
               ))}
             </div>
           </div>
@@ -379,8 +482,11 @@ const readingSections = [
       ["Meditations", "Marcus Aurelius"],
       ["Man's Search for Meaning", "Viktor E. Frankl"],
       ["On the Shortness of Life", "Seneca"],
+      ["12 Rules for Life", "Jordan B. Peterson"],
+      ["Be Water, My Friend", "Shannon Lee"],
       ["The Power of Now", "Eckhart Tolle"],
       ["A New Earth", "Eckhart Tolle"],
+      ["The Journey into Yourself", "Eckhart Tolle"],
       ["The Untethered Soul", "Michael A. Singer"],
       ["The Four Agreements", "Don Miguel Ruiz"],
       ["The Fifth Agreement", "Don Miguel Ruiz"],
@@ -440,11 +546,14 @@ const readingSections = [
       ["Piranesi", "Susanna Clarke"],
       ["The Kite Runner", "Khaled Hosseini"],
       ["Gates of Fire", "Steven Pressfield"],
+      ["The Razor's Edge", "W. Somerset Maugham"],
+      ["The Forty Rules of Love", "Elif Shafak"],
       ["The Alchemist", "Paulo Coelho"],
       ["Manual of the Warrior of Light", "Paulo Coelho"],
       ["Manuscript Found in Accra", "Paulo Coelho"],
       ["The Hitchhiker's Guide to the Galaxy", "Douglas Adams"],
       ["The Girl with the Dragon Tattoo", "Stieg Larsson"],
+      ["The Extraordinary Adventures of Arsene Lupin", "Maurice Leblanc"],
       ["The Fountainhead", "Ayn Rand"],
       ["The Inheritors", "William Golding"],
       ["The Catcher in the Rye", "J.D. Salinger"],
@@ -455,6 +564,7 @@ const readingSections = [
       ["The Shiva Trilogy", "Amish Tripathi"],
       ["Surely You're Joking, Mr. Feynman!", "Richard Feynman"],
       ["What Do You Care What Other People Think?", "Richard Feynman"],
+      ["Steve Jobs", "Walter Isaacson"],
       ["Red Notice", "Bill Browder"],
       ["Will", "Will Smith"],
       ["When I Stop Talking, You'll Know I'm Dead", "Jerry Weintraub"],
@@ -465,6 +575,11 @@ const readingSections = [
 export default async function Home({ searchParams }: HomeProps) {
   const params = await searchParams;
   const activeTab = getProfileTab(params?.tab);
+  const isAbout = activeTab === "about";
+  const notesPreview = [
+    notesArtifactSections[0].items[0],
+    notesArtifactSections[2].items[0],
+  ];
 
   return (
     <main
@@ -481,191 +596,258 @@ export default async function Home({ searchParams }: HomeProps) {
       }}
     >
       <div className="mx-auto max-w-5xl">
-        <header className="mb-10">
-          <h1 className="font-mono text-base font-semibold uppercase tracking-normal text-ink">
-            Kar Dhillon
-          </h1>
-          <p className="mt-4 max-w-4xl text-base leading-7 text-graphite">
-            Founder, product strategist, and operator focused on turning
-            ambitious technical ideas into clear products, teams, and companies.
-            I work across AI, automation, and emerging technologies, helping
-            shape vision, stress-test strategy, and align the people and
-            resources needed to bring complex systems into the real world.
-          </p>
-        </header>
-
-        <section>
-          <h2 className="font-mono text-base font-semibold uppercase tracking-normal text-ink">
-            My work &amp; projects
-          </h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            <div className="min-h-44 border border-ink/15 bg-white/35 p-5 text-ink">
-              <div className="flex h-full flex-col">
-                <p className="text-base font-semibold">Bytespace Labs</p>
-                <p className="mt-3 max-w-md text-base leading-7 text-graphite">
-                  Healthcare AI infrastructure for turning clinical work into
-                  usable data, automation, and intelligence systems.
-                </p>
-                <div className="mt-auto flex items-center justify-between gap-4 pt-8 text-sm">
-                  <a
-                    href="https://www.bytespace.ai"
-                    className="font-medium text-ink underline decoration-ink/25 underline-offset-4 transition-colors hover:decoration-ink"
-                  >
-                    bytespace labs -&gt;
-                  </a>
-                  <span className="text-graphite/70">Founder &amp; CEO</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="min-h-44 border border-ink/15 bg-white/35 p-5 text-ink">
-              <div className="flex h-full flex-col">
-                <p className="text-base font-semibold">Bot0 Agent Harness</p>
-                <p className="mt-3 max-w-md text-base leading-7 text-graphite">
-                  Agent tooling for building, testing, and operating AI systems
-                  across real software workflows.
-                </p>
-                <div className="mt-auto flex items-center justify-between gap-4 pt-8 text-sm">
-                  <a
-                    href="https://www.bot0.dev"
-                    className="font-medium text-ink underline decoration-ink/25 underline-offset-4 transition-colors hover:decoration-ink"
-                  >
-                    bot0.dev -&gt;
-                  </a>
-                  <span className="text-graphite/70">Founder &amp; CEO</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="min-h-44 border border-ink/15 bg-white/35 p-5 text-ink">
-              <div className="flex h-full flex-col">
-                <p className="text-base font-semibold">Cmd0 Chrome Extension</p>
-                <p className="mt-3 max-w-2xl text-base leading-7 text-graphite">
-                  Web automation product for building and managing AI agents
-                  across websites, workflows, and business operations.
-                </p>
-                <div className="mt-auto flex items-center justify-between gap-4 pt-8 text-sm">
-                  <a
-                    href="https://www.cmd0.dev"
-                    className="font-medium text-ink underline decoration-ink/25 underline-offset-4 transition-colors hover:decoration-ink"
-                  >
-                    cmd0.dev -&gt;
-                  </a>
-                  <span className="text-graphite/70">Founder &amp; CEO</span>
-                </div>
-              </div>
-            </div>
-
-            <div
-              aria-hidden="true"
-              className="hidden min-h-44 border border-dashed border-ink/15 md:block"
-              style={{
-                backgroundImage:
-                  "repeating-linear-gradient(135deg, rgba(23, 21, 17, 0.035) 0 1px, transparent 1px 10px)",
-              }}
-            />
-          </div>
-
-          <div className="mt-10">
-            <h3 className="text-base font-semibold text-ink">Experience</h3>
-            <div className="mt-4 divide-y divide-ink/10 border-y border-ink/10">
-              {[
-                {
-                  company: "Bytespace Labs",
-                  role: "Founder & CEO",
-                  focus: "Software & AI",
-                  period: "May 2024 - Present",
-                },
-                {
-                  company: "Certa",
-                  role: "VP, Business Development",
-                  focus: "Software",
-                  period: "Dec 2021 - Mar 2023",
-                },
-                {
-                  company: "6x7 Networks",
-                  role: "Head of Growth",
-                  focus: "Hardware & Infra",
-                  period: "Sep 2018 - Nov 2021",
-                },
-                {
-                  company: "Startup Grind Berkeley",
-                  role: "Founder & Chapter Director",
-                  focus: "Events / Community",
-                  period: "Jul 2018 - Jan 2022",
-                },
-                {
-                  company: "Paladin Partners",
-                  role: "Founder & Executive Director",
-                  focus: "Consulting",
-                  period: "Jul 2017 - Oct 2019",
-                },
-                {
-                  company: "UC Berkeley Sutardja Center (SCET)",
-                  role: "Student Instructor",
-                  focus: "Education",
-                  period: "Nov 2016 - Dec 2017",
-                },
-              ].map((experience) => (
-                <div
-                  key={`${experience.company}-${experience.role}`}
-                  className="grid gap-1 py-3 text-sm sm:grid-cols-[1.05fr_1fr_0.75fr_0.8fr] sm:gap-4"
-                >
-                  <p className="font-medium text-ink">{experience.company}</p>
-                  <p className="text-graphite">{experience.role}</p>
-                  <p className="text-graphite/70">{experience.focus}</p>
-                  <p className="text-graphite/70 sm:text-right">
-                    {experience.period}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="mt-14">
-          <h2 className="font-mono text-base font-semibold uppercase tracking-normal text-ink">
-            Latest Writing &amp; Research
-          </h2>
-          <div className="mt-4 border-y border-ink/10">
-            <a
-              href="https://www.bytespace.ai/blog/simulations-are-theories-of-what-matters"
-              className="grid gap-1 py-3 text-sm sm:grid-cols-[1.4fr_0.7fr_0.6fr] sm:gap-4"
+        <header className="mb-8">
+          <div className="flex flex-col gap-3 border-b border-ink/15 pb-3 md:flex-row md:items-center md:justify-between md:gap-8">
+            <h1 className="shrink-0 font-mono text-base font-semibold uppercase tracking-normal text-ink">
+              <Link href="/" className="inline-flex min-h-11 items-center">
+                Kar Dhillon
+              </Link>
+            </h1>
+            <nav
+              aria-label="Main navigation"
+              className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-sm sm:gap-x-6"
             >
-              <p className="font-medium text-ink underline decoration-ink/20 underline-offset-4 transition-colors hover:decoration-ink">
-                Simulations Are Theories of What Matters
-              </p>
-              <p className="text-graphite/70">Bytespace Labs</p>
-              <p className="text-graphite/70 sm:text-right">
-                June 23, 2026
-              </p>
-            </a>
-          </div>
-        </section>
-
-        <section className="mt-14" id="profile">
-          <div className="flex flex-col gap-4 border-b border-ink/10 pb-3 sm:flex-row sm:items-end sm:justify-between">
-            <h2 className="font-mono text-base font-semibold uppercase tracking-normal text-ink">
-              {activeTab}
-            </h2>
-            <div className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs uppercase text-graphite/50">
               {profileTabs.map((tab) => (
-                <a
+                <Link
                   key={tab}
-                  href={`/?tab=${tab}#profile`}
-                  className={`cursor-pointer transition-colors ${
+                  href={`/?tab=${tab}`}
+                  aria-current={activeTab === tab ? "page" : undefined}
+                  className={`inline-flex min-h-11 items-center border-b-2 capitalize transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 ${
                     activeTab === tab
-                      ? "text-ink underline decoration-ink/30 underline-offset-4"
-                      : "hover:text-ink"
+                      ? "border-ink font-semibold text-ink"
+                      : "border-transparent text-graphite hover:border-ink/30 hover:text-ink"
                   }`}
                 >
-                  {tab}
-                </a>
+                  {tab === "documents" ? "Systems & Design" : tab}
+                </Link>
               ))}
-            </div>
+            </nav>
           </div>
+          {isAbout && (
+            <p className="mt-6 max-w-4xl text-base leading-7 text-graphite">
+              I&apos;m a founder and operator with a background in AI, enterprise
+              software, and network infrastructure. I&apos;ve built products, led
+              teams, and closed tens of millions in business. I like getting to the
+              bottom of a customer&apos;s problem, then bringing the right people
+              together to solve it.
+            </p>
+          )}
+        </header>
 
-          <div key={activeTab} className="profile-panel mt-5">
+        {isAbout && (
+          <>
+            <ArchivePreview />
+            <section>
+              <h2 className="font-mono text-base font-semibold uppercase tracking-normal text-ink">
+                My work &amp; projects
+              </h2>
+              <div className="mt-6 grid gap-4 md:grid-cols-2">
+                <div className="min-h-44 border border-ink/15 bg-white/35 p-5 text-ink">
+                  <div className="flex h-full flex-col">
+                    <p className="text-base font-semibold">Bytespace Labs</p>
+                    <p className="mt-3 max-w-md text-base leading-7 text-graphite">
+                      Healthcare AI infrastructure for turning clinical work into
+                      usable data, automation, and intelligence systems.
+                    </p>
+                    <div className="mt-auto flex items-center justify-between gap-4 pt-8 text-sm">
+                      <a
+                        href="https://www.bytespace.ai"
+                        className="font-medium text-ink underline decoration-ink/25 underline-offset-4 transition-colors hover:decoration-ink"
+                      >
+                        bytespace labs -&gt;
+                      </a>
+                      <span className="text-graphite/70">Founder &amp; CEO</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="min-h-44 border border-ink/15 bg-white/35 p-5 text-ink">
+                  <div className="flex h-full flex-col">
+                    <p className="text-base font-semibold">Bot0 Agent Harness</p>
+                    <p className="mt-3 max-w-md text-base leading-7 text-graphite">
+                      Agent tooling for building, testing, and operating AI systems
+                      across real software workflows.
+                    </p>
+                    <div className="mt-auto flex items-center justify-between gap-4 pt-8 text-sm">
+                      <a
+                        href="https://www.bot0.dev"
+                        className="font-medium text-ink underline decoration-ink/25 underline-offset-4 transition-colors hover:decoration-ink"
+                      >
+                        bot0.dev -&gt;
+                      </a>
+                      <span className="text-graphite/70">Founder &amp; CEO</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="min-h-44 border border-ink/15 bg-white/35 p-5 text-ink">
+                  <div className="flex h-full flex-col">
+                    <p className="text-base font-semibold">Cmd0 Chrome Extension</p>
+                    <p className="mt-3 max-w-2xl text-base leading-7 text-graphite">
+                      Web automation product for building and managing AI agents
+                      across websites, workflows, and business operations.
+                    </p>
+                    <div className="mt-auto flex items-center justify-between gap-4 pt-8 text-sm">
+                      <a
+                        href="https://www.cmd0.dev"
+                        className="font-medium text-ink underline decoration-ink/25 underline-offset-4 transition-colors hover:decoration-ink"
+                      >
+                        cmd0.dev -&gt;
+                      </a>
+                      <span className="text-graphite/70">Founder &amp; CEO</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  aria-hidden="true"
+                  className="hidden min-h-44 border border-dashed border-ink/15 md:block"
+                  style={{
+                    backgroundImage:
+                      "repeating-linear-gradient(135deg, rgba(23, 21, 17, 0.035) 0 1px, transparent 1px 10px)",
+                  }}
+                />
+              </div>
+
+              <div className="mt-10">
+                <h3 className="text-base font-semibold text-ink">Experience</h3>
+                <div className="mt-4 divide-y divide-ink/10 border-y border-ink/10">
+                  {[
+                    {
+                      company: "Bytespace Labs",
+                      role: "Founder & CEO",
+                      focus: "Software & AI",
+                      period: "May 2024 - Present",
+                    },
+                    {
+                      company: "Certa",
+                      role: "VP, Business Development",
+                      focus: "Software",
+                      period: "Dec 2021 - Mar 2023",
+                    },
+                    {
+                      company: "6x7 Networks",
+                      role: "Chief Business Officer",
+                      focus: "Infrastructure",
+                      period: "Oct 2019 - Nov 2021",
+                      previousRole: {
+                        role: "Director, Business Dev",
+                        period: "Sep 2018 - Oct 2019",
+                      },
+                    },
+                    {
+                      company: "Startup Grind Berkeley",
+                      role: "Founder & Chapter Director",
+                      focus: "Community",
+                      period: "Jul 2018 - Jan 2022",
+                    },
+                    {
+                      company: "Rainforest Partnership",
+                      role: "Director of Partnerships",
+                      focus: "Nonprofit",
+                      period: "May 2019 - Oct 2019",
+                    },
+                    {
+                      company: "Paladin Partners",
+                      role: "Founder & Executive Director",
+                      focus: "Consulting",
+                      period: "Jul 2017 - Oct 2019",
+                    },
+                    {
+                      company: "UC Berkeley Sutardja Center (SCET)",
+                      role: "Student Instructor",
+                      focus: "Education",
+                      period: "Nov 2016 - Dec 2017",
+                    },
+                  ].map((experience) => (
+                    <div
+                      key={`${experience.company}-${experience.role}`}
+                      className="grid gap-1 py-3 text-sm sm:grid-cols-[1.05fr_1fr_0.75fr_0.8fr] sm:gap-4"
+                    >
+                      <p
+                        className={`font-medium text-ink${
+                          experience.previousRole
+                            ? " sm:col-start-1 sm:row-span-2 sm:row-start-1 sm:self-center"
+                            : ""
+                        }`}
+                      >
+                        {experience.company}
+                      </p>
+                      <p className="text-graphite">{experience.role}</p>
+                      <p
+                        className={`text-graphite/70${
+                          experience.previousRole
+                            ? " sm:col-start-3 sm:row-span-2 sm:row-start-1 sm:self-center"
+                            : ""
+                        }`}
+                      >
+                        {experience.focus}
+                      </p>
+                      <p className="text-graphite/70 sm:text-right">
+                        {experience.period}
+                      </p>
+                      {experience.previousRole && (
+                        <>
+                          <p className="pt-2 text-graphite sm:col-start-2">
+                            {experience.previousRole.role}
+                          </p>
+                          <p className="text-graphite/70 sm:col-start-4 sm:pt-2 sm:text-right">
+                            {experience.previousRole.period}
+                          </p>
+                        </>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <section className="mt-14">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-5 gap-y-2">
+                <h2 className="font-mono text-base font-semibold uppercase tracking-normal text-ink">
+                  Selected Writing &amp; Systems
+                </h2>
+                <Link
+                  href="/?tab=documents"
+                  className="inline-flex min-h-9 items-center gap-2 text-sm text-graphite underline decoration-ink/20 underline-offset-4 hover:text-ink hover:decoration-ink"
+                >
+                  Systems &amp; Design <span aria-hidden="true">&rarr;</span>
+                </Link>
+              </div>
+              <div className="mt-4 border-t border-ink/10">
+                <a
+                  href="https://www.bytespace.ai/blog/simulations-are-theories-of-what-matters"
+                  className="grid gap-1 py-3 text-sm sm:grid-cols-[1.4fr_0.7fr_0.6fr] sm:gap-4"
+                >
+                  <p className="font-medium text-ink underline decoration-ink/20 underline-offset-4 transition-colors hover:decoration-ink">
+                    Simulations Are Theories of What Matters
+                  </p>
+                  <p className="text-graphite/70">Bytespace Labs</p>
+                  <p className="text-graphite/70 sm:text-right">
+                    June 23, 2026
+                  </p>
+                </a>
+              </div>
+            </section>
+          </>
+        )}
+
+        <section
+          className={isAbout ? "mt-10 scroll-mt-6" : "scroll-mt-6"}
+          id="profile"
+          aria-labelledby="profile-heading"
+        >
+          <h2
+            id="profile-heading"
+            className={isAbout ? "font-mono text-base font-semibold uppercase tracking-normal text-ink" : "sr-only"}
+          >
+            {isAbout ? "About Me" : activeTab === "documents" ? "Systems & Design" : activeTab}
+          </h2>
+
+          <div
+            key={activeTab}
+            className={isAbout ? "profile-panel mt-4 border-t border-ink/10 pt-5" : "profile-panel"}
+          >
             {activeTab === "about" && (
               <div className="max-w-4xl space-y-10 text-base leading-7 text-graphite">
                 {aboutSections.map((section, sectionIndex) => (
@@ -689,9 +871,11 @@ export default async function Home({ searchParams }: HomeProps) {
 
             {activeTab === "reading" && (
               <div className="max-w-4xl">
-                <p className="max-w-2xl text-base leading-7 text-graphite">
-                  A partial, imperfectly remembered record of books that shaped
-                  how I think.
+                <p className="max-w-4xl text-base leading-7 text-graphite">
+                  I&apos;ve spent a lot of my life following one question into
+                  the next. These are some of the books I&apos;ve picked up
+                  along the way, from psychology and political history to
+                  startups and fiction. A partial, imperfectly remembered record.
                 </p>
 
                 <div className="mt-8 space-y-10">
@@ -731,27 +915,72 @@ export default async function Home({ searchParams }: HomeProps) {
 
             {activeTab === "archive" && (
               <div className="max-w-4xl">
-                <p className="max-w-2xl text-base leading-7 text-graphite">
-                  A quiet index of talks, photos, demos, decks, and artifacts
-                  from work in public.
+                <p className="max-w-4xl text-base leading-7 text-graphite">
+                  I&apos;ve spent a lot of time moving between very different
+                  worlds. Rooftops and data centers, startup workshops, healthcare
+                  events, and rooms full of people building something. These are
+                  a few photos, demos, and moments I&apos;ve kept from along the
+                  way.
                 </p>
                 <WorkPhotoCollage sections={workArtifactSections} />
                 <DemoVideoSection />
-                <MediaSectionList sections={archiveArtifactSections} />
+                <PeoplePhotoCollage section={archiveArtifactSections[0]} />
               </div>
             )}
 
             {activeTab === "notes" && (
               <div className="max-w-4xl">
-                <p className="max-w-2xl text-base leading-7 text-graphite">
-                  Collected principles, quotes, and fragments that shape how I
-                  think.
+                <p className="max-w-4xl text-base leading-7 text-graphite">
+                  Before an idea becomes something useful, it usually looks a
+                  little like this. Mindmaps, whiteboards, half-formed plans,
+                  and reminders to myself. I like getting thoughts out of my
+                  head and onto something I can step back from, question, and
+                  rearrange.
                 </p>
                 <MediaSectionList sections={notesArtifactSections} />
               </div>
             )}
+
+            {activeTab === "documents" && <SystemsPortfolio />}
           </div>
         </section>
+
+        {isAbout && (
+          <section
+            aria-labelledby="notes-preview-heading"
+            className="mt-14 border-t border-ink/10 pt-8"
+          >
+            <div className="mb-4 flex items-center justify-between gap-4">
+              <h2 id="notes-preview-heading" className="font-mono text-base font-semibold uppercase text-ink">
+                Notes
+              </h2>
+              <Link
+                href="/?tab=notes"
+                className="inline-flex min-h-9 items-center gap-2 text-sm text-graphite underline decoration-ink/20 underline-offset-4 hover:text-ink hover:decoration-ink"
+              >
+                More notes <span aria-hidden="true">&rarr;</span>
+              </Link>
+            </div>
+            <Link
+              href="/?tab=notes"
+              aria-label="Explore the notes"
+              className="grid items-start gap-3 focus-visible:outline-2 focus-visible:outline-offset-4 sm:grid-cols-[minmax(0,2.03fr)_minmax(0,1fr)]"
+            >
+              {notesPreview.map((photo, index) => (
+                <Image
+                  key={photo.src}
+                  src={photo.src}
+                  alt={photo.alt}
+                  width={photo.width}
+                  height={photo.height}
+                  unoptimized
+                  sizes={index === 0 ? "(min-width: 640px) 680px, 100vw" : "(min-width: 640px) 340px, 100vw"}
+                  className="h-auto w-full border border-ink/10"
+                />
+              ))}
+            </Link>
+          </section>
+        )}
 
         <footer className="mt-16 border-t border-ink/10 pt-5">
           <div className="grid gap-2 text-sm leading-6 sm:grid-cols-[8rem_1fr]">
