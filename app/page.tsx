@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import localFont from "next/font/local";
 import type { CSSProperties } from "react";
 import { PortfolioCollection } from "@/components/PortfolioCollection";
 import { ProductDesign } from "@/components/ProductDesign";
@@ -14,6 +15,12 @@ import {
   workArtifactSections,
   type MediaSection,
 } from "./media-artifacts";
+
+const wordmarkFont = localFont({
+  src: "../public/showcases/bytespace/assets/fonts/GeneralSans-Variable.woff2",
+  weight: "700",
+  display: "swap",
+});
 
 const aboutSections = [
   {
@@ -488,8 +495,8 @@ export default async function Home({ searchParams }: HomeProps) {
       <div className="mx-auto max-w-5xl">
         <header className="mb-8">
           <div className="flex flex-col gap-3 border-b border-ink/15 pb-3 md:flex-row md:items-center md:justify-between md:gap-8">
-            <h1 className="shrink-0 font-mono text-base font-semibold uppercase tracking-normal text-ink">
-              <Link href="/" className="inline-flex min-h-11 items-center">
+            <h1 className={`${wordmarkFont.className} shrink-0 text-[23px] font-bold leading-none uppercase tracking-normal text-ink`}>
+              <Link href="/" className="inline-flex min-h-11 items-center focus-visible:outline-2 focus-visible:outline-offset-4">
                 Kar Dhillon
               </Link>
             </h1>
