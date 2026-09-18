@@ -705,6 +705,15 @@ export default async function Home({ searchParams }: HomeProps) {
               </h2>
               <div className="mt-4 border-t border-ink/10">
                 <a
+                  href="https://bytespace.ai/blog/the-earth-assumption"
+                  className="grid gap-1 py-3 text-sm sm:grid-cols-[1.4fr_0.7fr_0.6fr] sm:gap-4"
+                >
+                  <p className="font-medium text-ink underline decoration-ink/20 underline-offset-4 transition-colors hover:decoration-ink">
+                    The Earth Assumption
+                  </p>
+                  <p className="text-graphite/70">Bytespace Labs</p>
+                </a>
+                <a
                   href="https://www.bytespace.ai/blog/simulations-are-theories-of-what-matters"
                   className="grid gap-1 py-3 text-sm sm:grid-cols-[1.4fr_0.7fr_0.6fr] sm:gap-4"
                 >
