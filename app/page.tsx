@@ -713,7 +713,7 @@ export default async function Home({ searchParams }: HomeProps) {
                   </p>
                   <p className="text-graphite/70">Bytespace Labs</p>
                   <p className="text-graphite/70 sm:text-right">
-                    September 17, 2026
+                    Sep 17, 2026
                   </p>
                 </a>
                 <a
@@ -725,7 +725,7 @@ export default async function Home({ searchParams }: HomeProps) {
                   </p>
                   <p className="text-graphite/70">Bytespace Labs</p>
                   <p className="text-graphite/70 sm:text-right">
-                    June 23, 2026
+                    Jun 23, 2026
                   </p>
                 </a>
               </div>

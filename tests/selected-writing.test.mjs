@@ -15,6 +15,6 @@ test("Selected Writing leads with The Earth Assumption and preserves the simulat
   assert.match(section, /The Earth Assumption/);
   assert.match(section, /Simulations Are Theories of What Matters/);
   const [earthArticle, simulationsArticle] = section.split("</a>");
-  assert.match(earthArticle, /September 17, 2026/);
-  assert.match(simulationsArticle, /June 23, 2026/);
+  assert.match(earthArticle, /Sep 17, 2026/);
+  assert.match(simulationsArticle, /Jun 23, 2026/);
 });
