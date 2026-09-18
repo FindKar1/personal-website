@@ -24,6 +24,7 @@ test("favicon contains valid 16, 32, and 48px browser-tab images", async () => {
     assert.equal(metadata.format, "png");
     assert.equal(metadata.width, size);
     assert.equal(metadata.height, size);
+    assert.equal(metadata.channels, 4, "ICO PNG frames must be RGBA for Turbopack");
     const { channels } = await frame.stats();
     assert.ok(channels[0].min < 32 && channels[0].max > 240);
     const corner = await frame.clone().extract({ left: 0, top: 0, width: 1, height: 1 }).removeAlpha().raw().toBuffer();

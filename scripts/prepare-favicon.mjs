@@ -9,7 +9,7 @@ const sizes = [16, 32, 48];
 const frames = [];
 
 for (const size of sizes) {
-  frames.push(await sharp(source).resize(size, size).png().toBuffer());
+  frames.push(await sharp(source).resize(size, size).ensureAlpha().png().toBuffer());
 }
 
 // ICO directory entries point to individually sized PNG frames.
