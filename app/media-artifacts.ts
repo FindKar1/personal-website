@@ -81,14 +81,6 @@ export const notesArtifactSections: MediaSection[] = [
         "variant": "standard"
       },
       {
-        "src": "/media/optimized/notes-models-rainforest-results-map.webp",
-        "alt": "Impact model mapping rainforest conservation work to outcomes.",
-        "width": 1600,
-        "height": 959,
-        "caption": "Impact model mapping rainforest conservation work to outcomes.",
-        "variant": "wide"
-      },
-      {
         "src": "/media/optimized/notes-models-scorecard-board.webp",
         "alt": "Scorecard and operating system notes.",
         "width": 1600,
@@ -159,14 +151,6 @@ export const notesArtifactSections: MediaSection[] = [
         "variant": "standard"
       },
       {
-        "src": "/media/optimized/notes-planning-completed-board.webp",
-        "alt": "Progress board for product, content, and team execution.",
-        "width": 1200,
-        "height": 1600,
-        "caption": "Progress board for product, content, and team execution.",
-        "variant": "standard"
-      },
-      {
         "src": "/media/optimized/notes-planning-uloop-plan.webp",
         "alt": "Uloop launch and operating plan.",
         "width": 1200,
@@ -181,14 +165,6 @@ export const notesArtifactSections: MediaSection[] = [
         "width": 1200,
         "height": 1600,
         "caption": "Notebook strategy map for Uloop launch mechanics.",
-        "variant": "standard"
-      },
-      {
-        "src": "/media/optimized/notes-planning-startup-grind-berkeley-board.webp",
-        "alt": "Startup Grind Berkeley planning notes and partner map.",
-        "width": 1200,
-        "height": 1600,
-        "caption": "Startup Grind Berkeley planning notes and partner map.",
         "variant": "standard"
       },
       {

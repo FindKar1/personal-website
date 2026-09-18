@@ -5,7 +5,9 @@ import { PortfolioCollection } from "@/components/PortfolioCollection";
 import { ProductDesign } from "@/components/ProductDesign";
 import { ArchiveTalks, ProductDemos } from "@/components/PortfolioVideos";
 import { LegacyProfileLinks } from "@/components/LegacyProfileLinks";
+import { NotebookCollage } from "@/components/NotebookCollage";
 import { getProfileLocation, profileLabels, profileTabs, type QueryValue } from "./profile-navigation";
+import systemsAssets from "./systems-assets.json";
 import {
   archiveArtifactSections,
   notesArtifactSections,
@@ -150,61 +152,43 @@ function ArchivePreview() {
   );
 }
 
-function MediaSectionList({ sections }: { sections: MediaSection[] }) {
+function SystemsPreview() {
+  const previews = [
+    { image: systemsAssets["human-agent-architecture"], alt: "Human and agent layers connected through direction, shared memory, and oversight." },
+    { image: systemsAssets["shared-memory"], alt: "Shared memory architecture connecting knowledge sources, ingestion, and retrieval for people and agents." },
+  ];
+
   return (
-    <div className="divide-y divide-ink/10 border-b border-ink/10">
-      {sections.map((section) => (
-        <div
-          key={section.label}
-          className="grid gap-4 py-5 first:pt-0 sm:grid-cols-[8rem_1fr]"
+    <section aria-labelledby="systems-preview-heading" className="mt-10 border-t border-ink/10 pt-8">
+      <div className="mb-4 flex items-center justify-between gap-4">
+        <h2 id="systems-preview-heading" className="font-mono text-base font-semibold uppercase text-ink">
+          Systems
+        </h2>
+        <Link
+          href="/?tab=systems"
+          className="inline-flex min-h-9 items-center gap-2 text-sm text-graphite underline decoration-ink/20 underline-offset-4 hover:text-ink hover:decoration-ink"
         >
-          <div className="space-y-2">
-            <p className="font-mono text-xs leading-6 uppercase text-graphite/50">
-              {section.label}
-            </p>
-            <p className="text-sm leading-6 text-graphite/55">
-              {section.description}
-            </p>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {section.items.map((artifact) => (
-              <figure
-                key={artifact.src}
-                className={artifact.variant === "wide" ? "sm:col-span-2" : ""}
-              >
-                <div
-                  className="relative overflow-hidden border border-ink/10"
-                  style={artifact.rotation ? { aspectRatio: artifact.height / artifact.width } : undefined}
-                >
-                  <Image
-                    src={artifact.src}
-                    alt={artifact.alt}
-                    width={artifact.width}
-                    height={artifact.height}
-                    unoptimized
-                    sizes={
-                      artifact.variant === "wide"
-                        ? "(min-width: 640px) 768px, 100vw"
-                        : "(min-width: 640px) 376px, 100vw"
-                    }
-                    className={artifact.rotation ? "absolute left-1/2 top-1/2 object-contain" : "h-auto w-full object-cover"}
-                    style={artifact.rotation ? {
-                      width: `${artifact.width / artifact.height * 100}%`,
-                      height: `${artifact.height / artifact.width * 100}%`,
-                      maxWidth: "none",
-                      transform: `translate(-50%, -50%) rotate(${artifact.rotation}deg)`,
-                    } : undefined}
-                  />
-                </div>
-                <figcaption className="mt-2 text-sm leading-6 text-graphite/60">
-                  {artifact.caption}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
+          Explore systems <span aria-hidden="true">&rarr;</span>
+        </Link>
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2">
+        {previews.map(({ image, alt }) => (
+          <Link
+            key={image.src}
+            href="/?tab=systems#ai-architecture"
+            className="group min-w-0 focus-visible:outline-2 focus-visible:outline-offset-4"
+          >
+            <Image
+              {...image}
+              alt={alt}
+              unoptimized
+              sizes="(min-width: 1104px) 504px, (min-width: 640px) calc((100vw - 96px) / 2), calc(100vw - 48px)"
+              className="aspect-[2/1] w-full border border-ink/10 bg-white object-contain transition-colors group-hover:border-ink/30"
+            />
+          </Link>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -709,17 +693,9 @@ export default async function Home({ searchParams }: HomeProps) {
             </section>
 
             <section className="mt-14">
-              <div className="flex flex-wrap items-baseline justify-between gap-x-5 gap-y-2">
-                <h2 className="font-mono text-base font-semibold uppercase tracking-normal text-ink">
-                  Selected Writing &amp; Systems
-                </h2>
-                <Link
-                  href="/?tab=systems"
-                  className="inline-flex min-h-9 items-center gap-2 text-sm text-graphite underline decoration-ink/20 underline-offset-4 hover:text-ink hover:decoration-ink"
-                >
-                  Systems <span aria-hidden="true">&rarr;</span>
-                </Link>
-              </div>
+              <h2 className="font-mono text-base font-semibold uppercase tracking-normal text-ink">
+                Selected Writing
+              </h2>
               <div className="mt-4 border-t border-ink/10">
                 <a
                   href="https://www.bytespace.ai/blog/simulations-are-theories-of-what-matters"
@@ -735,6 +711,7 @@ export default async function Home({ searchParams }: HomeProps) {
                 </a>
               </div>
             </section>
+            <SystemsPreview />
           </>
         )}
 
@@ -849,7 +826,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
             {activeTab === "notebook" && notebookView === "notes" && (
               <div className="w-full">
-                <MediaSectionList sections={notesArtifactSections} />
+                <NotebookCollage />
               </div>
             )}
 
