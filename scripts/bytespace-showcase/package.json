@@ -1,0 +1,11 @@
+{
+  "name": "preserved-bytespace-build-tools",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@hookform/resolvers": "3.10.0",
+    "@radix-ui/react-label": "2.1.7",
+    "react-hook-form": "7.62.0",
+    "zod": "3.25.76"
+  }
+}

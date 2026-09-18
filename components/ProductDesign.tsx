@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
-import { ArrowDown, ArrowUpRight, ChevronLeft, ChevronRight, Columns2, Download, LayoutGrid, Maximize2, Minimize2, Plus, RotateCcw, X, ZoomIn, ZoomOut } from "lucide-react";
+import { ArrowDown, ArrowUpRight, ChevronLeft, ChevronRight, Download, Maximize2, Minimize2, Plus, RotateCcw, X, ZoomIn, ZoomOut } from "lucide-react";
 import productAssets from "@/app/product-design-assets.json";
+import { BytespaceStudies } from "./BytespaceStudies";
 import posterAssets from "@/app/bytespace-design-assets.json";
 import systemsAssets from "@/app/systems-assets.json";
 import styles from "./ProductDesign.module.css";
@@ -29,6 +30,7 @@ const captions: Partial<Record<ImageId, [string, string]>> = {
   "bytespace-workspace": ["A workspace for automated teams", "An earlier Bytespace interface study connecting agent activity, departments, and performance."],
   "agent-world": ["A world around the agents", "Character and environment exploration for Bytespace."],
   "agent-world-light": ["A world around the agents", "The light-mode composition, bringing the characters, workflow canvas, and landscape together."],
+  "agent-world-wide": ["A world around the agents", "The complete light-mode landscape: characters, workflow builder, and the portal behind them."],
   "portal-space": ["Space", "Bytespace / Light-mode environment study"],
   "portal-energy": ["Energy", "Bytespace / Light-mode environment study"],
   "portal-garden": ["An impossible garden", "Bytespace / Light-mode environment study"],
@@ -52,7 +54,7 @@ const captions: Partial<Record<ImageId, [string, string]>> = {
   "business-landscape": ["A world of automated work", "The original isometric identity, extended into a complete brand composition."],
   "brand-instrument": ["The Bytespace instrument", "A modular object built from the same language as the offices and icon system."],
   "founders-composition": ["The people behind Bytespace", "The isometric language applied to a founder introduction."],
-  "launch-illustration": ["Going further", "A launch illustration from the original Bytespace visual identity."],
+  "launch-illustration": ["Earth & rocket", "A launch illustration from the original Bytespace visual identity."],
   "early-access": ["Early access", "Product nodes became a typographic language of their own."],
   "shirt-design": ["Off the screen", "The browser-automation identity translated into a shirt graphic."],
   "character-sales": ["Sales", "The original agent, given a role and a wardrobe."],
@@ -63,6 +65,10 @@ const captions: Partial<Record<ImageId, [string, string]>> = {
   "character-ice": ["Ice knight", "Bytespace / Character studies"],
   "character-space": ["Space crew", "Bytespace / Character studies"],
   "character-code": ["Code warlock", "Bytespace / Character studies"],
+  "character-fire": ["Fire knight", "Bytespace / Character studies"],
+  "character-armor": ["Robot armor", "Bytespace / Character studies"],
+  "character-fairy": ["Space fairy", "Bytespace / Character studies"],
+  "character-einstein": ["Einstein", "Bytespace / Character studies"],
   "icon-ai": ["Intelligence", "Bytespace / Isometric icon system"],
   "icon-control": ["Control", "Bytespace / Isometric icon system"],
   "icon-identity": ["Identity", "Bytespace / Isometric icon system"],
@@ -77,12 +83,8 @@ const captions: Partial<Record<ImageId, [string, string]>> = {
 const galleryOrder = Object.keys(captions) as ImageId[];
 const posters: ImageId[] = ["company-overview", "use-cases", "product-roadmap", "team-overview"];
 const icons: ImageId[] = ["icon-ai", "icon-control", "icon-identity", "icon-web", "icon-security", "icon-space"];
-const characters: ImageId[] = ["character-sales", "character-scientist", "character-doctor", "character-construction", "character-samurai", "character-ice", "character-space", "character-code"];
-const portals: ImageId[] = ["portal-space", "portal-energy", "portal-garden", "portal-gateway"];
-const screenViews = [
-  { id: "agent-run-light", label: "Run view", icon: Columns2 },
-  { id: "agent-library", label: "Agent library", icon: LayoutGrid },
-] as const;
+const characters: ImageId[] = ["character-samurai", "character-ice", "character-fire", "character-armor", "character-fairy", "character-space", "character-code", "character-einstein"];
+const portals: ImageId[] = ["portal-energy", "portal-garden", "portal-gateway"];
 
 function ChapterHeader({ number, id, title, category, children, href }: {
   number: string; id: string; title: ReactNode; category: string; children: ReactNode; href?: string;
@@ -98,7 +100,7 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
   const [zoom, setZoom] = useState(1);
   const [demoExpanded, setDemoExpanded] = useState(false);
   const [demoLoaded, setDemoLoaded] = useState(false);
-  const [screenIndex, setScreenIndex] = useState(0);
+  const productVideo = useRef<HTMLVideoElement>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const demoDialog = useRef<HTMLDialogElement>(null);
@@ -110,6 +112,19 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
     if (frame?.contentDocument?.readyState === "complete" && frame.contentDocument.URL.endsWith("/showcases/bot0/index.html")) {
       setDemoLoaded(true);
     }
+  }, []);
+
+  useEffect(() => {
+    const video = productVideo.current;
+    if (!video) return;
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const respectMotion = () => {
+      video.autoplay = !preference.matches;
+      if (preference.matches) video.pause();
+    };
+    respectMotion();
+    preference.addEventListener("change", respectMotion);
+    return () => preference.removeEventListener("change", respectMotion);
   }, []);
 
   useEffect(() => {
@@ -143,31 +158,30 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
     stage.current?.scrollTo(0, 0);
   }
 
-  function artwork(id: ImageId, options: { className?: string; surface?: string; caption?: boolean; detail?: boolean } = {}) {
-    const [title, detail] = captions[id]!;
+  function artwork(id: ImageId, options: { className?: string; surface?: string; caption?: boolean; fullResolution?: boolean } = {}) {
+    const [title] = captions[id]!;
     return <figure className={`${styles.artwork} ${options.className ?? ""}`} key={id}>
       <button type="button" onClick={() => open(id)} aria-label={`Enlarge ${title}`} title={`Enlarge ${title}`} className={`${styles.artButton} ${options.surface ?? ""}`}>
-        <Image {...images[id].preview} alt={title} unoptimized loading="lazy" className={styles.artImage} />
+        <Image {...images[id][options.fullResolution ? "full" : "preview"]} alt={title} unoptimized loading="lazy" className={styles.artImage} />
         <span className={styles.expandIcon} aria-hidden="true"><Maximize2 size={15} /></span>
       </button>
-      {options.caption !== false && <figcaption><span>{title}</span>{options.detail && <p>{detail}</p>}</figcaption>}
+      {options.caption !== false && <figcaption>{title}</figcaption>}
     </figure>;
   }
 
   const activeInfo = active ? captions[active]! : null;
   const activeImage = active ? images[active].full : null;
-  const screen = screenViews[screenIndex];
 
   return <div className={styles.portfolio}>
-    <p className={styles.intro}>I like making complex ideas tangible. Products, interfaces, and visual identities from building tools for people and agents.</p>
+    <p className={styles.intro}>I like the part of building where an idea starts to feel like something you can actually use. The interface, the way things move, the little details that give it personality. This is a collection of that work: research tools, browser automations, and the characters and visual worlds that grew around them.</p>
     <nav aria-label="Product and design sections" className={styles.sectionNav}>
-      <a href="#bot0">bot0 & Bytespace Labs</a><a href="#product-design">Bytespace</a><a href="#design-evolution">Design evolution <ArrowDown size={13} aria-hidden="true" /></a>
+      <a href="#bot0">Bytespace Labs & bot0</a><a href="#product-design">Chrome extension</a><a href="#design-evolution">Design evolution <ArrowDown size={13} aria-hidden="true" /></a>
     </nav>
 
     <section id="bot0" aria-labelledby="bot0-title" className={styles.chapter}>
       <div className={styles.botIntro}>
         <div className={styles.octopusField}><Image {...images["bot-octopus"].preview} alt="" unoptimized loading="eager" className={styles.octopus} /></div>
-        <ChapterHeader number="01" id="bot0" title={<>bot0 &<br />Bytespace Labs</>} category="Research / Product, brand & web" href="https://bot0.dev">A research workspace and a scientific identity. bot0 brings models, agents, notebooks, and compute together. Bytespace Labs carries the same curiosity into a website and visual language.</ChapterHeader>
+        <ChapterHeader number="01" id="bot0" title={<>Bytespace Labs<br />& bot0</>} category="Research" href="https://bot0.dev">A research workspace for models, agents, and compute. A scientific identity shared with Bytespace Labs.</ChapterHeader>
       </div>
       <div className={styles.demo}>
         <div className={styles.demoBar}><span className={styles.demoName}><span aria-hidden="true" />bot0 / research workspace</span><button ref={demoButton} type="button" aria-label="Expand bot0 demo" title="Expand bot0 demo" onClick={() => setDemoExpanded(true)}><Maximize2 size={16} /></button></div>
@@ -176,7 +190,7 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
           <iframe ref={attachDemo} src="/showcases/bot0/index.html" title="bot0 interactive product showcase" onLoad={() => setDemoLoaded(true)} loading="lazy" />
         </div>
       </div>
-      <p className={styles.credit}>Original interface / Preserved interactive demo / No live compute</p>
+      <p className={styles.credit}>Interactive archive / No live compute</p>
       <div className={styles.botIdentity}>
         {(["bot-models", "bot-data", "bot-compute", "bot-team"] as ImageId[]).map(id => artwork(id, { surface: styles.botIllustration }))}
       </div>
@@ -184,7 +198,7 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
         <div className={styles.scienceStage}>
           <div className={styles.statueField}><Image {...images["labs-statue"].preview} alt="Computational statue from the Bytespace Labs identity" unoptimized loading="lazy" className={styles.statue} /></div>
           <div className={styles.scienceCopy}>
-            <p className={styles.eyebrow}>Bytespace Labs / Website & visual identity</p>
+            <p className={styles.eyebrow}>Bytespace Labs</p>
             <h3 id="bytespace-labs-title">Accelerate<br />Science</h3>
             <p className={styles.scienceStatement}>The physical world is becoming something we can measure, model, simulate, and act back upon.</p>
             <a href="https://bytespace.ai" target="_blank" rel="noopener noreferrer">Visit bytespace.ai <ArrowUpRight size={14} aria-hidden="true" /></a>
@@ -193,88 +207,85 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
         <div className={styles.labStudies}>
           {(["labs-biology", "labs-anatomy", "labs-materials"] as ImageId[]).map(id => artwork(id, { surface: styles.labIllustration }))}
         </div>
-        <p className={styles.credit}>Bytespace Labs / Scientific illustration & website identity</p>
       </section>
     </section>
 
     <section id="product-design" aria-labelledby="product-design-title" className={styles.chapter}>
-      <ChapterHeader number="02" id="product-design" title="Bytespace" category="Browser automation & identity">Interfaces and visual identity for the Bytespace Chrome extension. From browser actions to teams of agents, and from one yellow character to a world of its own.</ChapterHeader>
+      <ChapterHeader number="02" id="product-design" title={<>Bytespace<br />Chrome Extension</>} category="Browser automation">Browser automation, from the first workflow to a world of agents.</ChapterHeader>
       <div className={styles.productStage}>
-        <div role="tabpanel" id="bytespace-screen" aria-labelledby={`screen-tab-${screen.id}`}>
-          <button type="button" className={styles.desktopComposition} aria-label={`Enlarge ${captions[screen.id]![0]}`} title={`Enlarge ${captions[screen.id]![0]}`} onClick={() => open(screen.id)}>
-            <Image {...images["desktop-shell"].preview} alt="Illustrated Bytespace desktop" unoptimized loading="lazy" className={styles.desktopShell} />
-            <span className={styles.monitorScreen}><Image {...images[screen.id].preview} alt={captions[screen.id]![0]} unoptimized loading="lazy" /></span>
-            <span className={styles.expandIcon} aria-hidden="true"><Maximize2 size={15} /></span>
-          </button>
-        </div>
-        <div role="tablist" aria-label="Bytespace product views" className={styles.screenTabs}>
-          {screenViews.map((view, index) => <button key={view.id} type="button" role="tab" id={`screen-tab-${view.id}`} aria-controls="bytespace-screen" aria-selected={screenIndex === index} tabIndex={screenIndex === index ? 0 : -1} onClick={() => setScreenIndex(index)} onKeyDown={event => {
-            if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
-            event.preventDefault();
-            const next = event.key === "Home" ? 0 : event.key === "End" ? screenViews.length - 1 : (index + (event.key === "ArrowRight" ? 1 : -1) + screenViews.length) % screenViews.length;
-            setScreenIndex(next);
-            event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('[role="tab"]')[next]?.focus();
-          }}><view.icon size={15} aria-hidden="true" />{view.label}</button>)}
+        <div className={styles.desktopComposition}>
+          <Image {...images["desktop-shell"].preview} alt="Illustrated Bytespace desktop" unoptimized loading="lazy" className={styles.desktopShell} />
+          <div className={styles.monitorScreen}>
+            <video ref={productVideo} autoPlay muted loop playsInline controls preload="metadata" width={1920} height={1080}
+              poster="/media/videos/bytespace-product-demo.jpg" aria-label="Bytespace logistics workflow demo">
+              <source src="/media/videos/bytespace-product-demo.mp4" type="video/mp4" />
+              <a href="/media/videos/bytespace-product-demo.mp4">Open the Bytespace product demo</a>
+            </video>
+          </div>
         </div>
       </div>
+      {children}
+      <div className={styles.subheading}><h3>Inside the extension</h3></div>
+      <div className={styles.twoUp}>{artwork("agent-run-light", { className: styles.interface })}{artwork("agent-library", { className: styles.interface })}</div>
       <div className={styles.extensionComposition}>
-        {artwork("extension-popup", { className: styles.extensionPopup, detail: true })}
+        {artwork("extension-popup", { className: styles.extensionPopup, caption: false })}
         <div className={styles.extensionDetails}>
           {artwork("agent-cursor", { className: styles.cursorStudy, caption: false })}
-          {artwork("bytespace-workspace", { className: styles.interface, detail: true })}
+          {artwork("bytespace-workspace", { className: styles.interface, caption: false })}
         </div>
       </div>
 
-      <div className={styles.subheading}><h3>Giving the agents a world</h3><p>Characters, environments, and a shared visual language.</p></div>
+      <section aria-labelledby="bytespace-live-title">
+        <div className={styles.subheading}><h3 id="bytespace-live-title">Behind the browser</h3></div>
+        <BytespaceStudies />
+        <p className={styles.credit}>Interactive archive / Sample data, no connected accounts or live runs.</p>
+      </section>
+
+      <div className={styles.subheading}><h3>Giving the agents a world</h3></div>
       <div className={styles.worldComposition}>
-        {artwork("agent-world-light", { className: styles.lightWorld, caption: false })}
-        <div className={styles.portalGrid}>{portals.map(id => artwork(id, { caption: false }))}</div>
+        {artwork("agent-world-wide", { className: styles.lightWorld, caption: false, fullResolution: true })}
+        <div className={styles.portalGrid}>{portals.map(id => artwork(id, { caption: false, className: id === "portal-gateway" ? styles.gatewayPortal : undefined }))}</div>
       </div>
       <div className={styles.characterLineup} aria-label="Bytespace character designs">
-        {characters.map(id => artwork(id, { surface: styles.characterPortrait }))}
+        {characters.map(id => artwork(id, { surface: styles.characterPortrait, caption: false }))}
       </div>
-      <div className={styles.collectionLink}><p>One yellow agent. A whole cast of personalities.</p><button type="button" onClick={() => open("characters")}>The complete character study <ArrowUpRight size={14} aria-hidden="true" /></button></div>
+      <div className={styles.collectionLink}><button type="button" onClick={() => open("characters")}>All characters <ArrowUpRight size={14} aria-hidden="true" /></button></div>
       {artwork("world-landscape", { className: styles.landscape, caption: false })}
 
       <section id="design-evolution" aria-labelledby="evolution-title" className={styles.evolution}>
-        <div className={styles.subheading}><h3 id="evolution-title">How the language developed</h3><p>The yellow agent stayed. The world around it became more expressive.</p></div>
-        {artwork("office-landscape", { detail: true })}
-        <div className={styles.browserPair}>{artwork("browser-modern", { detail: true })}{artwork("browser-legacy", { detail: true })}</div>
+        <div className={styles.subheading}><h3 id="evolution-title">Design evolution</h3></div>
+        {artwork("office-landscape", { caption: false })}
+        <div className={styles.browserPair}>{artwork("browser-modern", { caption: false })}{artwork("browser-legacy", { caption: false })}</div>
         <div className={styles.iconStrip} aria-label="Bytespace isometric icon system">{icons.map(id => artwork(id, { caption: false, surface: styles.iconStage }))}</div>
-        <p className={styles.credit}>A common isometric vocabulary / Intelligence, control, identity, web, security, spaces</p>
         <div className={styles.originGrid}>
-          <div className={styles.originalAgent}><p className={styles.eyebrow}>01 / The starting point</p>{artwork("early-agent", { detail: true })}</div>
-          <div><p className={styles.eyebrow}>02 / A system of spaces</p>{artwork("office-network", { detail: true })}</div>
+          <div className={styles.originalAgent}>{artwork("early-agent")}</div>
+          <div>{artwork("office-network")}</div>
         </div>
-        {artwork("office-interface", { detail: true })}
-        <div className={styles.twoUp}>{artwork("business-landscape", { detail: true })}{artwork("automation-scenes", { detail: true })}</div>
-        <div className={styles.subheading}><h3>Beyond the interface</h3><p>The same identity carried into launch imagery, storytelling, and objects.</p></div>
+        {artwork("office-interface")}
+        <div className={styles.twoUp}>{artwork("business-landscape", { caption: false })}{artwork("automation-scenes", { caption: false })}</div>
+        <div className={styles.subheading}><h3>Beyond the interface</h3></div>
         <div className={styles.brandObjects}>
-          {artwork("brand-instrument", { surface: styles.brandObject })}
-          {artwork("founders-composition", { surface: styles.brandObject })}
-          {artwork("launch-illustration", { surface: styles.brandObject })}
+          {artwork("brand-instrument", { surface: styles.brandObject, caption: false })}
+          {artwork("founders-composition", { surface: styles.brandObject, caption: false })}
         </div>
-
-        <details className={styles.explorations}>
-          <summary><span>Alternate interfaces & working details</span><Plus size={17} aria-hidden="true" /></summary>
+        <details id="complete-designs" className={styles.explorations}>
+          <summary><span>Presentations & design archive</span><Plus size={17} aria-hidden="true" /></summary>
           <div className={styles.explorationsBody}>
-            {artwork("workflow-builder", { className: styles.interface, detail: true })}
+            <div>
+              <div className={styles.posters}>{posters.map(id => artwork(id))}</div>
+              <p className={styles.credit}>2025 archive / Historical plans and figures</p>
+            </div>
+            {artwork("workflow-builder", { className: styles.interface })}
             <div className={styles.twoUp}>{artwork("agent-run")}{artwork("product-composition")}</div>
             <div className={styles.twoUp}>{artwork("agent-world")}{artwork("worlds")}</div>
-            {artwork("desktop-composition", { detail: true })}
-            {artwork("office-process", { detail: true })}
-            {artwork("early-access", { detail: true })}
-            <div className={styles.twoUp}>{artwork("characters", { detail: true })}{artwork("shirt-design", { detail: true })}</div>
+            {artwork("desktop-composition")}
+            {artwork("office-process")}
+            {artwork("early-access")}
+            <div className={styles.twoUp}>{artwork("characters")}{artwork("shirt-design")}</div>
           </div>
         </details>
+        {artwork("launch-illustration", { className: styles.launchHero, surface: styles.launchArtwork, caption: false, fullResolution: true })}
       </section>
-
-      <section id="complete-designs" aria-labelledby="complete-designs-title" className={styles.communication}>
-        <div className={styles.subheading}><h3 id="complete-designs-title">The complete story</h3><p>Product, strategy, and identity brought together in the original Bytespace presentations.</p></div>
-        <div className={styles.posters}>{posters.map(id => artwork(id))}</div>
-        <p className={styles.credit}>Original compositions / Spring 2025 / Historical plans and company information</p>
-      </section>
-      {children}
     </section>
 
     <dialog ref={dialog} className={styles.viewer} aria-labelledby="product-art-title" aria-describedby="product-art-detail" onCancel={() => setActive(null)} onClick={event => { if (event.target === event.currentTarget) setActive(null); }} onKeyDown={event => {

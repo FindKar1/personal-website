@@ -42,6 +42,7 @@ const originals = [
   ["portal-garden", "Frame 1116606761 (4).png"],
   ["portal-gateway", "Group 99246853.png"],
   ["agent-world-light", "Frame 1116606791 (2).png"],
+  ["agent-world-wide", "Group 99246885.png"],
   ["desktop-shell", "BytespaceComputer(Big Screens).png"],
   ["icon-ai", "Group 99245775.png"],
   ["icon-control", "Group 99245773.png"],
@@ -76,6 +77,10 @@ const browserFiles = [
   ["character-ice", "agent_profiles/Premium/ice-knight/ice-knight-fb.png"],
   ["character-space", "agent_profiles/Premium/space-crew/space-crew-fb.png"],
   ["character-code", "agent_profiles/Premium/code-warlock/code-warlock-fb.png"],
+  ["character-fire", "agent_profiles/Premium/fire-knight/fire-knight-fb.png"],
+  ["character-armor", "agent_profiles/Premium/robot-armor/robot-armor-fb.png"],
+  ["character-fairy", "agent_profiles/Premium/space-fairy/space-fairy-fb.png"],
+  ["character-einstein", "agent_profiles/Premium/einstein/einstein-fb.png"],
 ].map(([id, filename]) => [id, path.join(sourceRepo, "apps/cmd0/public", filename)]);
 
 const manifest = path.join(root, "app/product-design-assets.json");
@@ -86,7 +91,10 @@ for (const [id, input] of [...originals, ...labFiles, ...botFiles, ...browserFil
   const previewWidth = id.startsWith("icon-") ? 320 : id.startsWith("character-") ? 360 : id.startsWith("bot-") && id !== "bot-octopus" ? 600 : id.startsWith("labs-") && !["labs-cover", "labs-statue"].includes(id) ? 640 : id === "characters" || id === "worlds" ? 1100 : 1440;
   for (const [variant, width, quality] of [["preview", previewWidth, 85], ["full", 2800, 92]]) {
     const filename = `${id}-${variant}.webp`;
-    const result = await sharp(input).resize({ width, withoutEnlargement: true }).webp({ quality, effort: 6 }).toFile(path.join(output, filename));
+    const pipeline = sharp(input);
+    // The wide export has large empty side margins; retain the entire illustrated scene.
+    if (id === "agent-world-wide") pipeline.extract({ left: 1050, top: 0, width: 4615, height: 2882 });
+    const result = await pipeline.resize({ width, withoutEnlargement: true }).webp({ quality, effort: 6 }).toFile(path.join(output, filename));
     assets[id][variant] = { src: `/media/product/${filename}`, width: result.width, height: result.height };
     console.log(`${filename}: ${result.width}x${result.height}, ${Math.round(result.size / 1024)} KB`);
   }

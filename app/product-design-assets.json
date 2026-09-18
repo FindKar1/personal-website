@@ -682,5 +682,65 @@
       "width": 1086,
       "height": 1448
     }
+  },
+  "character-fire": {
+    "preview": {
+      "src": "/media/product/character-fire-preview.webp",
+      "width": 360,
+      "height": 441
+    },
+    "full": {
+      "src": "/media/product/character-fire-full.webp",
+      "width": 406,
+      "height": 497
+    }
+  },
+  "character-armor": {
+    "preview": {
+      "src": "/media/product/character-armor-preview.webp",
+      "width": 360,
+      "height": 439
+    },
+    "full": {
+      "src": "/media/product/character-armor-full.webp",
+      "width": 408,
+      "height": 497
+    }
+  },
+  "character-fairy": {
+    "preview": {
+      "src": "/media/product/character-fairy-preview.webp",
+      "width": 360,
+      "height": 387
+    },
+    "full": {
+      "src": "/media/product/character-fairy-full.webp",
+      "width": 462,
+      "height": 497
+    }
+  },
+  "character-einstein": {
+    "preview": {
+      "src": "/media/product/character-einstein-preview.webp",
+      "width": 344,
+      "height": 497
+    },
+    "full": {
+      "src": "/media/product/character-einstein-full.webp",
+      "width": 344,
+      "height": 497
+    }
+  },
+  "agent-world-wide": {
+    "preview": {
+      "src": "/media/product/agent-world-wide-preview.webp",
+      "width": 1440,
+      "height": 899
+    },
+    "full": {
+      "src": "/media/product/agent-world-wide-full.webp",
+      "width": 2800,
+      "height": 1749
+    }
   }
 }

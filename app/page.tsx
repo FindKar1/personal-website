@@ -897,7 +897,7 @@ export default async function Home({ searchParams }: HomeProps) {
           </section>
         )}
 
-        <footer className="mt-16 border-t border-ink/10 pt-5">
+        <footer className={`${activeTab === "product" ? "mt-0" : "mt-16"} border-t border-ink/10 pt-5`}>
           <div className="grid gap-2 text-sm leading-6 sm:grid-cols-[8rem_1fr]">
             <p className="font-mono text-xs uppercase text-graphite/50">
               contact

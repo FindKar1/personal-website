@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Play } from "lucide-react";
+import { ArrowUpRight, Play } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { loadYouTubePlayer, type YouTubePlayer } from "./youtube-player";
 
@@ -9,12 +9,14 @@ type YouTubeVideoProps = {
   title: string;
   href: string;
   embed: string;
+  compactCaption?: boolean;
 };
 
 export function YouTubeVideo({
   title,
   href,
   embed,
+  compactCaption = false,
 }: YouTubeVideoProps) {
   const [attempt, setAttempt] = useState(0);
   const [status, setStatus] = useState<"idle" | "loading" | "ready" | "error">("idle");
@@ -112,10 +114,10 @@ export function YouTubeVideo({
       </div>
       {status === "error" && (
         <p role="status" className="mt-2 text-sm text-graphite">
-          YouTube couldn&apos;t load this player. Try again or use Watch on YouTube.
+          YouTube couldn&apos;t load this player. Try again or use the YouTube link.
         </p>
       )}
-      <figcaption className="mt-2 flex items-center justify-between gap-3 text-sm leading-6 text-graphite/60">
+      <figcaption className={`mt-2 flex items-center justify-between gap-3 leading-6 ${compactCaption ? "text-[13px] text-graphite" : "text-sm text-graphite/60"}`}>
         <button
           type="button"
           onClick={play}
@@ -129,9 +131,10 @@ export function YouTubeVideo({
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Watch ${title} on YouTube (opens a new tab)`}
-          className="shrink-0 text-xs underline decoration-ink/20 underline-offset-4 transition-colors hover:text-ink hover:decoration-ink"
+          title="Watch on YouTube (opens a new tab)"
+          className={compactCaption ? "flex h-9 w-9 shrink-0 items-center justify-center transition-colors hover:bg-ink/5 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2" : "shrink-0 text-xs underline decoration-ink/20 underline-offset-4 transition-colors hover:text-ink hover:decoration-ink"}
         >
-          Watch on YouTube
+          {compactCaption ? <ArrowUpRight size={17} aria-hidden="true" /> : "Watch on YouTube"}
         </a>
       </figcaption>
     </figure>
