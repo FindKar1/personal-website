@@ -7,6 +7,7 @@ export type MediaArtifact = {
   variant?: "standard" | "wide";
   objectPosition?: string;
   cropAspectRatio?: number;
+  rotation?: 90 | 270;
 };
 
 export type MediaSection = {
@@ -38,6 +39,7 @@ export const notesArtifactSections: MediaSection[] = [
       },
       {
         "src": "/media/optimized/notes-network-diagram.webp",
+        "rotation": 270,
         "alt": "A network sketch comparing resilience, routing, and single points of failure.",
         "width": 768,
         "height": 1024,
@@ -62,6 +64,7 @@ export const notesArtifactSections: MediaSection[] = [
       },
       {
         "src": "/media/optimized/notes-models-startup-org-chart.webp",
+        "rotation": 270,
         "alt": "Notebook operating model for a startup team and advisors.",
         "width": 1200,
         "height": 1600,
@@ -70,6 +73,7 @@ export const notesArtifactSections: MediaSection[] = [
       },
       {
         "src": "/media/optimized/notes-models-paladin-model.webp",
+        "rotation": 270,
         "alt": "Notebook sketch for partners, sourcing, and advisory networks.",
         "width": 1200,
         "height": 1600,
@@ -172,6 +176,7 @@ export const notesArtifactSections: MediaSection[] = [
       },
       {
         "src": "/media/optimized/notes-planning-uloop-strategy.webp",
+        "rotation": 270,
         "alt": "Notebook strategy map for Uloop launch mechanics.",
         "width": 1200,
         "height": 1600,

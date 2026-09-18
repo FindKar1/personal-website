@@ -152,11 +152,11 @@ function ArchivePreview() {
 
 function MediaSectionList({ sections }: { sections: MediaSection[] }) {
   return (
-    <div className="mt-5 divide-y divide-ink/10 border-y border-ink/10">
+    <div className="divide-y divide-ink/10 border-b border-ink/10">
       {sections.map((section) => (
         <div
           key={section.label}
-          className="grid gap-4 py-5 sm:grid-cols-[8rem_1fr]"
+          className="grid gap-4 py-5 first:pt-0 sm:grid-cols-[8rem_1fr]"
         >
           <div className="space-y-2">
             <p className="font-mono text-xs leading-6 uppercase text-graphite/50">
@@ -172,19 +172,30 @@ function MediaSectionList({ sections }: { sections: MediaSection[] }) {
                 key={artifact.src}
                 className={artifact.variant === "wide" ? "sm:col-span-2" : ""}
               >
-                <Image
-                  src={artifact.src}
-                  alt={artifact.alt}
-                  width={artifact.width}
-                  height={artifact.height}
-                  unoptimized
-                  sizes={
-                    artifact.variant === "wide"
-                      ? "(min-width: 640px) 768px, 100vw"
-                      : "(min-width: 640px) 376px, 100vw"
-                  }
-                  className="w-full border border-ink/10 object-cover"
-                />
+                <div
+                  className="relative overflow-hidden border border-ink/10"
+                  style={artifact.rotation ? { aspectRatio: artifact.height / artifact.width } : undefined}
+                >
+                  <Image
+                    src={artifact.src}
+                    alt={artifact.alt}
+                    width={artifact.width}
+                    height={artifact.height}
+                    unoptimized
+                    sizes={
+                      artifact.variant === "wide"
+                        ? "(min-width: 640px) 768px, 100vw"
+                        : "(min-width: 640px) 376px, 100vw"
+                    }
+                    className={artifact.rotation ? "absolute left-1/2 top-1/2 object-contain" : "h-auto w-full object-cover"}
+                    style={artifact.rotation ? {
+                      width: `${artifact.width / artifact.height * 100}%`,
+                      height: `${artifact.height / artifact.width * 100}%`,
+                      maxWidth: "none",
+                      transform: `translate(-50%, -50%) rotate(${artifact.rotation}deg)`,
+                    } : undefined}
+                  />
+                </div>
                 <figcaption className="mt-2 text-sm leading-6 text-graphite/60">
                   {artifact.caption}
                 </figcaption>
@@ -767,7 +778,10 @@ export default async function Home({ searchParams }: HomeProps) {
             {activeTab === "notebook" && (
               <div className="mb-8 w-full">
                 <p className="max-w-4xl text-base leading-7 text-graphite">
-                  Sketches, questions, and books that have shaped how I think.
+                  I like getting ideas out of my head and onto paper, and
+                  following one question into the next. This is a collection of
+                  sketches, whiteboards, half-formed plans, and books I&apos;ve
+                  kept along the way.
                 </p>
                 <nav aria-label="Notebook views" className="mt-5 flex gap-6 border-b border-ink/10 font-mono text-sm">
                   {(["notes", "reading"] as const).map((view) => (
@@ -783,14 +797,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
             {activeTab === "notebook" && notebookView === "reading" && (
               <div className="w-full">
-                <p className="max-w-4xl text-base leading-7 text-graphite">
-                  I&apos;ve spent a lot of my life following one question into
-                  the next. These are some of the books I&apos;ve picked up
-                  along the way, from psychology and political history to
-                  startups and fiction. A partial, imperfectly remembered record.
-                </p>
-
-                <div className="mt-8 space-y-10">
+                <div className="space-y-10">
                   {readingSections.map((section) => (
                     <div
                       key={section.category}
@@ -842,13 +849,6 @@ export default async function Home({ searchParams }: HomeProps) {
 
             {activeTab === "notebook" && notebookView === "notes" && (
               <div className="w-full">
-                <p className="max-w-4xl text-base leading-7 text-graphite">
-                  Before an idea becomes something useful, it usually looks a
-                  little like this. Mindmaps, whiteboards, half-formed plans,
-                  and reminders to myself. I like getting thoughts out of my
-                  head and onto something I can step back from, question, and
-                  rearrange.
-                </p>
                 <MediaSectionList sections={notesArtifactSections} />
               </div>
             )}
