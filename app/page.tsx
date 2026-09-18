@@ -712,6 +712,9 @@ export default async function Home({ searchParams }: HomeProps) {
                     The Earth Assumption
                   </p>
                   <p className="text-graphite/70">Bytespace Labs</p>
+                  <p className="text-graphite/70 sm:text-right">
+                    September 17, 2026
+                  </p>
                 </a>
                 <a
                   href="https://www.bytespace.ai/blog/simulations-are-theories-of-what-matters"
