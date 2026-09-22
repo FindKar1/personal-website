@@ -1,0 +1,46 @@
+.copy > * + *,
+.continuation > p + p {
+  margin-top: 1rem;
+}
+
+.continuation {
+  display: flow-root;
+}
+
+.photos {
+  display: grid;
+  align-items: center;
+  gap: 0.625rem;
+  margin: 0.75rem auto 1.75rem;
+}
+
+.photo {
+  display: block;
+  min-width: 0;
+  width: 100%;
+  height: auto;
+}
+
+.row {
+  grid-template-columns: var(--photo-columns);
+}
+
+.inset {
+  width: min(80%, 18rem);
+}
+
+.portrait {
+  width: min(65%, 13rem);
+}
+
+@media (min-width: 1024px) {
+  .inset,
+  .portrait {
+    float: right;
+    margin: 0.25rem 0 1rem 1.75rem;
+  }
+
+  .inset {
+    width: 17rem;
+  }
+}

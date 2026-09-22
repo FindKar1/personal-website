@@ -7,6 +7,7 @@ import { ProductDesign } from "@/components/ProductDesign";
 import { ArchiveTalks, ProductDemos } from "@/components/PortfolioVideos";
 import { LegacyProfileLinks } from "@/components/LegacyProfileLinks";
 import { NotebookCollage } from "@/components/NotebookCollage";
+import { Biography } from "@/components/Biography";
 import { getProfileLocation, profileLabels, profileTabs, type QueryValue } from "./profile-navigation";
 import systemsAssets from "./systems-assets.json";
 import {
@@ -126,7 +127,7 @@ function ArchivePreview() {
   );
 
   return (
-    <section aria-label="From the archive" className="mb-10">
+    <section aria-label="From the archive" className="my-6">
       <Link
         href="/?tab=archive"
         aria-label="Explore the archive"
@@ -521,19 +522,52 @@ export default async function Home({ searchParams }: HomeProps) {
             </nav>
           </div>
           {isAbout && (
-            <p className="mt-6 max-w-4xl text-base leading-7 text-graphite">
-              I&apos;m a founder and operator with a background in AI, enterprise
-              software, and network infrastructure. I&apos;ve built products, led
-              teams, and closed tens of millions in business. I like getting to the
-              bottom of a customer&apos;s problem, then bringing the right people
-              together to solve it.
-            </p>
+            <div id="about-intro" className="mt-8 text-base leading-7 text-graphite">
+              <p className="max-w-4xl text-[22px] font-medium leading-8 text-ink">
+                Most of the things I care about started with a question I
+                couldn&apos;t leave alone.
+              </p>
+              <ArchivePreview />
+              <div className="max-w-4xl space-y-4">
+                <p>Hi, I&apos;m Kar. Welcome to my space!</p>
+                <p>
+                  I love figuring out how things work, whether that&apos;s a
+                  person, a business, or a piece of technology. That curiosity
+                  keeps bringing me back to the relationship between technology
+                  and society. What can we build? Who gets to use it? How does it
+                  change the way we live? I want to understand those questions and
+                  have a hand in what comes next.
+                </p>
+                <p>
+                  On this site you&apos;ll find my story, things I&apos;ve built,
+                  and some of the frameworks that have helped me along the way.
+                  There are also notes from whatever has caught my attention.
+                  Some of it is finished work. Some is still taking shape.
+                </p>
+                <p>
+                  I&apos;m looking to meet more people driven by a mission. You
+                  might be building a business, studying a difficult problem, or
+                  following an interest that&apos;s become an obsession. I&apos;m
+                  especially interested in people who care about both what
+                  they&apos;re making and what it means for others.
+                </p>
+              </div>
+              <p className="mt-6 max-w-4xl">
+                If something here sparks your interest,{" "}
+                <a
+                  href="#contact"
+                  className="whitespace-nowrap font-medium text-ink underline decoration-ink/30 underline-offset-4 transition-colors hover:decoration-ink focus-visible:outline-2 focus-visible:outline-offset-4"
+                >
+                  reach out
+                </a>
+                . I&apos;m always happy to make new friends.
+              </p>
+            </div>
           )}
         </header>
 
         {isAbout && (
           <>
-            <ArchivePreview />
             <section>
               <h2 className="font-mono text-base font-semibold uppercase tracking-normal text-ink">
                 My work &amp; projects
@@ -751,24 +785,7 @@ export default async function Home({ searchParams }: HomeProps) {
             className={isAbout ? "profile-panel mt-4 border-t border-ink/10 pt-5" : "profile-panel"}
           >
             {activeTab === "about" && (
-              <div className="max-w-4xl space-y-10 text-base leading-7 text-graphite">
-                {aboutSections.map((section, sectionIndex) => (
-                  <div
-                    key={section.label}
-                    className="grid gap-4 border-t border-ink/10 pt-6 first:border-t-0 first:pt-0 sm:grid-cols-[8rem_1fr]"
-                  >
-                    <div className="font-mono text-xs leading-7 uppercase text-graphite/50">
-                      {String(sectionIndex + 1).padStart(2, "0")} /{" "}
-                      {section.label}
-                    </div>
-                    <div className="space-y-4">
-                      {section.paragraphs.map((paragraph) => (
-                        <p key={paragraph}>{paragraph}</p>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <Biography sections={aboutSections} />
             )}
 
             {activeTab === "notebook" && (
@@ -893,7 +910,7 @@ export default async function Home({ searchParams }: HomeProps) {
           </section>
         )}
 
-        <footer className={`${activeTab === "product" ? "mt-0" : "mt-16"} border-t border-ink/10 pt-5`}>
+        <footer className={`${activeTab === "product" ? "mt-0" : "mt-16"} scroll-mt-6 border-t border-ink/10 pt-5`} id="contact" tabIndex={-1}>
           <div className="grid gap-2 text-sm leading-6 sm:grid-cols-[8rem_1fr]">
             <p className="font-mono text-xs uppercase text-graphite/50">
               contact

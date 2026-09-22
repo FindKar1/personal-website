@@ -1,0 +1,42 @@
+{
+  "motorcycle": {
+    "src": "/media/biography/motorcycle.webp",
+    "width": 615,
+    "height": 820
+  },
+  "childhood-portrait": {
+    "src": "/media/biography/childhood-portrait.webp",
+    "width": 900,
+    "height": 1137
+  },
+  "car": {
+    "src": "/media/biography/car.webp",
+    "width": 338,
+    "height": 570
+  },
+  "garden": {
+    "src": "/media/biography/garden.webp",
+    "width": 302,
+    "height": 317
+  },
+  "playground": {
+    "src": "/media/biography/playground.webp",
+    "width": 900,
+    "height": 1125
+  },
+  "park": {
+    "src": "/media/biography/park.webp",
+    "width": 800,
+    "height": 867
+  },
+  "cooking": {
+    "src": "/media/biography/cooking.webp",
+    "width": 720,
+    "height": 928
+  },
+  "school-portrait": {
+    "src": "/media/biography/school-portrait.webp",
+    "width": 560,
+    "height": 856
+  }
+}
