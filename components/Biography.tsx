@@ -12,6 +12,11 @@ function archivedPhoto(filename: string) {
 
 const photos = {
   ...childhoodPhotos,
+  runescape: {
+    src: "/media/runescape-marketplace.avif",
+    width: 1350,
+    height: 698,
+  },
   eia: archivedPhoto("archive-early-ventures-program-break.webp"),
   bedroom: archivedPhoto("archive-personal-startup-bedroom.webp"),
 };
@@ -47,6 +52,13 @@ export const biographyPhotoGroups: Record<string, PhotoGroup[]> = {
     layout: "inset",
     photos: [
       { id: "cooking", alt: "Standing on a kitchen chair as a child, stirring a pan on the stove." },
+    ],
+  }],
+  systems: [{
+    afterParagraph: 2,
+    layout: "row",
+    photos: [
+      { id: "runescape", alt: "RuneScape gameplay screenshot showing players buying and selling items, with the minimap and game interface visible." },
     ],
   }],
   usefulness: [

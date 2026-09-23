@@ -4,10 +4,12 @@ Kar approved committing and deploying the reviewed photo and video curation to p
 
 ## RuneScape
 
-- Find authentic imagery from roughly 2007-2010. A female character in period-appropriate armor is preferred; choose gear after reviewing visual options with Kar.
-- Do not assume a modern Old School RuneScape screenshot matches that period. OSRS launched in 2013 using a 2007 backup and has subsequently evolved.
-- Verify period, provenance, and reuse permissions before incorporating an image. Label representative imagery as such rather than implying it shows Kar's original account.
-- Reference: https://support.runescape.com/hc/en-gb/articles/360001247349-RuneScape-and-Old-School
+- Kar selected the supplied full-screen marketplace screenshot on 2026-09-23 and explicitly accepted potentially newer imagery. Matching 2007-2010 or finding a female avatar is no longer a requirement for this selection.
+- Added unchanged as `public/media/runescape-marketplace.avif` (1350 x 698), after the paragraph introducing the game's shared world and economy, with full-frame enlargement.
+- It is representative game imagery, not a photograph of Kar's original account. No visible caption, capture date, or personal-account claim; the accessible description identifies it as a gameplay screenshot.
+- Source file: `106553_651556_old-school-runescape-soars-beyond-200-000-concurrent-players-causes-jagex-to-upgrade-servers_full.avif`, supplied from Downloads.
+- Source page: https://www.tweaktown.com/news/106553/old-school-runescape-hits-200-000-online-after-world-of-warcraft-hemorrhages-players/index.html
+- The article is dated July 22, 2025; that is not a verified screenshot capture date. User approval is not a verified third-party reuse license; attribution and reuse requirements remain a pre-publication check.
 
 ## Hovercraft
 
@@ -27,7 +29,7 @@ Kar approved committing and deploying the reviewed photo and video curation to p
 ## Review Pass
 
 - Usefulness keeps EIA on the left and the bedroom on the right in one side-by-side row after "I was hooked," immediately before the paragraph about the tiny room. The lecture and waving workshop photos are in Archive; biography text is unchanged.
-- The biography has nine photos. RuneScape and the disclosed hovercraft reconstruction remain pending for a separate discussion before sourcing or generation.
+- The biography has nine personal photos and one representative RuneScape screenshot. The disclosed hovercraft reconstruction remains pending for a separate discussion before generation.
 - People now has 31 photos: 17 personal selections and 14 existing photos. The Korea meal and small program dinner were replaced; originals remain untouched.
 - IMG_7660.JPG is confirmed as Kar with two leaders and mentors and is included. IMG_7200.JPG is confirmed as EIA staff and is included. Do not confuse these contexts.
 - New People selections: IMG_8758.jpg (important relationships), IMG_8557.JPG (group Kar led in Korea), IMG_7660.JPG (mentors), IMG_7200.JPG (EIA staff), IMG_2455.JPG (olive-oil startup sourcing from Lesvos, Greece), IMG_1968.JPG (Booming Group internship), and IMG_1334.JPG (Startuphouse marketing internship).

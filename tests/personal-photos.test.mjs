@@ -55,7 +55,6 @@ test("Usefulness pairs EIA before the bedroom immediately before the room story"
   ]);
   assert.equal(groups.usefulness[0].layout, "row");
   assert.equal(groups.school, undefined);
-  assert.equal(groups.systems, undefined);
   assert.equal(groups.now, undefined);
   assert.ok(!biographySource.includes('id: "school-portrait"'));
   const markup = renderToStaticMarkup(createElement(biography.Biography, {
@@ -67,14 +66,36 @@ test("Usefulness pairs EIA before the bedroom immediately before the room story"
   assert.match(markup, /class="row keepRow"/);
 });
 
+test("RuneScape follows the game introduction without cropping or a guessed caption", async () => {
+  const [group] = biography.biographyPhotoGroups.systems;
+  assert.equal(group.afterParagraph, 2);
+  assert.equal(group.layout, "row");
+  assert.deepEqual(group.photos.map(photo => photo.id), ["runescape"]);
+  const markup = renderToStaticMarkup(createElement(biography.Biography, {
+    sections: [{ label: "systems", paragraphs: ["Computer experiments", "Game introduction", "Grinding and automation"] }],
+  }));
+  const src = "/media/runescape-marketplace.avif";
+  assert.ok(markup.indexOf("Game introduction") < markup.indexOf(src));
+  assert.ok(markup.indexOf(src) < markup.indexOf("Grinding and automation"));
+  assert.equal(markup.match(/aria-label="Enlarge /g)?.length, 1);
+  assert.match(markup, /width="1350" height="698"/);
+  assert.match(markup, new RegExp(`aspect-ratio:${1350 / 698}`));
+  assert.doesNotMatch(markup, /<figcaption|2007|2010|my (?:character|account)/i);
+  const file = await readFile(new URL(`../public${src}`, import.meta.url));
+  const metadata = await sharp(file).metadata();
+  assert.equal(metadata.width, 1350);
+  assert.equal(metadata.height, 698);
+  assert.ok(file.length < 200 * 1024);
+});
+
 test("biography renders every paragraph once and in order around the photo breaks", () => {
-  const sections = Object.keys(biography.biographyPhotoGroups).concat("school", "systems", "now").map(label => ({
+  const sections = Object.keys(biography.biographyPhotoGroups).concat("school", "now").map(label => ({
     label, paragraphs: Array.from({ length: 11 }, (_, i) => `${label} paragraph ${i + 1}`),
   }));
   const markup = renderToStaticMarkup(createElement(biography.Biography, { sections }));
   const paragraphs = [...markup.matchAll(/<p>([^<]+)<\/p>/g)].map(match => match[1]);
   assert.deepEqual(paragraphs, sections.flatMap(section => section.paragraphs));
-  assert.equal(markup.match(/aria-label="Enlarge /g)?.length, 9);
+  assert.equal(markup.match(/aria-label="Enlarge /g)?.length, 10);
   assert.doesNotMatch(markup, /school-portrait\.webp|\/personal\/(lecture|workshop)\.webp/);
 });
 
