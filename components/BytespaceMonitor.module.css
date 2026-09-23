@@ -1,0 +1,13 @@
+.screen { position: relative; width: 100%; height: 100%; background: #000; }
+.screen video { display: block; width: 100%; height: 100%; object-fit: contain; background: #000; visibility: hidden; }
+.screen[data-phase="demo"] video { visibility: visible; }
+.screen[data-phase="demo"] .welcome { display: none; }
+.welcome { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(120, 1fr); grid-template-rows: repeat(120, 1fr); column-gap: .083333%; row-gap: .148148%; background: #000; animation: exit var(--exit-duration) ease-in-out var(--exit-delay) both paused; }
+.background { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.welcome span { position: relative; opacity: 0; background: #22c55e; animation: pixel .1s ease-out both paused; }
+.welcome[data-running="true"], .welcome[data-running="true"] span { animation-play-state: running; }
+@keyframes pixel { from { opacity: 0; } to { opacity: 1; } }
+@keyframes exit { from { opacity: 1; } to { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .welcome { display: none; }
+}

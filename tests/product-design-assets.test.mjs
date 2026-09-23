@@ -69,12 +69,13 @@ test("preserved Bytespace UI uses original sources and only local assets", async
   for (const file of ["demo.js", "demo.css"]) assert.ok((await stat(path.join(folder, file))).size > 0);
 });
 
-test("the product sequence keeps the autoplay desktop, demos, and three portals together", async () => {
+test("the product sequence keeps the intro-aware desktop, demos, and three portals together", async () => {
   const source = await readFile(path.join(root, "components/ProductDesign.tsx"), "utf8");
-  assert.match(source, /autoPlay muted loop playsInline controls/);
+  const monitor = await readFile(path.join(root, "components/BytespaceMonitor.tsx"), "utf8");
+  assert.match(monitor, /muted loop playsInline controls/);
   assert.match(source, /const portals: ImageId\[\] = \["portal-energy", "portal-garden", "portal-gateway"\]/);
   const component = source.slice(source.indexOf("export function ProductDesign"));
-  assert.ok(component.indexOf("{children}") > component.indexOf("<video ref={productVideo}"));
+  assert.ok(component.indexOf("{children}") > component.indexOf("<BytespaceMonitor />"));
   assert.ok(component.indexOf("{children}") < component.indexOf('id="bytespace-live-title"'));
   assert.match(source, /Chrome Extension/);
 });

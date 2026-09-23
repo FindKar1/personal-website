@@ -7,6 +7,7 @@ import productAssets from "@/app/product-design-assets.json";
 import { BytespaceStudies } from "./BytespaceStudies";
 import { BytespaceHero } from "./BytespaceHero";
 import { BytespaceVideoWall } from "./BytespaceVideoWall";
+import { BytespaceMonitor } from "./BytespaceMonitor";
 import posterAssets from "@/app/bytespace-design-assets.json";
 import systemsAssets from "@/app/systems-assets.json";
 import styles from "./ProductDesign.module.css";
@@ -102,7 +103,6 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
   const [zoom, setZoom] = useState(1);
   const [demoExpanded, setDemoExpanded] = useState(false);
   const [demoLoaded, setDemoLoaded] = useState(false);
-  const productVideo = useRef<HTMLVideoElement>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const demoDialog = useRef<HTMLDialogElement>(null);
@@ -114,19 +114,6 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
     if (frame?.contentDocument?.readyState === "complete" && frame.contentDocument.URL.endsWith("/showcases/bot0/index.html")) {
       setDemoLoaded(true);
     }
-  }, []);
-
-  useEffect(() => {
-    const video = productVideo.current;
-    if (!video) return;
-    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const respectMotion = () => {
-      video.autoplay = !preference.matches;
-      if (preference.matches) video.pause();
-    };
-    respectMotion();
-    preference.addEventListener("change", respectMotion);
-    return () => preference.removeEventListener("change", respectMotion);
   }, []);
 
   useEffect(() => {
@@ -219,11 +206,7 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
         <div className={styles.desktopComposition}>
           <Image {...images["desktop-shell"].preview} alt="Illustrated Bytespace desktop" unoptimized loading="lazy" className={styles.desktopShell} />
           <div className={styles.monitorScreen}>
-            <video ref={productVideo} autoPlay muted loop playsInline controls preload="metadata" width={1920} height={1080}
-              poster="/media/videos/bytespace-product-demo.jpg" aria-label="Bytespace logistics workflow demo">
-              <source src="/media/videos/bytespace-product-demo.mp4" type="video/mp4" />
-              <a href="/media/videos/bytespace-product-demo.mp4">Open the Bytespace product demo</a>
-            </video>
+            <BytespaceMonitor />
           </div>
         </div>
       </div>

@@ -38,7 +38,7 @@ test("the hero appears before the desktop video without replacing existing studi
   const source = await read("components/ProductDesign.tsx");
   const heading = source.indexOf('title={<>Bytespace<br />Chrome Extension</>}');
   const hero = source.indexOf("<BytespaceHero />");
-  const video = source.indexOf("<video ref={productVideo}");
+  const video = source.indexOf("<BytespaceMonitor />");
   assert.ok(heading < hero && hero < video && video < source.indexOf("<BytespaceStudies />"));
 });
 
