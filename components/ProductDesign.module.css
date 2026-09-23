@@ -78,9 +78,22 @@
 .videoDemos { scroll-margin-top: 24px; }
 .videoDemos .subheading { margin: 0 0 24px; }
 .liveStudies { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px 24px; align-items: start; }
-.liveStudy { min-width: 0; scroll-margin-top: 30px; }
+.liveStudy { min-width: 0; scroll-margin-top: 30px; container-type: inline-size; overflow-anchor: none; }
 .liveStudy h4 { margin: 0 0 12px; color: #555d53; font-size: 13px; line-height: 1.5; font-weight: 500; }
-.liveStudy iframe { display: block; width: 100%; border: 0; background: transparent; }
+.liveStudy iframe { display: block; width: 100%; height: var(--study-height); border: 0; background: transparent; }
+/* These animations have no pointer controls; keep wheel gestures on the host page. */
+.executionStudy iframe, .triggerStudy iframe { pointer-events: none; }
+/* Reserve the original collapsed layouts before the lazy frames finish loading. */
+@container (max-width: 700px) {
+  .workspaceStudy iframe { height: 576px; }
+}
+@container (max-width: 380px) {
+  .workspaceStudy iframe { height: 805px; }
+  .executionStudy iframe { height: 401px; }
+}
+@container (max-width: 320px) {
+  .workspaceStudy iframe { height: 816px; }
+}
 .workspaceStudy { grid-column: 1 / -1; }
 .runtimeStudies { grid-column: 1 / -1; min-width: 0; display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(300px, 1fr); grid-template-areas: "execution signin" "triggers signin"; gap: 20px 24px; align-items: start; }
 .signinStudy { grid-area: signin; }
@@ -92,11 +105,7 @@
 .executionHeading button:hover { background: #f3f4ee; }
 .executionHeading button:focus-visible { outline: 2px solid #547582; outline-offset: 2px; }
 .calendarStudy, .contextStudy { grid-column: span 6; }
-.worldComposition { display: grid; gap: 12px; margin-top: 10px; }
-.lightWorld { margin-inline: -60px; }
-.lightWorld .artButton { aspect-ratio: 1.05; }
-.lightWorld img { height: 100%; object-fit: cover; }
-.portalGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; gap: 20px; }
+.portalGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; gap: 20px; margin-top: 10px; }
 .portalGrid .artButton { aspect-ratio: .88; }
 .portalGrid img { width: 100%; height: 100%; object-fit: contain; }
 .portalGrid .gatewayPortal img { object-fit: fill; }
@@ -177,9 +186,7 @@
   .cursorStudy { width: 62%; }
   .liveStudies { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   .liveStudies > .liveStudy { grid-column: 1; }
-  .worldComposition { gap: 20px; margin-top: 0; }
-  .lightWorld { margin-inline: -18px; }
-  .portalGrid { gap: 8px; }
+  .portalGrid { gap: 8px; margin-top: 0; }
   .landscape { margin: 28px -22px 40px; }
   .twoUp { grid-template-columns: 1fr; gap: 24px; }
   .subheading { margin-top: 40px; }
@@ -223,4 +230,7 @@
   .statueField { top: 340px; }
   .scienceStage { min-height: 760px; }
 }
-@media (prefers-reduced-motion: reduce) { .artImage, .expandIcon { transition: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .artImage, .expandIcon { transition: none; }
+  .executionStudy iframe { pointer-events: auto; }
+}

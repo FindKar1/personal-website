@@ -33,7 +33,6 @@ const captions: Partial<Record<ImageId, [string, string]>> = {
   "bytespace-workspace": ["A workspace for automated teams", "An earlier Bytespace interface study connecting agent activity, departments, and performance."],
   "agent-world": ["A world around the agents", "Character and environment exploration for Bytespace."],
   "agent-world-light": ["A world around the agents", "The light-mode composition, bringing the characters, workflow canvas, and landscape together."],
-  "agent-world-wide": ["A world around the agents", "The complete light-mode landscape: characters, workflow builder, and the portal behind them."],
   "portal-space": ["Space", "Bytespace / Light-mode environment study"],
   "portal-energy": ["Energy", "Bytespace / Light-mode environment study"],
   "portal-garden": ["An impossible garden", "Bytespace / Light-mode environment study"],
@@ -229,10 +228,7 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
       </section>
 
       <div className={styles.subheading}><h3>Giving the agents a world</h3></div>
-      <div className={styles.worldComposition}>
-        {artwork("agent-world-wide", { className: styles.lightWorld, caption: false, fullResolution: true })}
-        <div className={styles.portalGrid}>{portals.map(id => artwork(id, { caption: false, className: id === "portal-gateway" ? styles.gatewayPortal : undefined }))}</div>
-      </div>
+      <div className={styles.portalGrid}>{portals.map(id => artwork(id, { caption: false, className: id === "portal-gateway" ? styles.gatewayPortal : undefined }))}</div>
       <div className={styles.characterLineup} aria-label="Bytespace character designs">
         {characters.map(id => artwork(id, { surface: styles.characterPortrait, caption: false }))}
       </div>

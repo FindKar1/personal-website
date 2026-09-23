@@ -93,6 +93,14 @@ test("all six original UI studies render together without a tabbed shell", async
   assert.doesNotMatch(entry, /role="tab|setView\(/);
 });
 
+test("the animated hero is not repeated as static artwork or a gallery slide", async () => {
+  const source = await readFile(path.join(root, "components/ProductDesign.tsx"), "utf8");
+  assert.doesNotMatch(source, /"agent-world-wide"/);
+  assert.match(source, /<BytespaceHero \/>/);
+  assert.match(source, /styles.portalGrid/);
+  assert.match(source, /aria-label="Bytespace character designs"/);
+});
+
 test("live studies remeasure cached content and validate frame messages", async () => {
   const source = await readFile(path.join(root, "components/BytespaceStudies.tsx"), "utf8");
   assert.match(source, /event.origin !== window.location.origin/);
@@ -102,6 +110,22 @@ test("live studies remeasure cached content and validate frame messages", async 
   assert.match(source, /observeContent\(\);/);
   assert.match(source, /onLoad=\{observeContent\}/);
   assert.match(source, /resizeObserver.current\?\.disconnect\(\)/);
+});
+
+test("lazy studies reserve their layout and visual demos do not capture page scrolling", async () => {
+  const source = await readFile(path.join(root, "components/BytespaceStudies.tsx"), "utf8");
+  const css = await readFile(path.join(root, "components/ProductDesign.module.css"), "utf8");
+  assert.match(source, /readyState !== "complete" \|\| !content/);
+  assert.match(source, /querySelector<HTMLElement>\(`\.study-\$\{study.id\}`\)/);
+  assert.match(source, /resizeObserver.current.observe\(content\)/);
+  assert.match(source, /if \(measured >= 80\) setHeight/);
+  assert.doesNotMatch(source, /Math.max\(80|body.getBoundingClientRect/);
+  assert.match(source, /"--study-height": `\$\{study.height\}px`/);
+  assert.match(css, /height: var\(--study-height\)/);
+  assert.match(css, /container-type: inline-size; overflow-anchor: none/);
+  assert.match(css, /@container \(max-width: 380px\)[\s\S]*?\.executionStudy iframe \{ height: 401px/);
+  assert.match(css, /\.executionStudy iframe, \.triggerStudy iframe \{ pointer-events: none/);
+  assert.match(css, /prefers-reduced-motion: reduce[\s\S]*?\.executionStudy iframe \{ pointer-events: auto/);
 });
 
 test("the presentation archive precedes the finale and image details remain available", async () => {
