@@ -1,9 +1,11 @@
+import personalPhotos from "./personal-photo-assets.json" with { type: "json" };
+
 export type MediaArtifact = {
   src: string;
   alt: string;
   width: number;
   height: number;
-  caption: string;
+  caption?: string;
   variant?: "standard" | "wide";
   objectPosition?: string;
   cropAspectRatio?: number;
@@ -15,6 +17,10 @@ export type MediaSection = {
   description: string;
   items: MediaArtifact[];
 };
+
+function personalPhoto(id: keyof typeof personalPhotos, alt: string): MediaArtifact {
+  return { ...personalPhotos[id], alt };
+}
 
 export const notesArtifactSections: MediaSection[] = [
   {
@@ -324,7 +330,6 @@ export const archiveArtifactSections: MediaSection[] = [
         "alt": "Bytespace team visit at Vercel.",
         "width": 768,
         "height": 1024,
-        "caption": "Bytespace team visit at Vercel.",
         "variant": "standard",
         "cropAspectRatio": 1,
         "objectPosition": "center 40%"
@@ -334,83 +339,74 @@ export const archiveArtifactSections: MediaSection[] = [
         "alt": "Startup Grind Berkeley event group photo.",
         "width": 1200,
         "height": 1600,
-        "caption": "Startup Grind Berkeley event group photo.",
         "variant": "standard",
         "cropAspectRatio": 1,
         "objectPosition": "center 90%"
       },
+      personalPhoto("barbecue", "A group gathered around a barbecue outdoors."),
+      personalPhoto("holiday", "A group gathered in a living room."),
       {
         "src": "/media/optimized/archive-startup-grind-startup-grind-bw.webp",
         "alt": "Behind the scenes at a Startup Grind Berkeley event.",
         "width": 1600,
         "height": 1066,
-        "caption": "Behind the scenes at a Startup Grind Berkeley event.",
         "variant": "wide"
       },
       {
         "src": "/media/optimized/archive-early-ventures-founder-meeting.webp",
-        "alt": "Meeting founders and operators during an international program.",
+        "alt": "Four people seated together on a sofa.",
         "width": 1600,
         "height": 900,
-        "caption": "Meeting founders and operators during an international program.",
         "variant": "wide"
       },
+      personalPhoto("formal-friends", "Two people posing in formal clothes."),
+      personalPhoto("dance-group", "A group photograph in colorful dance costumes."),
+      personalPhoto("lecture", "Listening to a lecture among students with laptops."),
+      personalPhoto("workshop", "A workshop group waving around a table of laptops and handwritten notes."),
+      personalPhoto("office-friends", "Five people standing together in an office."),
+      personalPhoto("mentors", "A restaurant selfie with two of my mentors."),
       {
         "src": "/media/optimized/archive-early-ventures-eia-team.webp",
         "alt": "Team photo from European Innovation Academy.",
         "width": 1600,
         "height": 1200,
-        "caption": "Team photo from European Innovation Academy.",
         "variant": "wide"
       },
       {
         "src": "/media/optimized/archive-early-ventures-program-break.webp",
-        "alt": "Break between sessions at an innovation program.",
+        "alt": "Five people seated together outdoors at European Innovation Academy.",
         "width": 1600,
         "height": 1186,
-        "caption": "Break between sessions at an innovation program.",
         "variant": "standard"
       },
+      personalPhoto("eia-staff", "A group selfie with the European Innovation Academy staff."),
+      personalPhoto("olive-oil-team", "Our five-person startup team standing together in a hallway."),
+      personalPhoto("booming-group", "The Booming Group team gathered beside a fruit arrangement and lion mural."),
+      personalPhoto("startuphouse", "A group gathering at Startuphouse in front of a world map."),
+      personalPhoto("fraternity", "A Theta Chi group photograph outside the fraternity house."),
+      personalPhoto("birthday", "A group gathered around a cake."),
       {
         "src": "/media/optimized/archive-personal-startup-bedroom.webp",
-        "alt": "Founding days of Paladin Partners in a tiny room in Portugal.",
+        "alt": "A selfie in a small bedroom.",
         "width": 1600,
         "height": 1205,
-        "caption": "Founding days of Paladin Partners, living in a tiny room in Portugal while starting the company.",
         "variant": "wide"
       },
       {
         "src": "/media/optimized/archive-early-ventures-innovation-workshop.webp",
-        "alt": "Workshop session around local innovation and startup ideas.",
+        "alt": "Four people gathered beside a whiteboard.",
         "width": 1600,
         "height": 1200,
-        "caption": "Workshop session around local innovation and startup ideas.",
         "variant": "standard"
       },
-      {
-        "src": "/media/optimized/archive-early-ventures-korea-team-meal.webp",
-        "alt": "Team meal during an international work trip.",
-        "width": 1600,
-        "height": 899,
-        "caption": "Team meal during an international work trip.",
-        "variant": "wide"
-      },
-      {
-        "src": "/media/optimized/archive-early-ventures-team-dinner-small.webp",
-        "alt": "Small team dinner during an international program.",
-        "width": 1600,
-        "height": 1200,
-        "caption": "Small team dinner during an international program.",
-        "variant": "standard",
-        "cropAspectRatio": 1.6,
-        "objectPosition": "center bottom"
-      },
+      personalPhoto("korea-group", "Part of our group in Korea, gathered outside by a brick building."),
+      personalPhoto("bridge-friends", "A group beside a brightly lit bridge at night."),
+      personalPhoto("outdoors", "Two people in muddy clothes among trees."),
       {
         "src": "/media/optimized/archive-early-ventures-team-dinner.webp",
-        "alt": "Dinner with an international team.",
+        "alt": "A group seated around a dining table.",
         "width": 1600,
         "height": 1600,
-        "caption": "Dinner with an international team.",
         "variant": "wide"
       },
       {
@@ -418,7 +414,6 @@ export const archiveArtifactSections: MediaSection[] = [
         "alt": "Bytespace working session and product discussion.",
         "width": 1024,
         "height": 768,
-        "caption": "Bytespace working session and product discussion.",
         "variant": "wide"
       },
       {
@@ -426,7 +421,6 @@ export const archiveArtifactSections: MediaSection[] = [
         "alt": "Certa team booth at a field event.",
         "width": 1600,
         "height": 1200,
-        "caption": "Certa team booth at a field event.",
         "variant": "standard"
       },
       {
@@ -434,7 +428,6 @@ export const archiveArtifactSections: MediaSection[] = [
         "alt": "Professional visit with robotics partners.",
         "width": 1600,
         "height": 1454,
-        "caption": "Professional visit with robotics partners.",
         "variant": "standard"
       },
       {
@@ -442,7 +435,6 @@ export const archiveArtifactSections: MediaSection[] = [
         "alt": "Rainforest Partnership team dinner.",
         "width": 1600,
         "height": 1600,
-        "caption": "Rainforest Partnership team dinner.",
         "variant": "wide"
       },
       {
@@ -450,7 +442,6 @@ export const archiveArtifactSections: MediaSection[] = [
         "alt": "Rainforest Partnership team moment.",
         "width": 1600,
         "height": 1207,
-        "caption": "Rainforest Partnership team moment.",
         "variant": "wide"
       }
     ]

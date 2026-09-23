@@ -1,13 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import localFont from "next/font/local";
-import type { CSSProperties } from "react";
 import { PortfolioCollection } from "@/components/PortfolioCollection";
 import { ProductDesign } from "@/components/ProductDesign";
 import { ArchiveTalks, ProductDemos } from "@/components/PortfolioVideos";
 import { LegacyProfileLinks } from "@/components/LegacyProfileLinks";
 import { NotebookCollage } from "@/components/NotebookCollage";
 import { Biography } from "@/components/Biography";
+import { PhotoGallery } from "@/components/PhotoGallery";
+import { ArchiveTravel } from "@/components/ArchiveTravel";
 import { getProfileLocation, profileLabels, profileTabs, type QueryValue } from "./profile-navigation";
 import systemsAssets from "./systems-assets.json";
 import {
@@ -201,14 +202,11 @@ function SystemsPreview() {
 }
 
 function PeoplePhotoCollage({ section }: { section: MediaSection }) {
-  const rows = Array.from({ length: Math.ceil(section.items.length / 2) }, (_, index) =>
-    section.items.slice(index * 2, index * 2 + 2),
-  );
-
   return (
     <section
+      id="archive-people"
       aria-labelledby="people-heading"
-      className="mt-5 grid gap-4 border-y border-ink/10 py-5 sm:grid-cols-[8rem_1fr]"
+      className="mt-5 grid scroll-mt-6 gap-4 border-t border-ink/10 py-5 sm:grid-cols-[8rem_minmax(0,1fr)]"
     >
       <div className="space-y-2">
         <h3 id="people-heading" className="font-mono text-xs leading-6 uppercase text-graphite/50">
@@ -218,39 +216,7 @@ function PeoplePhotoCollage({ section }: { section: MediaSection }) {
           {section.description}
         </p>
       </div>
-      <div className="people-collage min-w-0 space-y-1">
-        {rows.map((row, index) => (
-          <div
-            key={row[0].src}
-            className={`grid gap-1 sm:grid-cols-[var(--people-columns)] ${
-              index === 0 ? "grid-cols-2" : "grid-cols-1"
-            }`}
-            style={{
-              "--people-columns": row
-                .map((photo) => `minmax(0, ${photo.cropAspectRatio ?? photo.width / photo.height}fr)`)
-                .join(" "),
-            } as CSSProperties}
-          >
-            {row.map((photo) => (
-              <figure
-                key={photo.src}
-                className="relative min-w-0 overflow-hidden border border-ink/10 bg-ink/[0.03]"
-                style={{ aspectRatio: photo.cropAspectRatio ?? photo.width / photo.height }}
-              >
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  unoptimized
-                  sizes={index === 0 ? "(min-width: 640px) 376px, 50vw" : "(min-width: 640px) 430px, 100vw"}
-                  className="object-cover"
-                  style={{ objectPosition: photo.objectPosition ?? "center" }}
-                />
-              </figure>
-            ))}
-          </div>
-        ))}
-      </div>
+      <PhotoGallery photos={section.items} label="People photos" compactFirstRow />
     </section>
   );
 }
@@ -857,6 +823,7 @@ export default async function Home({ searchParams }: HomeProps) {
                 <WorkPhotoCollage sections={workArtifactSections} />
                 <ArchiveTalks />
                 <PeoplePhotoCollage section={archiveArtifactSections[0]} />
+                <ArchiveTravel />
               </div>
             )}
 

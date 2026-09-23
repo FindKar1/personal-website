@@ -1,0 +1,147 @@
+{
+  "lecture": {
+    "src": "/media/personal/lecture.webp",
+    "width": 1600,
+    "height": 1067
+  },
+  "workshop": {
+    "src": "/media/personal/workshop.webp",
+    "width": 960,
+    "height": 721
+  },
+  "dance-group": {
+    "src": "/media/personal/dance-group.webp",
+    "width": 1800,
+    "height": 1013
+  },
+  "fraternity": {
+    "src": "/media/personal/fraternity.webp",
+    "width": 1800,
+    "height": 1196
+  },
+  "formal-friends": {
+    "src": "/media/personal/formal-friends.webp",
+    "width": 1200,
+    "height": 797
+  },
+  "holiday": {
+    "src": "/media/personal/holiday.webp",
+    "width": 960,
+    "height": 720
+  },
+  "bridge-friends": {
+    "src": "/media/personal/bridge-friends.webp",
+    "width": 1200,
+    "height": 800
+  },
+  "outdoors": {
+    "src": "/media/personal/outdoors.webp",
+    "width": 1200,
+    "height": 1600
+  },
+  "barbecue": {
+    "src": "/media/personal/barbecue.webp",
+    "width": 1600,
+    "height": 1200
+  },
+  "birthday": {
+    "src": "/media/personal/birthday.webp",
+    "width": 1400,
+    "height": 1050
+  },
+  "office-friends": {
+    "src": "/media/personal/office-friends.webp",
+    "width": 1600,
+    "height": 1371
+  },
+  "korea-group": {
+    "src": "/media/personal/korea-group.webp",
+    "width": 960,
+    "height": 720
+  },
+  "mentors": {
+    "src": "/media/personal/mentors.webp",
+    "width": 1600,
+    "height": 1201
+  },
+  "eia-staff": {
+    "src": "/media/personal/eia-staff.webp",
+    "width": 1600,
+    "height": 1193
+  },
+  "olive-oil-team": {
+    "src": "/media/personal/olive-oil-team.webp",
+    "width": 1600,
+    "height": 1200
+  },
+  "booming-group": {
+    "src": "/media/personal/booming-group.webp",
+    "width": 1200,
+    "height": 675
+  },
+  "startuphouse": {
+    "src": "/media/personal/startuphouse.webp",
+    "width": 1400,
+    "height": 930
+  },
+  "hang-gliding": {
+    "src": "/media/personal/hang-gliding.webp",
+    "width": 1600,
+    "height": 1200
+  },
+  "lamppost": {
+    "src": "/media/personal/lamppost.webp",
+    "width": 1200,
+    "height": 1600
+  },
+  "boat": {
+    "src": "/media/personal/boat.webp",
+    "width": 1600,
+    "height": 900
+  },
+  "tank": {
+    "src": "/media/personal/tank.webp",
+    "width": 1600,
+    "height": 2133
+  },
+  "skydiving": {
+    "src": "/media/personal/skydiving.webp",
+    "width": 2000,
+    "height": 1125
+  },
+  "learning-to-fly": {
+    "src": "/media/personal/learning-to-fly.webp",
+    "width": 1600,
+    "height": 1600
+  },
+  "climbing": {
+    "src": "/media/personal/climbing.webp",
+    "width": 1179,
+    "height": 1003
+  },
+  "surf-lesson": {
+    "src": "/media/personal/surf-lesson.webp",
+    "width": 604,
+    "height": 453
+  },
+  "surf-shore": {
+    "src": "/media/personal/surf-shore.webp",
+    "width": 604,
+    "height": 453
+  },
+  "surfing": {
+    "src": "/media/personal/surfing.webp",
+    "width": 1600,
+    "height": 750
+  },
+  "snowboarding": {
+    "src": "/media/personal/snowboarding.webp",
+    "width": 1179,
+    "height": 1328
+  },
+  "wakesurfing": {
+    "src": "/media/personal/wakesurfing.webp",
+    "width": 1400,
+    "height": 2489
+  }
+}

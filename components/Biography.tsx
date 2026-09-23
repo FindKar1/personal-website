@@ -1,17 +1,30 @@
-import Image from "next/image";
-import type { CSSProperties } from "react";
-import photos from "@/app/biography-photo-assets.json";
+import { Fragment } from "react";
+import childhoodPhotos from "@/app/biography-photo-assets.json";
+import { archiveArtifactSections } from "@/app/media-artifacts";
+import { PhotoGallery } from "./PhotoGallery";
 import styles from "./Biography.module.css";
+
+function archivedPhoto(filename: string) {
+  const photo = archiveArtifactSections[0].items.find(item => item.src.endsWith(filename));
+  if (!photo) throw new Error(`Missing biography photo: ${filename}`);
+  return photo;
+}
+
+const photos = {
+  ...childhoodPhotos,
+  eia: archivedPhoto("archive-early-ventures-program-break.webp"),
+  bedroom: archivedPhoto("archive-personal-startup-bedroom.webp"),
+};
 
 type PhotoId = keyof typeof photos;
 type PhotoGroup = {
   afterParagraph: number;
-  layout: "row" | "inset" | "portrait";
+  layout: "row" | "inset";
   photos: { id: PhotoId; alt: string }[];
 };
 
-const photoGroups: Record<string, PhotoGroup> = {
-  origin: {
+export const biographyPhotoGroups: Record<string, PhotoGroup[]> = {
+  origin: [{
     afterParagraph: 2,
     layout: "row",
     photos: [
@@ -19,49 +32,40 @@ const photoGroups: Record<string, PhotoGroup> = {
       { id: "childhood-portrait", alt: "A close-up childhood portrait." },
       { id: "car", alt: "Standing on the hood of a car as a child, wearing a yellow top and dark skirt." },
     ],
-  },
-  home: {
+  }],
+  home: [{
     afterParagraph: 3,
     layout: "row",
     photos: [
       { id: "garden", alt: "With my mom among the flowers." },
-      { id: "playground", alt: "A childhood afternoon at the playground with my mom and a baby." },
+      { id: "playground", alt: "At the playground as a child with my mom and a baby." },
       { id: "park", alt: "A family photograph in the park." },
     ],
-  },
-  curiosity: {
+  }],
+  curiosity: [{
     afterParagraph: 1,
     layout: "inset",
     photos: [
       { id: "cooking", alt: "Standing on a kitchen chair as a child, stirring a pan on the stove." },
     ],
-  },
-  school: {
-    afterParagraph: 1,
-    layout: "portrait",
-    photos: [
-      { id: "school-portrait", alt: "An elementary-school portrait in a blue T-shirt." },
-    ],
-  },
+  }],
+  usefulness: [
+    {
+      afterParagraph: 6,
+      layout: "row",
+      photos: [
+        { id: "eia", alt: "Five people seated together outdoors at European Innovation Academy." },
+        { id: "bedroom", alt: "A selfie in a small bedroom." },
+      ],
+    },
+  ],
 };
 
 function PhotoBreak({ group }: { group: PhotoGroup }) {
-  const columns = group.photos.map(({ id }) => `${photos[id].width / photos[id].height}fr`).join(" ");
-
   return (
-    <div
-      className={`${styles.photos} ${styles[group.layout]}`}
-      style={{ "--photo-columns": columns } as CSSProperties}
-    >
-      {group.photos.map(({ id, alt }) => (
-        <Image
-          key={id}
-          {...photos[id]}
-          alt={alt}
-          unoptimized
-          className={styles.photo}
-        />
-      ))}
+    <div className={`${styles.photos} ${group.layout === "row" ? "" : styles[group.layout]}`}>
+      <PhotoGallery photos={group.photos.map(({ id, alt }) => ({ ...photos[id], alt }))}
+        label={group.photos.map(({ id }) => id).join(" and ") + " photos"} keepRow={group.layout === "row"} />
     </div>
   );
 }
@@ -70,8 +74,8 @@ export function Biography({ sections }: { sections: { label: string; paragraphs:
   return (
     <div className="max-w-4xl space-y-10 text-base leading-7 text-graphite">
       {sections.map((section, sectionIndex) => {
-        const group = photoGroups[section.label];
-        const splitAt = group?.afterParagraph ?? section.paragraphs.length;
+        const groups = biographyPhotoGroups[section.label] ?? [];
+        const lastBreak = groups.at(-1)?.afterParagraph ?? 0;
 
         return (
           <section
@@ -84,13 +88,13 @@ export function Biography({ sections }: { sections: { label: string; paragraphs:
               {String(sectionIndex + 1).padStart(2, "0")} / {section.label}
             </h3>
             <div className={styles.copy}>
-              {section.paragraphs.slice(0, splitAt).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-              {group && (
-                <div className={styles.continuation}>
+              {groups.map((group, index) => (
+                <Fragment key={group.afterParagraph}>
+                  {section.paragraphs.slice(groups[index - 1]?.afterParagraph ?? 0, group.afterParagraph).map(paragraph => <p key={paragraph}>{paragraph}</p>)}
                   <PhotoBreak group={group} />
-                  {section.paragraphs.slice(splitAt).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-                </div>
-              )}
+                </Fragment>
+              ))}
+              {section.paragraphs.slice(lastBreak).map(paragraph => <p key={paragraph}>{paragraph}</p>)}
             </div>
           </section>
         );

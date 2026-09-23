@@ -15,15 +15,17 @@ test("biography contains only the eight selected web derivatives", async () => {
 
 test("Origin and Home use proportional single rows with the close-up between the vehicles", async () => {
   const component = await readFile(new URL("../components/Biography.tsx", import.meta.url), "utf8");
-  const css = await readFile(new URL("../components/Biography.module.css", import.meta.url), "utf8");
+  const gallery = await readFile(new URL("../components/PhotoGallery.tsx", import.meta.url), "utf8");
+  const css = await readFile(new URL("../components/PhotoGallery.module.css", import.meta.url), "utf8");
   const origin = component.slice(component.indexOf("  origin:"), component.indexOf("  home:"));
   const home = component.slice(component.indexOf("  home:"), component.indexOf("  curiosity:"));
 
   assert.deepEqual([...origin.matchAll(/id: "([^"]+)"/g)].map((match) => match[1]), ["motorcycle", "childhood-portrait", "car"]);
   assert.match(origin, /layout: "row"/);
   assert.match(home, /layout: "row"/);
-  assert.match(component, /photos\[id\]\.width \/ photos\[id\]\.height/);
-  assert.match(css, /\.row\s*\{\s*grid-template-columns: var\(--photo-columns\);\s*\}/);
+  assert.match(component, /keepRow=\{group.layout === "row"\}/);
+  assert.match(gallery, /photo.width \/ photo.height/);
+  assert.match(css, /grid-template-columns: var\(--columns\)/);
   assert.doesNotMatch(css, /grid-row|grid-column|nth-child/);
 });
 
