@@ -1,0 +1,178 @@
+{
+  "repository": "https://github.com/FindKar1/portfolio-sites",
+  "revision": "86c3937e16ad363bb30818edb56a81c938c67a1e",
+  "sourceFiles": [
+    {
+      "path": "apps/cmd0/src/components/landing-page/heroComponents/animation/MountainScene.tsx",
+      "sha256": "7eb35791a3ec2fd030b997d39d77ec30f9c0fb963ed5e8d3fe0813e9ccbbfb75"
+    },
+    {
+      "path": "apps/cmd0/src/components/landing-page/GlassPanelFrost.tsx",
+      "sha256": "93265a0d758ffe223337dcead78a5fe2c6e2696af49a2530bc7745b08eb84158"
+    },
+    {
+      "path": "apps/cmd0/src/components/marketplace/workflow-preview/landingWorkflowData.ts",
+      "sha256": "482fb41454f093409bd090c93213b0f190a619a730eef89ad10cc985d4fcc9b0"
+    },
+    {
+      "path": "apps/cmd0/src/components/marketplace/workflow-preview/WorkflowPreview.tsx",
+      "sha256": "d47e0ce4612ba66d7a305b2cf27a74696581a18ce26ab365ace1371587e47cba"
+    },
+    {
+      "path": "apps/cmd0/src/lib/utils.ts",
+      "sha256": "7d35d5feba7e5781dbc3e630429ead1ad58d2285ea642e9229d7612e1b77bba3"
+    },
+    {
+      "path": "apps/cmd0/src/components/landing-page/landingLayout.tsx",
+      "sha256": "0c44133c98a8e03e3f2595c6b878a5709df7111ad40a1970b9f259e67f3cecb3"
+    },
+    {
+      "path": "apps/cmd0/src/components/landing-page/heroComponents/animation/utils/zIndexConfig.ts",
+      "sha256": "00b0f4163f5c8e378addf4077e5194fb117bbde42196e64422e3df4bce030595"
+    },
+    {
+      "path": "apps/cmd0/src/components/marketplace/workflow-preview/WorkflowNode.tsx",
+      "sha256": "92da1db9d0201943e7edd1919273c0bd4c4532affab649534e82fe939df615c2"
+    },
+    {
+      "path": "apps/cmd0/src/components/landing-page/heroComponents/animation/utils/mountainAssets.ts",
+      "sha256": "ab0d313118fd2a0f77bd968e66e9d282b315bb85382e450a77a72c18de966bdb"
+    },
+    {
+      "path": "apps/cmd0/src/components/landing-page/heroComponents/animation/utils/mountainPositioning.ts",
+      "sha256": "1ffd28b1fd10f1fd32a954ccba7c12de4003175676560414ab2586ca6a042eed"
+    },
+    {
+      "path": "apps/cmd0/src/components/marketplace/workflow-preview/nodes/ConditionsNode.tsx",
+      "sha256": "adbc989b09a247fae1811bfec874f7f2c2b1eba32b26b92eb595cf554a683dac"
+    },
+    {
+      "path": "apps/cmd0/src/components/marketplace/workflow-preview/nodes/TriggerNode.tsx",
+      "sha256": "53030b50883ddec69e841c9081197c7d0e145b7cce2c31cf26fb2ed4220676da"
+    },
+    {
+      "path": "apps/cmd0/public/landing/first_view/nodes/positions.json",
+      "sha256": "d24551857a8b3b3165aa8e3700f651c43aae2b2077f50bec07f934998ece63d0"
+    },
+    {
+      "path": "apps/cmd0/public/landing/first_view/position.json",
+      "sha256": "5970d42a684247b2c41a42f2fa3645fa8015273a8c6076eacac446a2f41adf4b"
+    },
+    {
+      "path": "apps/cmd0/public/landing/first_view/mountain/position.json",
+      "sha256": "f9e23e38127655c7055c8ad9322438b864b7c32aaeb38b47e6c2011eed0867d9"
+    },
+    {
+      "path": "apps/cmd0/src/components/landing-page/TitleSectionNew.tsx",
+      "sha256": "eb86536551d114da4f0c62b687367f388ec13b67a9a82c10654b42360a131951"
+    }
+  ],
+  "assets": [
+    {
+      "path": "/agent_profiles/Core/bytespace-hat/bytespace-hat.png",
+      "sha256": "4bebb98d93280cf8fd5600a86ec1ea78fd7b60d3784bd82e375bdc4b8279c07a"
+    },
+    {
+      "path": "/fonts/GeneralSans-Variable.woff2",
+      "sha256": "49d3fbd2f1bcc9850d8d939cabf107d6ade508ce08419fca466b06879e4a0a8e"
+    },
+    {
+      "path": "/landing/first_view/mountain/light/mount-1-blur.webp",
+      "sha256": "fd177c8b276acb8496a7bacf24fe1ea82d557df6150e7260321b6fdcac125bd5"
+    },
+    {
+      "path": "/landing/first_view/mountain/light/mount-1.webp",
+      "sha256": "ffec68cc7ff5ba81076271ae87e636d48ccb8a6dc983d2a265b3dca96db8972b"
+    },
+    {
+      "path": "/landing/first_view/mountain/light/mount-1@md.webp",
+      "sha256": "5b8bdbd99390a0f6b37ba8af3e0f400136550552fe8472fa59c739c95ebb5c59"
+    },
+    {
+      "path": "/landing/first_view/mountain/light/mount-1@sm.webp",
+      "sha256": "66f62f015d4651fe89e2e28d6b993e024f80c4e41ef64187c0a3a06958d5d775"
+    },
+    {
+      "path": "/landing/first_view/mountain/light/mount-2.webp",
+      "sha256": "75c07ecb879d7d5e153da34e54c6ad2588b8ed5c4584c748fc99db93b4bffe99"
+    },
+    {
+      "path": "/landing/first_view/mountain/light/mount-2@md.webp",
+      "sha256": "0903be5d4d502c1852feeb063800b2674264f4ff36289fa6b6d9875ddd01bc02"
+    },
+    {
+      "path": "/landing/first_view/mountain/light/mount-2@sm.webp",
+      "sha256": "d4f5a10e24d4112050765383201b587180af4f864bfb7adbfdf8093728e8a05c"
+    },
+    {
+      "path": "/landing/first_view/mountain/light/mount-3.webp",
+      "sha256": "9d8f6763e952b3a299ccdba0de012f3626d1c3d4f11c915c0887080caeaf4fd5"
+    },
+    {
+      "path": "/landing/first_view/mountain/light/mount-3@md.webp",
+      "sha256": "e7c782a08cba4aba9491b13bc77dc7b89c64bfbd7579e6a49aafece2a3ced1b8"
+    },
+    {
+      "path": "/landing/first_view/mountain/light/mount-3@sm.webp",
+      "sha256": "e81147a30c38684a49865be69da61ab4dcde858e709499a3e9155e53067a4bd7"
+    },
+    {
+      "path": "/landing/first_view/mountain/water-light.webp",
+      "sha256": "76785358a2a8173da5fc22ad78111b83f981250fe6b99cc5e666937782424c1e"
+    },
+    {
+      "path": "/landing/first_view/mountain/water.webp",
+      "sha256": "a878e50550ac7b97c03c8957e01deb26c39d41b87adfdb9e6e566b6e6a892e0b"
+    },
+    {
+      "path": "/landing/first_view/nodes/light/node-1-zback.webp",
+      "sha256": "c5b778fe78abd9f11ac159429fc13311675fd4fbddbf7ac510a61342ca2f2683"
+    },
+    {
+      "path": "/landing/first_view/nodes/light/node-2-zfront.webp",
+      "sha256": "9dc0c8f7bbd04142edebc1ad7f3633fb60eab57b789fc935e8c93e6fdc722232"
+    },
+    {
+      "path": "/landing/first_view/nodes/light/node-3-zback.webp",
+      "sha256": "b1a9b4b3a25b1f8ec32d76aaedd8c77d23add9554470367bad649d35d80b5d5c"
+    },
+    {
+      "path": "/landing/first_view/nodes/light/node-4-zback.webp",
+      "sha256": "6e10e8a1f4e89b6884394f23f39a7038d227106cb8ec8a4fabd53d69833e4e0c"
+    },
+    {
+      "path": "/landing/first_view/nodes/light/node-5-zfront.webp",
+      "sha256": "9cef3bc3a17e77f7c27e5d2308ddcaffbd9bcc75ae9b4473dd5303d7d24d8d7f"
+    },
+    {
+      "path": "/landing/first_view/nodes/light/node-6-zfront.webp",
+      "sha256": "5d671ce2ff3c9171cf4d2d7ff68f7994db83f83b608466ca6bb7f826c3f1a25c"
+    },
+    {
+      "path": "/landing/first_view/squad/phase-1-z-10.webp",
+      "sha256": "f4b1afcd3b14c95b1c0f16249095b1a2739625db04318321494b2f53c0a8308f"
+    },
+    {
+      "path": "/landing/first_view/squad/phase-1-z-10@md.webp",
+      "sha256": "ea03fc1bbeafa37e427f33bdfdb258074ff624b80d8bb7626f7541e46acd470f"
+    },
+    {
+      "path": "/landing/first_view/squad/phase-2-z-1.webp",
+      "sha256": "1e0108fa979568bf5e8ca17af93e8ac879ab560b425cf0838b5c6df9401b96fd"
+    },
+    {
+      "path": "/landing/first_view/squad/phase-2-z-1@md.webp",
+      "sha256": "f63e2f7140405d6408453ea9c8c9bbb42cb2a6800d2f9db9d4a2d9e151c67689"
+    }
+  ],
+  "adaptations": [
+    "Original MountainScene, position JSON, Framer Motion timing and artwork",
+    "Original builder JSX extracted from TitleSectionNew with original React Flow nodes and animated edges",
+    "Light theme forced; no account services, marketing copy, signup actions or surrounding homepage sections",
+    "Original desktop composition scaled as a unit in an isolated iframe",
+    "Visibility-triggered entrance, replay, offscreen pause and reduced-motion support",
+    "Local asset URL prefix, no image resizing or recompression",
+    "Preload the two rendered WebP squad layers instead of legacy PNGs and nonexistent third phase",
+    "Workflow debug logs removed and delayed viewport setter cleaned up"
+  ]
+}

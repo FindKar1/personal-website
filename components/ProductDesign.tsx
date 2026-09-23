@@ -5,6 +5,8 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from "react"
 import { ArrowDown, ArrowUpRight, ChevronLeft, ChevronRight, Download, Maximize2, Minimize2, Plus, RotateCcw, X, ZoomIn, ZoomOut } from "lucide-react";
 import productAssets from "@/app/product-design-assets.json";
 import { BytespaceStudies } from "./BytespaceStudies";
+import { BytespaceHero } from "./BytespaceHero";
+import { BytespaceVideoWall } from "./BytespaceVideoWall";
 import posterAssets from "@/app/bytespace-design-assets.json";
 import systemsAssets from "@/app/systems-assets.json";
 import styles from "./ProductDesign.module.css";
@@ -212,6 +214,7 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
 
     <section id="product-design" aria-labelledby="product-design-title" className={styles.chapter}>
       <ChapterHeader number="02" id="product-design" title={<>Bytespace<br />Chrome Extension</>} category="Browser automation">Browser automation, from the first workflow to a world of agents.</ChapterHeader>
+      <BytespaceHero />
       <div className={styles.productStage}>
         <div className={styles.desktopComposition}>
           <Image {...images["desktop-shell"].preview} alt="Illustrated Bytespace desktop" unoptimized loading="lazy" className={styles.desktopShell} />
@@ -225,6 +228,7 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
         </div>
       </div>
       {children}
+      <BytespaceVideoWall />
       <div className={styles.subheading}><h3>Inside the extension</h3></div>
       <div className={styles.twoUp}>{artwork("agent-run-light", { className: styles.interface })}{artwork("agent-library", { className: styles.interface })}</div>
       <div className={styles.extensionComposition}>
