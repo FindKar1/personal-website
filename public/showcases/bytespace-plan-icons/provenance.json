@@ -1,0 +1,33 @@
+{
+  "repository": "https://github.com/FindKar1/portfolio-sites",
+  "revision": "86c3937e16ad363bb30818edb56a81c938c67a1e",
+  "sourceFiles": [
+    {
+      "path": "apps/cmd0/src/components/landing-page/NodeCarousel.tsx",
+      "sha256": "1488f12c17612399d9174d7fa5a6fb4fc064d2cbd1f47789f496ce013347797f"
+    },
+    {
+      "path": "apps/cmd0/src/components/marketplace/workflow-preview/WorkflowNode.tsx",
+      "sha256": "92da1db9d0201943e7edd1919273c0bd4c4532affab649534e82fe939df615c2"
+    },
+    {
+      "path": "apps/cmd0/src/components/payments/CrystalTower.tsx",
+      "sha256": "e638e8844831bc5dc71e0788b53aae4218037a5c6f0590121b4028e610fcc9c4"
+    },
+    {
+      "path": "apps/cmd0/src/components/payments/DiamondShape.tsx",
+      "sha256": "5ec018ddfda6ec458a51bc05c52af3d450ade7106f6b5b1ed83f9323c2d181b5"
+    },
+    {
+      "path": "apps/cmd0/src/components/payments/LaptopShape.tsx",
+      "sha256": "72cbcc1a4ca8acf57c35c81c4d9142a14b127250727fc56eb6c426a9db78c219"
+    }
+  ],
+  "adaptations": [
+    "Original LaptopShape, DiamondShape and CrystalTower animation code, forced to light mode, without payment cards or services",
+    "Unframed responsive row of three; host visibility and pause controls mount still SVG variants to stop all animation work",
+    "Still variants preserve original paths and gradients, removing motion props, SMIL animation and tower beam intervals",
+    "All 41 action entries and Lucide icon identities extracted from NodeCarousel without marketing overview slides",
+    "Original WorkflowNode light palette, including its pale-blue Data category; compact named contact sheet with a twelve-node mobile preview"
+  ]
+}

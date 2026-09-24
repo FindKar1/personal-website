@@ -1,0 +1,359 @@
+{
+  "groups": [
+    {
+      "name": "Web",
+      "nodes": [
+        {
+          "label": "click",
+          "title": "Click",
+          "description": "Click exactly what you want — via text, selector, or element — with human-level precision.",
+          "icon": "MousePointer",
+          "category": "interaction"
+        },
+        {
+          "label": "get-text",
+          "title": "Get text",
+          "description": "Grab any text on the page—names, titles, descriptions—and save it to variables or tables for later steps.",
+          "icon": "ClipboardType",
+          "category": "interaction"
+        },
+        {
+          "label": "type",
+          "title": "Type",
+          "description": "Type exactly what you specify into any form field—great for dynamic AI-generated input or fixed values.",
+          "icon": "PencilLine",
+          "category": "interaction"
+        },
+        {
+          "label": "scroll",
+          "title": "Scroll",
+          "description": "Scroll pages or containers to the right spot and wait for content to load before acting.",
+          "icon": "Mouse",
+          "category": "interaction"
+        },
+        {
+          "label": "attribute-value",
+          "title": "Attribute value",
+          "description": "Pull any attribute from an element—hrefs, aria-labels, data-*—for verification or routing.",
+          "icon": "Tag",
+          "category": "interaction"
+        },
+        {
+          "label": "upload-file",
+          "title": "Upload file",
+          "description": "Attach a local file to inputs and submit it just like a user.",
+          "icon": "FileUp",
+          "category": "interaction"
+        },
+        {
+          "label": "hover",
+          "title": "Hover",
+          "description": "Hover to open menus, tooltips, or hidden controls before the next step.",
+          "icon": "MoveUp",
+          "category": "interaction"
+        },
+        {
+          "label": "save-assets",
+          "title": "Save assets",
+          "description": "Save images or files you encounter so later steps can use them.",
+          "icon": "Save",
+          "category": "interaction"
+        },
+        {
+          "label": "press-key",
+          "title": "Press key",
+          "description": "Replay recorded keystrokes or shortcuts so your agent triggers the same actions you would manually.",
+          "icon": "Keyboard",
+          "category": "interaction"
+        },
+        {
+          "label": "create-element",
+          "title": "Create element",
+          "description": "Inject custom HTML/CSS/JS or preload scripts to extend the page on the fly.",
+          "icon": "Component",
+          "category": "interaction"
+        },
+        {
+          "label": "take-screenshot",
+          "title": "Take screenshot",
+          "description": "Capture an element, region, or full-page screenshot to reuse or feed into AI.",
+          "icon": "Camera",
+          "category": "interaction"
+        },
+        {
+          "label": "download-file",
+          "title": "Download file",
+          "description": "Kick off downloads and confirm the file made it to disk.",
+          "icon": "Download",
+          "category": "interaction"
+        },
+        {
+          "label": "export-data",
+          "title": "Export data",
+          "description": "Bundle your collected data for download or handoff downstream.",
+          "icon": "Share",
+          "category": "interaction"
+        },
+        {
+          "label": "get-tab-url",
+          "title": "Get tab url",
+          "description": "Return the current tab URL for logging or decisions.",
+          "icon": "Link",
+          "category": "interaction"
+        },
+        {
+          "label": "delay",
+          "title": "Delay",
+          "description": "Pause the flow for a beat so pages can settle.",
+          "icon": "Timer",
+          "category": "general"
+        }
+      ]
+    },
+    {
+      "name": "AI",
+      "nodes": [
+        {
+          "label": "ai-text-generation",
+          "title": "AI text generation",
+          "description": "Drop in a prompt, pull context from files or the web, pick your model, and let it draft the text you need.",
+          "icon": "Cpu",
+          "category": "ai"
+        },
+        {
+          "label": "extract-data",
+          "title": "Extract data",
+          "description": "Point it at a page, pick your model, and pull out any fields you want—names, dates, images, whatever—cleanly structured from messy content.",
+          "icon": "Pickaxe",
+          "category": "ai"
+        },
+        {
+          "label": "image-generation",
+          "title": "Image generation",
+          "description": "Generate on-brand visuals with top-tier image models and drop them into posts, reports, or any step your agent needs.",
+          "icon": "Image",
+          "category": "ai"
+        },
+        {
+          "label": "sentiment-analysis",
+          "title": "Sentiment analysis",
+          "description": "Check the vibe of a message, post, or even a screenshot—spot whether it’s positive, negative, or neutral so you can respond the right way.",
+          "icon": "Smile",
+          "category": "ai"
+        },
+        {
+          "label": "visual-analysis",
+          "title": "Visual analysis",
+          "description": "Let the model “look” at a page or image and tell you what’s there—objects, text, layout, what stands out, and what might need attention.",
+          "icon": "Eye",
+          "category": "ai"
+        }
+      ]
+    },
+    {
+      "name": "Navigation",
+      "nodes": [
+        {
+          "label": "new-tab",
+          "title": "New tab",
+          "description": "Open a fresh tab and navigate to any URL with optional headers.",
+          "icon": "Globe",
+          "category": "browser"
+        },
+        {
+          "label": "switch-tab",
+          "title": "Switch tab",
+          "description": "Jump between tabs by index or URL match to keep flows moving.",
+          "icon": "ArrowLeftRight",
+          "category": "browser"
+        },
+        {
+          "label": "go-back",
+          "title": "Go back",
+          "description": "Step back in history when you need to retry or collect more data.",
+          "icon": "ArrowLeft",
+          "category": "browser"
+        },
+        {
+          "label": "go-forward",
+          "title": "Go forward",
+          "description": "Move forward again after a branch or validation step.",
+          "icon": "ArrowRight",
+          "category": "browser"
+        },
+        {
+          "label": "clipboard",
+          "title": "Clipboard",
+          "description": "Read from or write to the clipboard to pass quick snippets.",
+          "icon": "Clipboard",
+          "category": "browser"
+        },
+        {
+          "label": "reload-tab",
+          "title": "Reload tab",
+          "description": "Refresh the current tab to reset state or pull fresh content.",
+          "icon": "RefreshCw",
+          "category": "browser"
+        },
+        {
+          "label": "active-tab",
+          "title": "Active tab",
+          "description": "Lock actions to the current active tab so you stay in context.",
+          "icon": "Globe",
+          "category": "browser"
+        },
+        {
+          "label": "close-tab",
+          "title": "Close tab",
+          "description": "Close tabs by index or pattern to keep sessions tidy.",
+          "icon": "XCircle",
+          "category": "browser"
+        }
+      ]
+    },
+    {
+      "name": "Logic",
+      "nodes": [
+        {
+          "label": "conditions",
+          "title": "Conditions",
+          "description": "Route the flow with if/else and AND/OR logic—or even AI checks on text/sentiment—to decide what happens next.",
+          "icon": "GitBranch",
+          "category": "conditions"
+        },
+        {
+          "label": "loop-data",
+          "title": "Loop data",
+          "description": "Iterate through arrays or rows and run the same steps for each.",
+          "icon": "RefreshCw",
+          "category": "conditions"
+        },
+        {
+          "label": "loop-elements",
+          "title": "Loop elements",
+          "description": "Walk a list of matching items—tweets, products, posts—and run your actions on each one.",
+          "icon": "RotateCw",
+          "category": "conditions"
+        },
+        {
+          "label": "count-elements",
+          "title": "Count elements",
+          "description": "Count how many matching items exist—listings, images, any repeated element—and use the number in your decisions.",
+          "icon": "Hash",
+          "category": "conditions"
+        },
+        {
+          "label": "repeat-task",
+          "title": "Repeat task",
+          "description": "Repeat a set of steps a fixed number of times or until you’re done.",
+          "icon": "RefreshCw",
+          "category": "conditions"
+        },
+        {
+          "label": "loop-breakpoint",
+          "title": "Loop breakpoint",
+          "description": "Break out of a loop when you hit a rule—success, stop, or after a set number of iterations.",
+          "icon": "CircleStop",
+          "category": "conditions"
+        }
+      ]
+    },
+    {
+      "name": "Data",
+      "nodes": [
+        {
+          "label": "insert-data",
+          "title": "Insert data",
+          "description": "Write new values into variables so later steps can use them.",
+          "icon": "Database",
+          "category": "data"
+        },
+        {
+          "label": "delete-data",
+          "title": "Delete data",
+          "description": "Clear stored values or variables you no longer need.",
+          "icon": "Trash2",
+          "category": "data"
+        },
+        {
+          "label": "slice-variable",
+          "title": "Slice variable",
+          "description": "Trim arrays or strings down to just the slice you want.",
+          "icon": "Scissors",
+          "category": "data"
+        },
+        {
+          "label": "increase-variable",
+          "title": "Increase variable",
+          "description": "Increment counters to track attempts, rows, or progress.",
+          "icon": "ArrowUp",
+          "category": "data"
+        },
+        {
+          "label": "regex-variable",
+          "title": "Regex variable",
+          "description": "Use regex to extract, replace, or validate a variable’s content.",
+          "icon": "Regex",
+          "category": "data"
+        },
+        {
+          "label": "sort-data",
+          "title": "Sort data",
+          "description": "Sort arrays or lists so exports and logic run in the right order.",
+          "icon": "ArrowUpDown",
+          "category": "data"
+        }
+      ]
+    },
+    {
+      "name": "Custom",
+      "nodes": [
+        {
+          "label": "javascript-code",
+          "title": "Custom nodes - Javascript",
+          "description": "Didn’t find what you’re looking for? Write your own node with JavaScript—manipulate the DOM, call APIs, or craft any bespoke block with full control.",
+          "icon": "Code2",
+          "category": "interaction"
+        }
+      ]
+    }
+  ],
+  "palette": {
+    "interaction": {
+      "edge": "#8FE6AC",
+      "inset": "#C5F5D8",
+      "face": "#F0FDF4",
+      "ink": "#16803C"
+    },
+    "general": {
+      "edge": "#FFE066",
+      "inset": "#FFF4C4",
+      "face": "#FFFEF5",
+      "ink": "#B8A600"
+    },
+    "ai": {
+      "edge": "#7DD3F0",
+      "inset": "#D4F1F9",
+      "face": "#F0FDFF",
+      "ink": "#0891B2"
+    },
+    "browser": {
+      "edge": "#FFB366",
+      "inset": "#FFE4C4",
+      "face": "#FFFAF5",
+      "ink": "#C77700"
+    },
+    "conditions": {
+      "edge": "#E699FF",
+      "inset": "#F5D4FF",
+      "face": "#FDF5FF",
+      "ink": "#9333EA"
+    },
+    "data": {
+      "edge": "#7EC3FF",
+      "inset": "#D4E9FF",
+      "face": "#F0F9FF",
+      "ink": "#0369A1"
+    }
+  }
+}

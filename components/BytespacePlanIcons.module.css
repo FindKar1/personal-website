@@ -1,0 +1,8 @@
+.strip { position: relative; margin-top: 12px; padding: 14px 0 24px; border-bottom: 1px solid #e2e4df; scroll-margin-top: 24px; }
+.toolbar { height: 32px; display: flex; justify-content: flex-end; }
+.toolbar button { display: grid; place-items: center; width: 32px; height: 32px; color: #62685f; border: 1px solid #e2e4df; background: #fff; border-radius: 4px; cursor: pointer; }
+.toolbar button:hover { color: #242821; border-color: #acb3a7; }
+.toolbar button:focus-visible { outline: 2px solid #547582; outline-offset: 3px; }
+.stage { position: relative; height: min(28vw, 260px); min-height: 104px; }
+.stage iframe { display: block; width: 100%; height: 100%; border: 0; pointer-events: none; }
+@media (max-width: 700px) { .strip { padding: 8px 0 16px; } }

@@ -91,7 +91,13 @@ for (const [id, input] of [...originals, ...labFiles, ...botFiles, ...browserFil
   const previewWidth = id.startsWith("icon-") ? 320 : id.startsWith("character-") ? 360 : id.startsWith("bot-") && id !== "bot-octopus" ? 600 : id.startsWith("labs-") && !["labs-cover", "labs-statue"].includes(id) ? 640 : id === "characters" || id === "worlds" ? 1100 : 1440;
   for (const [variant, width, quality] of [["preview", previewWidth, 85], ["full", 2800, 92]]) {
     const filename = `${id}-${variant}.webp`;
-    const pipeline = sharp(input);
+    let pipeline = sharp(input);
+    // Back only the accidental transparent bridge between the samurai's lenses.
+    if (id === "character-samurai") {
+      const patch = await sharp({ create: { width: 44, height: 18, channels: 4, background: "#36413c" } }).png().toBuffer();
+      const repaired = await pipeline.composite([{ input: patch, left: 179, top: 92, blend: "dest-over" }]).png().toBuffer();
+      pipeline = sharp(repaired);
+    }
     // The wide export has large empty side margins; retain the entire illustrated scene.
     if (id === "agent-world-wide") pipeline.extract({ left: 1050, top: 0, width: 4615, height: 2882 });
     const result = await pipeline.resize({ width, withoutEnlargement: true }).webp({ quality, effort: 6 }).toFile(path.join(output, filename));

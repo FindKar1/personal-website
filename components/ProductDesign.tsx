@@ -8,6 +8,8 @@ import { BytespaceStudies } from "./BytespaceStudies";
 import { BytespaceHero } from "./BytespaceHero";
 import { BytespaceVideoWall } from "./BytespaceVideoWall";
 import { BytespaceMonitor } from "./BytespaceMonitor";
+import { BytespaceNodeCatalog } from "./BytespaceNodeCatalog";
+import { BytespacePlanIcons } from "./BytespacePlanIcons";
 import posterAssets from "@/app/bytespace-design-assets.json";
 import systemsAssets from "@/app/systems-assets.json";
 import styles from "./ProductDesign.module.css";
@@ -86,7 +88,7 @@ const galleryOrder = Object.keys(captions) as ImageId[];
 const posters: ImageId[] = ["company-overview", "use-cases", "product-roadmap", "team-overview"];
 const icons: ImageId[] = ["icon-ai", "icon-control", "icon-identity", "icon-web", "icon-security", "icon-space"];
 const characters: ImageId[] = ["character-samurai", "character-ice", "character-fire", "character-armor", "character-fairy", "character-space", "character-code", "character-einstein"];
-const portals: ImageId[] = ["portal-energy", "portal-garden", "portal-gateway"];
+const portals: ImageId[] = ["portal-energy", "portal-gateway", "portal-garden"];
 
 function ChapterHeader({ number, id, title, category, children, href }: {
   number: string; id: string; title: ReactNode; category: string; children: ReactNode; href?: string;
@@ -221,6 +223,8 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
         </div>
       </div>
 
+      <BytespaceNodeCatalog />
+
       <section aria-labelledby="bytespace-live-title">
         <div className={styles.subheading}><h3 id="bytespace-live-title">Behind the browser</h3></div>
         <BytespaceStudies />
@@ -240,6 +244,7 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
         {artwork("office-landscape", { caption: false })}
         <div className={styles.browserPair}>{artwork("browser-modern", { caption: false })}{artwork("browser-legacy", { caption: false })}</div>
         <div className={styles.iconStrip} aria-label="Bytespace isometric icon system">{icons.map(id => artwork(id, { caption: false, surface: styles.iconStage }))}</div>
+        <BytespacePlanIcons />
         <div className={styles.originGrid}>
           <div className={styles.originalAgent}>{artwork("early-agent")}</div>
           <div>{artwork("office-network")}</div>

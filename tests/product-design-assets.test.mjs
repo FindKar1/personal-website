@@ -73,11 +73,21 @@ test("the product sequence keeps the intro-aware desktop, demos, and three porta
   const source = await readFile(path.join(root, "components/ProductDesign.tsx"), "utf8");
   const monitor = await readFile(path.join(root, "components/BytespaceMonitor.tsx"), "utf8");
   assert.match(monitor, /muted loop playsInline controls/);
-  assert.match(source, /const portals: ImageId\[\] = \["portal-energy", "portal-garden", "portal-gateway"\]/);
+  assert.match(source, /const portals: ImageId\[\] = \["portal-energy", "portal-gateway", "portal-garden"\]/);
   const component = source.slice(source.indexOf("export function ProductDesign"));
   assert.ok(component.indexOf("{children}") > component.indexOf("<BytespaceMonitor />"));
   assert.ok(component.indexOf("{children}") < component.indexOf('id="bytespace-live-title"'));
   assert.match(source, /Chrome Extension/);
+});
+
+test("the samurai eye band is backed in gray without flattening the artwork", async () => {
+  for (const variant of ["preview", "full"]) {
+    const image = sharp(path.join(root, "public", assets["character-samurai"][variant].src));
+    const { data } = await image.clone().extract({ left: 198, top: 101, width: 1, height: 1 }).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+    assert.equal(data[3], 255, `${variant} bridge is opaque`);
+    assert.ok(Math.max(...data.subarray(0, 3)) < 90, `${variant} bridge stays dark gray`);
+    assert.equal((await image.stats()).isOpaque, false, `${variant} retains its transparent surroundings`);
+  }
 });
 
 test("all six original UI studies render together without a tabbed shell", async () => {
