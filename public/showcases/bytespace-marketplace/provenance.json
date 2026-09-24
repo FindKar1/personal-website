@@ -1,0 +1,193 @@
+{
+  "repository": "https://github.com/elnugget/bytespace",
+  "revision": "dcedfb2120e80a703ed16a186ad8512013b37e88",
+  "assetsRepository": "https://github.com/FindKar1/portfolio-sites",
+  "assetsRevision": "001de7f6f099d5dff01dd5ef547001d2bf4de49d",
+  "sourceFiles": [
+    "src/components/agents/AgentCardBase.tsx",
+    "src/components/agents/QuickWinAgentCards.tsx",
+    "src/components/react_bits/PixelBlast.tsx",
+    "src/components/landing-page/demoComponents/VideoBackground.tsx",
+    "src/components/agents/ActionCardsGrid.tsx",
+    "src/components/ElectricBorder.tsx",
+    "src/lib/utils.ts",
+    "src/components/marketplace/CardDetails.tsx",
+    "src/components/marketplace/workflow-preview/landingWorkflowData.ts",
+    "src/components/marketplace/workflow-preview/WorkflowPreview.tsx",
+    "src/components/marketplace/workflow-preview/nodes/TriggerNode.tsx",
+    "src/components/marketplace/workflow-preview/nodes/ConditionsNode.tsx",
+    "src/components/marketplace/workflow-preview/WorkflowNode.tsx",
+    "src/components/ui/button.tsx",
+    "src/components/ui/badge.tsx",
+    "src/components/ui/toggle-group.tsx",
+    "src/components/ui/card.tsx",
+    "src/components/agents/PreviewComponents.tsx",
+    "src/components/marketplace/AgentRunSettings.tsx",
+    "src/components/magicui/blur-fade.tsx",
+    "src/components/marketplace/workflow-preview/sampleWorkflowData.ts",
+    "src/components/magicui/animated-beam.tsx",
+    "src/components/ui/toggle.tsx"
+  ],
+  "assets": [
+    {
+      "path": "/fonts/GeneralSans-Variable.woff2",
+      "sha256": "49d3fbd2f1bcc9850d8d939cabf107d6ade508ce08419fca466b06879e4a0a8e"
+    },
+    {
+      "path": "/landing/marketplace/allAgentsMarketplace.webm",
+      "sha256": "da17223dccc8abf54c79b6bff65b632194b570f98f43efabbea3fff60149ed42"
+    },
+    {
+      "path": "/landing/demo/quickwindemo.webm",
+      "sha256": "08b27ef5d04abbba42ea480931deb5dd8676f8fb598166d8a5e02e72ec85c19a"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-1.png",
+      "sha256": "e26f026fcfb4645f9ad5ea28372cc540d9d158e6ef431158db09083cf8c1c3a8"
+    },
+    {
+      "path": "/landing/marketplace/builderVideo.webm",
+      "sha256": "aec2f4c5c4e561da33a34f3dc2c5dcaf15acaaf7921dcfcac91283a1dadd82af"
+    },
+    {
+      "path": "/landing/marketplace/buildYourOwn.png",
+      "sha256": "10d3f7ec59b132ad6fad0f3c93a2c8f070b594136fc33a28da9599c22c3e2f5b"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-2.png",
+      "sha256": "b614a62074dbde644a48095ec170be7aedb5d79f69c7226c79e92c339e4d56cb"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-3.png",
+      "sha256": "cc033f727a94d662f1cb4b7a5f4cc13b6aecb5dc9a843545c4bd6e54a2097d49"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-4.png",
+      "sha256": "4bd3e6db2e0aca8487edb01d22c0f510ebe91b1639b1cc4136fa3196934310d3"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-5.png",
+      "sha256": "4a58cdb9de2d4ac300d659a6a9e25d673b82f55c9c9253e8405fc3d17ebb635e"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-6.png",
+      "sha256": "2450b3a91fb6e2ef8cc5e273fd3f28dfd761e8fe046adfddfa3c4fbcf807be4e"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-7.png",
+      "sha256": "f2ad825a07bdb5ec8b91db819bca5b46cba8ff3bcf4ee5aac58f0b34138472ea"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-8.png",
+      "sha256": "79d3275ac1f2ed9ff0a2dc80c98fc0e42448c70b45f52d80881feb0d000c3ebf"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-9.png",
+      "sha256": "3e3375d4c012eb62f71046786da9784bd4a02b20d62ea10f6ae80c0484c8b5cf"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-10.png",
+      "sha256": "2037f9fbea6305061b247a5ccff300792030e41d7a8340d6626549e8b77c2059"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-11.png",
+      "sha256": "4d3652730a5b8d4e26c513c3453aa929df388d4f01e94e3a11108a2a1e60e117"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-12.png",
+      "sha256": "3d3f4ba1e74fa3173d624680d4ddda850fd7507988229d694126e4a9d6a521a9"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-13.png",
+      "sha256": "cd32c499167cd12bc821212e6fa9810a58c3d31f4613d215fe0f90421ad51d6a"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-14.png",
+      "sha256": "9905c0f742f3fa9d94d5be5a21124f4959449433aece3123995f96f0344a7744"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-15.png",
+      "sha256": "e7586d3068294d6a39b55c757c9b35435bc1f1188d443d0960d4d2395c2eb840"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-16.png",
+      "sha256": "2d5c3eee7bc05706a10d9cc99a775d42e7bddf0da8fcf866f77adb049c0ac309"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-17.png",
+      "sha256": "1799b191df4e1acd6072793410f09d11a91b557fd42a7fd960c9299f80067a42"
+    },
+    {
+      "path": "/agent_profiles/Core/bytespace-hat/bytespace-hat.png",
+      "sha256": "4bebb98d93280cf8fd5600a86ec1ea78fd7b60d3784bd82e375bdc4b8279c07a"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-18.png",
+      "sha256": "53e6f0a664505c03b9e3a778c19e42cab87c496123ccc45c6ad23bb29e0063da"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-19.png",
+      "sha256": "bef8e5c54f935f45c1917912f96bdc87b59747ec865deb0f020bc9fd60b820b0"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-20.png",
+      "sha256": "9b671168fe8cb15b962c744966cd5d0dd61276384549a3bff69860e3838207e3"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-21.png",
+      "sha256": "58d05062db8e3a79c8819f031e0706b8fb9b02681c2553e754329d67b5b58936"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-22.png",
+      "sha256": "47c8aa7cc9505ef62f226cdde7dbd13e4f4489151e0bb0b76507f6027dc9b283"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-23.png",
+      "sha256": "3ffe360dc9bfea36553b5e0e6fc08b6f77f87544f61ccac56a563fdda9fa555d"
+    },
+    {
+      "path": "/application_logos/linkedin.png",
+      "output": "apps/linkedin.png",
+      "sha256": "707c5d8ca8f342ca3429583c76a3193a29d34835f0735fd9d47559935ba89b89"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-2.png",
+      "output": "apps/drive.png",
+      "sha256": "b614a62074dbde644a48095ec170be7aedb5d79f69c7226c79e92c339e4d56cb"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-10.png",
+      "output": "apps/reddit.png",
+      "sha256": "2037f9fbea6305061b247a5ccff300792030e41d7a8340d6626549e8b77c2059"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-17.png",
+      "output": "apps/notion.png",
+      "sha256": "1799b191df4e1acd6072793410f09d11a91b557fd42a7fd960c9299f80067a42"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-19.png",
+      "output": "apps/gmail.png",
+      "sha256": "bef8e5c54f935f45c1917912f96bdc87b59747ec865deb0f020bc9fd60b820b0"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-6.png",
+      "output": "apps/airtable.png",
+      "sha256": "2450b3a91fb6e2ef8cc5e273fd3f28dfd761e8fe046adfddfa3c4fbcf807be4e"
+    },
+    {
+      "path": "/landing/app_logos/app-logo-1.png",
+      "output": "apps/calendar.png",
+      "sha256": "e26f026fcfb4645f9ad5ea28372cc540d9d158e6ef431158db09083cf8c1c3a8"
+    }
+  ],
+  "adaptations": [
+    "Original marketplace cards, details, input configuration, app beams, PixelBlast, floating logos and electric-border onboarding",
+    "Illustrative listings and outputs; original sample workflow and archived demo footage are not historical listing data",
+    "Account services, API calls, creator metrics and signup removed",
+    "Local asset adapters, compact responsive light layout, keyboard controls",
+    "First-agent film and electric border loop in view; other featured films play once, then hover/focus or tap replay; listings animate on hover/focus only",
+    "Viewport-gated motion and original background scroll trigger removed",
+    "Network connections and form submissions blocked by CSP"
+  ]
+}

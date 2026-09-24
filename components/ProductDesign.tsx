@@ -10,6 +10,7 @@ import { BytespaceVideoWall } from "./BytespaceVideoWall";
 import { BytespaceMonitor } from "./BytespaceMonitor";
 import { BytespaceNodeCatalog } from "./BytespaceNodeCatalog";
 import { BytespacePlanIcons } from "./BytespacePlanIcons";
+import { BytespaceMarketplace } from "./BytespaceMarketplace";
 import posterAssets from "@/app/bytespace-design-assets.json";
 import systemsAssets from "@/app/systems-assets.json";
 import styles from "./ProductDesign.module.css";
@@ -214,7 +215,7 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
       {children}
       <BytespaceVideoWall />
       <div className={styles.subheading}><h3>Inside the extension</h3></div>
-      <div className={styles.twoUp}>{artwork("agent-run-light", { className: styles.interface })}{artwork("agent-library", { className: styles.interface })}</div>
+      {artwork("agent-run-light", { className: styles.interface })}
       <div className={styles.extensionComposition}>
         {artwork("extension-popup", { className: styles.extensionPopup, caption: false })}
         <div className={styles.extensionDetails}>
@@ -223,6 +224,7 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
         </div>
       </div>
 
+      <BytespaceMarketplace />
       <BytespaceNodeCatalog />
 
       <section aria-labelledby="bytespace-live-title">

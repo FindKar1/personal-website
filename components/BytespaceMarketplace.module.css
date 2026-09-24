@@ -1,0 +1,21 @@
+.section { margin: 44px 0 38px; scroll-margin-top: 90px; }
+.heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+.heading h3 { margin: 0; font-size: 18px; font-weight: 500; }
+.heading button, .dialogHeading button { display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid var(--line, #dcdedc); border-radius: 4px; background: transparent; color: inherit; cursor: pointer; flex-shrink: 0; }
+.heading button:hover, .dialogHeading button:hover { background: #f2f4f2; }
+.stage { height: 740px; width: 100%; overflow: hidden; }
+.stage iframe { display: block; width: 100%; height: 100%; border: 0; background: transparent; }
+.credit { color: var(--muted, #767970); font-size: 11px; line-height: 1.6; margin: 14px 0 0; }
+.dialog { position: fixed; inset: 0; padding: 0; margin: auto; border: 1px solid #dce1df; border-radius: 8px; width: min(900px, calc(100vw - 40px)); max-width: none; height: min(850px, calc(100dvh - 48px)); max-height: none; background: #fff; color: #252c29; overflow: hidden; }
+.dialog::backdrop { background: #141d2599; }
+.dialogSurface { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+.dialogHeading { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 22px; border-bottom: 1px solid #e4e6e5; }
+.dialogHeading h3 { margin: 0; font-size: 16px; font-weight: 500; }
+.dialogHeading p { font-size: 11px; color: #717974; margin: 3px 0 0; }
+.dialog iframe { width: 100%; flex: 1; min-height: 0; border: 0; }
+.film { width: 100%; min-height: 0; flex: 1; object-fit: contain; background: #131b18; }
+@media(max-width: 720px) {
+  .stage { height: 1080px; }
+  .dialog { width: calc(100vw - 16px); height: calc(100dvh - 24px); }
+  .dialogHeading { padding: 12px 14px; }
+}
