@@ -37,3 +37,13 @@ node scripts/prepare-product-designs.mjs /path/to/original-images /path/to/portf
 
 The original files stay outside the public directory. The script writes WebP
 previews and full-size viewer versions with their dimensions in the manifest.
+
+The healthcare narrative artwork comes from
+`apps/bytespace/public/landing/healthcare-narrative-visual.webp` in
+`FindKar1/portfolio-sites` (revision `001de7f6f099d5dff01dd5ef547001d2bf4de49d`).
+It is the brand illustration used in `HealthcareNarrativeSection.tsx`, not
+documentation of a hospital deployment. Regenerate only this asset with:
+
+```sh
+node scripts/prepare-product-designs.mjs /path/to/original-images /path/to/portfolio-sites labs-healthcare
+```

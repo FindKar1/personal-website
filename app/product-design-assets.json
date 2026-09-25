@@ -742,5 +742,17 @@
       "width": 2800,
       "height": 1749
     }
+  },
+  "labs-healthcare": {
+    "preview": {
+      "src": "/media/product/labs-healthcare-preview.webp",
+      "width": 1323,
+      "height": 404
+    },
+    "full": {
+      "src": "/media/product/labs-healthcare-full.webp",
+      "width": 1323,
+      "height": 404
+    }
   }
 }

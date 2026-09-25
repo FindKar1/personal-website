@@ -59,6 +59,7 @@ const labFiles = [
   ["labs-anatomy", "healthcare/simulate-living-systems-card.webp"],
   ["labs-materials", "healthcare/discover-new-matter-card.webp"],
   ["labs-curiosity", "healthcare/curious-minds-field-computer.webp"],
+  ["labs-healthcare", "landing/healthcare-narrative-visual.webp"],
 ].map(([id, filename]) => [id, path.join(sourceRepo, "apps/bytespace/public", filename)]);
 const botFiles = [
   ["bot-octopus", "healthcare/octopus-instrument-transparent.webp"],
@@ -88,7 +89,7 @@ const assets = selectedIds.length ? JSON.parse(await readFile(manifest, "utf8"))
 for (const [id, input] of [...originals, ...labFiles, ...botFiles, ...browserFiles]) {
   if (selectedIds.length && !selectedIds.includes(id)) continue;
   assets[id] = {};
-  const previewWidth = id.startsWith("icon-") ? 320 : id.startsWith("character-") ? 360 : id.startsWith("bot-") && id !== "bot-octopus" ? 600 : id.startsWith("labs-") && !["labs-cover", "labs-statue"].includes(id) ? 640 : id === "characters" || id === "worlds" ? 1100 : 1440;
+  const previewWidth = id.startsWith("icon-") ? 320 : id.startsWith("character-") ? 360 : id.startsWith("bot-") && id !== "bot-octopus" ? 600 : id.startsWith("labs-") && !["labs-cover", "labs-statue", "labs-healthcare"].includes(id) ? 640 : id === "characters" || id === "worlds" ? 1100 : 1440;
   for (const [variant, width, quality] of [["preview", previewWidth, 85], ["full", 2800, 92]]) {
     const filename = `${id}-${variant}.webp`;
     let pipeline = sharp(input);

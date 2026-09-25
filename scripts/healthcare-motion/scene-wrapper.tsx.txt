@@ -1,0 +1,48 @@
+// This wrapper is compiled in the original scene module, which supplies its imports and types.
+// Compensate for the helix's asymmetric projected ends, not just its object origin.
+const DNA_FRAMING_CENTER: [number, number, number] = [-0.08, -0.04, -0.14];
+export function GpuChipScene({ active, reducedMotion }: { active: boolean; reducedMotion: boolean }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const interactionRef = useRef<InteractionState>({
+    pointerX: 0, pointerY: 0, scrollProgress: 0, scrolledPastHeroIntro: false,
+  });
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container || !active || reducedMotion) return;
+    const move = (event: PointerEvent) => {
+      const rect = container.getBoundingClientRect();
+      interactionRef.current.pointerX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      interactionRef.current.pointerY = ((event.clientY - rect.top) / rect.height) * 2 - 1;
+    };
+    const reset = () => {
+      interactionRef.current.pointerX = 0;
+      interactionRef.current.pointerY = 0;
+    };
+    container.addEventListener('pointermove', move);
+    container.addEventListener('pointerleave', reset);
+    return () => {
+      container.removeEventListener('pointermove', move);
+      container.removeEventListener('pointerleave', reset);
+      reset();
+    };
+  }, [active, reducedMotion]);
+
+  return <div ref={containerRef} className="absolute inset-0">
+    <Canvas className="h-full w-full" dpr={[1, 1.25]}
+      frameloop={active && !reducedMotion ? 'always' : 'demand'}
+      camera={{ position: DNA_CAMERA_POSITION.map((value, axis) => value * 1.6 + DNA_FRAMING_CENTER[axis]) as [number, number, number], fov: 30, zoom: 0.96 }}
+      gl={{ alpha: true, antialias: true, powerPreference: 'low-power', stencil: false }}
+      onCreated={({ camera }) => {
+        camera.lookAt(...DNA_FRAMING_CENTER);
+        camera.updateProjectionMatrix();
+      }}>
+      <ambientLight intensity={1.08} color="#BFC7D8" />
+      <directionalLight position={[4.5, 10, 7]} intensity={2.95} color="#F2F5FF" />
+      <pointLight position={[-4, 2, -3]} intensity={1.9} distance={18} color="#E6E8F0" />
+      <pointLight position={[4.5, 5.5, 5.5]} intensity={7.2} distance={18} color={ACCENT} />
+      <pointLight position={[0, -1.2, 4.2]} intensity={2.6} distance={12} color="#7B6DFF" />
+      <TransistorField interactionRef={interactionRef} previewMode="dna" active={active} />
+    </Canvas>
+  </div>;
+}

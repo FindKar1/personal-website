@@ -1,0 +1,34 @@
+{
+  "repository": "https://github.com/FindKar1/portfolio-sites",
+  "revision": "001de7f6f099d5dff01dd5ef547001d2bf4de49d",
+  "sourceFiles": [
+    {
+      "path": "apps/bytespace/src/components/landing-v2/Hero.tsx",
+      "sha256": "a67dfa05edee2e6d3fdcc61d449bba368f0a7f67af402e1da6787473f4bb8cde"
+    },
+    {
+      "path": "apps/bytespace/src/components/landing-v2/HeroChipScene.tsx",
+      "sha256": "5eb94dbe78c3d4cd53a83b52bb699d59ecd3850d23f9a3b88a7151787ba7e137"
+    },
+    {
+      "path": "apps/bytespace/src/components/ui/pixelated-canvas.tsx",
+      "sha256": "3fb1d9ae52acfc02a126ec78e05d3aab75bf9d738287a6b634e657eebf5551d1"
+    }
+  ],
+  "assets": [
+    {
+      "path": "apps/bytespace/public/landing/hero-pixel-background.webp",
+      "output": "assets/hero-pixel-background.webp",
+      "sha256": "28cbcf66af09e0745c5ff3bed3c73bdaea4a056753a0297ba622c2efaf4f5b90"
+    }
+  ],
+  "adaptations": [
+    "Original pixel canvas and Three.js DNA geometry, materials, lights and animated particles; protein and compute transitions disabled",
+    "Responsive full-width pixel field with the DNA helix centered over it, without homepage copy, buttons or service integrations",
+    "1100px-wide pixel sampling with responsive height and matching pointer coordinates preserves square pixels without stretching; transparent background fits the portfolio",
+    "Original hero scroll-freeze replaced with parent visibility and local pointer interaction",
+    "Fixed DNA camera and centered initial transform with zoom 0.96 to fill the height with edge clearance",
+    "Lazy loading, independent offscreen pause and reduced-motion static rendering",
+    "Development-only orbit controls omitted; all scripts and assets served locally"
+  ]
+}

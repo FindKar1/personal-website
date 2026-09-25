@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
-import { ArrowDown, ArrowUpRight, ChevronLeft, ChevronRight, Download, Maximize2, Minimize2, Plus, RotateCcw, X, ZoomIn, ZoomOut } from "lucide-react";
+import { ArrowDown, ArrowUpRight, ChevronLeft, ChevronRight, Download, Maximize2, Minimize2, RotateCcw, X, ZoomIn, ZoomOut } from "lucide-react";
 import productAssets from "@/app/product-design-assets.json";
 import { BytespaceStudies } from "./BytespaceStudies";
 import { BytespaceHero } from "./BytespaceHero";
@@ -11,13 +11,14 @@ import { BytespaceMonitor } from "./BytespaceMonitor";
 import { BytespaceNodeCatalog } from "./BytespaceNodeCatalog";
 import { BytespacePlanIcons } from "./BytespacePlanIcons";
 import { BytespaceMarketplace } from "./BytespaceMarketplace";
+import { HealthcareAnimations } from "./HealthcareAnimations";
 import posterAssets from "@/app/bytespace-design-assets.json";
 import systemsAssets from "@/app/systems-assets.json";
 import styles from "./ProductDesign.module.css";
 
 const images = { ...productAssets, ...posterAssets, "bytespace-workspace": { preview: systemsAssets["bytespace-interface"], full: systemsAssets["bytespace-interface"] } };
 type ImageId = keyof typeof images;
-const captions: Partial<Record<ImageId, [string, string]>> = {
+const captions: Partial<Record<ImageId, [string, string?]>> = {
   "bot-octopus": ["The research instrument", "bot0 / The octopus as a visual identity for many tools working together."],
   "bot-models": ["Models", "Scientific models expressed through archival illustration."],
   "bot-data": ["Data & memory", "A visual language for connected knowledge."],
@@ -29,13 +30,10 @@ const captions: Partial<Record<ImageId, [string, string]>> = {
   "labs-anatomy": ["Living systems", "Scientific illustration / Bytespace Labs"],
   "labs-materials": ["Matter", "Scientific illustration / Bytespace Labs"],
   "labs-curiosity": ["A place for curiosity", "Editorial artwork / Bytespace Labs"],
-  "workflow-builder": ["The workflow builder", "Browser actions, logic, and agent instructions on one canvas."],
-  "agent-run": ["Configure, run, observe", "Inputs and execution sit side by side, with a visible record of agent actions."],
+  "labs-healthcare": ["Bytespace Healthcare"],
   "agent-run-light": ["Configure, run, observe", "The light-mode interface: task inputs, a browser preview, and the agent's actions side by side."],
   "agent-library": ["A library of web agents", "Task-specific agents, organized around the work people want to get done."],
   "bytespace-workspace": ["A workspace for automated teams", "An earlier Bytespace interface study connecting agent activity, departments, and performance."],
-  "agent-world": ["A world around the agents", "Character and environment exploration for Bytespace."],
-  "agent-world-light": ["A world around the agents", "The light-mode composition, bringing the characters, workflow canvas, and landscape together."],
   "portal-space": ["Space", "Bytespace / Light-mode environment study"],
   "portal-energy": ["Energy", "Bytespace / Light-mode environment study"],
   "portal-garden": ["An impossible garden", "Bytespace / Light-mode environment study"],
@@ -45,7 +43,6 @@ const captions: Partial<Record<ImageId, [string, string]>> = {
   "agent-cursor": ["The agent at work", "A character, cursor, and status message make the automation visible."],
   "desktop-shell": ["The Bytespace desktop", "An illustrated desktop from the original Bytespace visual identity."],
   "characters": ["One agent, many identities", "The original yellow agent developed into a family of roles, costumes, and personalities."],
-  "worlds": ["Environments & worlds", "A shared low-poly language across four distinct settings."],
   "browser-modern": ["Across the web", "Browser automation communicated through an isometric product illustration."],
   "browser-legacy": ["Even the older web", "The same visual language applied to a familiar legacy website."],
   "office-network": ["Teams, spaces & browser work", "An earlier product vision connecting a virtual office to work across the web."],
@@ -55,7 +52,6 @@ const captions: Partial<Record<ImageId, [string, string]>> = {
   "office-interface": ["The virtual office", "An early interface concept connecting the agent world to team activity and alerts."],
   "automation-scenes": ["Making automation visible", "The agent follows the work across familiar browser tasks."],
   "product-composition": ["The product, together", "A product communication composition connecting the builder, library, and run view."],
-  "desktop-composition": ["The future of work", "Product and brand imagery extended into an illustrated desktop."],
   "business-landscape": ["A world of automated work", "The original isometric identity, extended into a complete brand composition."],
   "brand-instrument": ["The Bytespace instrument", "A modular object built from the same language as the offices and icon system."],
   "founders-composition": ["The people behind Bytespace", "The isometric language applied to a founder introduction."],
@@ -96,7 +92,7 @@ function ChapterHeader({ number, id, title, category, children, href }: {
 }) {
   return <header className={styles.chapterHeader}>
     <div><p className={styles.eyebrow}>{number} / {category}</p><h2 id={`${id}-title`}>{title}</h2></div>
-    <div className={styles.chapterSummary}><p>{children}</p>{href && <a href={href} target="_blank" rel="noopener noreferrer">Visit {new URL(href).hostname}<ArrowUpRight size={14} aria-hidden="true" /></a>}</div>
+    <div className={styles.chapterSummary}>{children}{href && <a href={href} target="_blank" rel="noopener noreferrer">Visit {new URL(href).hostname}<ArrowUpRight size={14} aria-hidden="true" /></a>}</div>
   </header>;
 }
 
@@ -172,7 +168,12 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
     <section id="bot0" aria-labelledby="bot0-title" className={styles.chapter}>
       <div className={styles.botIntro}>
         <div className={styles.octopusField}><Image {...images["bot-octopus"].preview} alt="" unoptimized loading="eager" className={styles.octopus} /></div>
-        <ChapterHeader number="01" id="bot0" title={<>Bytespace Labs<br />& bot0</>} category="Research" href="https://bot0.dev">A research workspace for models, agents, and compute. A scientific identity shared with Bytespace Labs.</ChapterHeader>
+        <ChapterHeader number="01" id="bot0" title={<>Bytespace Labs<br />& bot0</>} category="Research" href="https://bot0.dev">
+          <p>We brought together a team of ML researchers, data scientists, and operators. Bytespace Labs became the banner for that work. A way to bring different kinds of expertise into the same conversation.</p>
+          <p>AI was finding its way into almost every industry, and we thought scientific research was one of the most interesting places it could go next.</p>
+          <p>Giving researchers access to powerful models was one layer. But what about the data those models would work with? How would researchers set up and run computational experiments? Where would the compute come from, and who would manage the infrastructure underneath it all?</p>
+          <p>We wanted a workspace where people could turn questions into experiments without building the infrastructure themselves.</p>
+        </ChapterHeader>
       </div>
       <div className={styles.demo}>
         <div className={styles.demoBar}><span className={styles.demoName}><span aria-hidden="true" />bot0 / research workspace</span><button ref={demoButton} type="button" aria-label="Expand bot0 demo" title="Expand bot0 demo" onClick={() => setDemoExpanded(true)}><Maximize2 size={16} /></button></div>
@@ -181,7 +182,10 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
           <iframe ref={attachDemo} src="/showcases/bot0/index.html" title="bot0 interactive product showcase" onLoad={() => setDemoLoaded(true)} loading="lazy" />
         </div>
       </div>
-      <p className={styles.credit}>Interactive archive / No live compute</p>
+      <div id="labs-healthcare" className={styles.researchNarrative}>
+        {artwork("labs-healthcare", { caption: false })}
+      </div>
+      <HealthcareAnimations />
       <div className={styles.botIdentity}>
         {(["bot-models", "bot-data", "bot-compute", "bot-team"] as ImageId[]).map(id => artwork(id, { surface: styles.botIllustration }))}
       </div>
@@ -202,7 +206,7 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
     </section>
 
     <section id="product-design" aria-labelledby="product-design-title" className={styles.chapter}>
-      <ChapterHeader number="02" id="product-design" title={<>Bytespace<br />Chrome Extension</>} category="Browser automation">Browser automation, from the first workflow to a world of agents.</ChapterHeader>
+      <ChapterHeader number="02" id="product-design" title={<>Bytespace<br />Chrome Extension</>} category="Browser automation"><p>Browser automation, from the first workflow to a world of agents.</p></ChapterHeader>
       <BytespaceHero />
       <div className={styles.productStage}>
         <div className={styles.desktopComposition}>
@@ -214,6 +218,7 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
       </div>
       {children}
       <BytespaceVideoWall />
+      {artwork("product-composition", { className: styles.productOverview, fullResolution: true })}
       <div className={styles.subheading}><h3>Inside the extension</h3></div>
       {artwork("agent-run-light", { className: styles.interface })}
       <div className={styles.extensionComposition}>
@@ -244,7 +249,10 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
       <section id="design-evolution" aria-labelledby="evolution-title" className={styles.evolution}>
         <div className={styles.subheading}><h3 id="evolution-title">Design evolution</h3></div>
         {artwork("office-landscape", { caption: false })}
-        <div className={styles.browserPair}>{artwork("browser-modern", { caption: false })}{artwork("browser-legacy", { caption: false })}</div>
+        <div className={styles.browserStudies}>
+          <div className={styles.browserPair}>{artwork("browser-modern", { caption: false })}{artwork("browser-legacy", { caption: false })}</div>
+          {artwork("shirt-design", { className: styles.browserGraphic, caption: false })}
+        </div>
         <div className={styles.iconStrip} aria-label="Bytespace isometric icon system">{icons.map(id => artwork(id, { caption: false, surface: styles.iconStage }))}</div>
         <BytespacePlanIcons />
         <div className={styles.originGrid}>
@@ -258,27 +266,22 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
           {artwork("brand-instrument", { surface: styles.brandObject, caption: false })}
           {artwork("founders-composition", { surface: styles.brandObject, caption: false })}
         </div>
-        <details id="complete-designs" className={styles.explorations}>
-          <summary><span>Presentations & design archive</span><Plus size={17} aria-hidden="true" /></summary>
+        <section id="complete-designs" aria-labelledby="design-archive-title" className={styles.explorations}>
+          <div className={styles.subheading}><h3 id="design-archive-title">Presentations & design archive</h3></div>
           <div className={styles.explorationsBody}>
             <div>
               <div className={styles.posters}>{posters.map(id => artwork(id))}</div>
               <p className={styles.credit}>2025 archive / Historical plans and figures</p>
             </div>
-            {artwork("workflow-builder", { className: styles.interface })}
-            <div className={styles.twoUp}>{artwork("agent-run")}{artwork("product-composition")}</div>
-            <div className={styles.twoUp}>{artwork("agent-world")}{artwork("worlds")}</div>
-            {artwork("desktop-composition")}
             {artwork("office-process")}
             {artwork("early-access")}
-            <div className={styles.twoUp}>{artwork("characters")}{artwork("shirt-design")}</div>
           </div>
-        </details>
+        </section>
         {artwork("launch-illustration", { className: styles.launchHero, surface: styles.launchArtwork, caption: false, fullResolution: true })}
       </section>
     </section>
 
-    <dialog ref={dialog} className={styles.viewer} aria-labelledby="product-art-title" aria-describedby="product-art-detail" onCancel={() => setActive(null)} onClick={event => { if (event.target === event.currentTarget) setActive(null); }} onKeyDown={event => {
+    <dialog ref={dialog} className={styles.viewer} aria-labelledby="product-art-title" aria-describedby={activeInfo?.[1] ? "product-art-detail" : undefined} onCancel={() => setActive(null)} onClick={event => { if (event.target === event.currentTarget) setActive(null); }} onKeyDown={event => {
       if (event.key === "ArrowRight") { event.preventDefault(); move(1); }
       if (event.key === "ArrowLeft") { event.preventDefault(); move(-1); }
     }}>
@@ -291,7 +294,7 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
         <div ref={stage} className={styles.viewerStage}>
           <Image key={active} {...activeImage} alt={activeInfo[0]} unoptimized className={zoom === 1 && !posters.includes(active) ? styles.fitImage : styles.zoomedImage} style={zoom > 1 || posters.includes(active) ? { width: `${zoom * 100}%` } : undefined} />
         </div>
-        <p id="product-art-detail" className={styles.viewerDetail}>{activeInfo[1]}</p>
+        {activeInfo[1] && <p id="product-art-detail" className={styles.viewerDetail}>{activeInfo[1]}</p>}
       </div>}
     </dialog>
     <dialog ref={demoDialog} className={styles.demoDialog} aria-labelledby="demo-title" onCancel={() => setDemoExpanded(false)}>
