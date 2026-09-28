@@ -25,7 +25,6 @@ const captions: Partial<Record<ImageId, [string, string?]>> = {
   "bot-compute": ["Compute", "Research infrastructure as an instrument bench."],
   "bot-team": ["Collaboration", "People and agents working together."],
   "labs-cover": ["Accelerate Science", "Bytespace Labs / Brand & website concept"],
-  "labs-statue": ["Computational reality", "Bytespace Labs / The original computational statue artwork from the website."],
   "labs-biology": ["Biology", "Scientific illustration / Bytespace Labs"],
   "labs-anatomy": ["Living systems", "Scientific illustration / Bytespace Labs"],
   "labs-materials": ["Matter", "Scientific illustration / Bytespace Labs"],
@@ -160,27 +159,20 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
   const activeImage = active ? images[active].full : null;
 
   return <div className={styles.portfolio}>
-    <p className={styles.intro}>I like the part of building where an idea starts to feel like something you can actually use. The interface, the way things move, the little details that give it personality. This is a collection of that work: research tools, browser automations, and the characters and visual worlds that grew around them.</p>
+    <div className={styles.intro}>
+      <p>I fucking love product and design. It&apos;s where all the brainstorming and theorizing finally becomes something someone can touch, feel, and use. It&apos;s also an exercise in psychology. You have to understand how people think, not just how your system works.</p>
+      <p>A clever idea doesn&apos;t mean much if using it is a pain in the ass.</p>
+      <p>I can lose hours to the smallest details. How a button responds. The rhythm of an animation. What a color makes you feel. Even the skeleton loader someone sees while they&apos;re waiting. Those details shape how a product feels long before someone can explain why they like it. That&apos;s the part I obsess over.</p>
+      <p>Below are two products from that work. bot0, an agent workspace originally designed for researchers. And cmd0, my favorite, a Chrome extension that brings browser automation and world-building together.</p>
+    </div>
     <nav aria-label="Product and design sections" className={styles.sectionNav}>
-      <a href="#bytespace-labs">Bytespace Labs</a><a href="#bot0">bot0</a><a href="#product-design">cmd0</a><a href="#design-evolution">Design evolution <ArrowDown size={13} aria-hidden="true" /></a>
+      <a href="#bot0">bot0</a><a href="#product-design">cmd0</a><a href="#design-evolution">Design evolution <ArrowDown size={13} aria-hidden="true" /></a>
     </nav>
-
-    <section id="bytespace-labs" aria-labelledby="bytespace-labs-title" className={styles.chapter}>
-      <div className={styles.scienceStage}>
-        <ChapterHeader id="bytespace-labs" title="Bytespace Labs" href="https://bytespace.ai">
-          <p className={styles.chapterLead}>We brought together a team of ML researchers, data scientists, and operators. Bytespace Labs became the banner for that work. A way to bring different kinds of expertise into the same conversation.</p>
-        </ChapterHeader>
-        <div className={styles.statueField}><Image {...images["labs-statue"].preview} alt="Computational statue from the Bytespace Labs identity" unoptimized loading="eager" className={styles.statue} /></div>
-      </div>
-      <div className={styles.labStudies}>
-        {(["labs-biology", "labs-anatomy", "labs-materials"] as ImageId[]).map(id => artwork(id, { surface: styles.labIllustration }))}
-      </div>
-    </section>
 
     <section id="bot0" aria-labelledby="bot0-title" className={styles.chapter}>
       <div className={styles.botIntro}>
-        <div className={styles.octopusField}><Image {...images["bot-octopus"].preview} alt="" unoptimized loading="lazy" className={styles.octopus} /></div>
-        <ChapterHeader number="02" id="bot0" title="bot0" category="Research workspace" href="https://bot0.dev">
+        <div className={styles.octopusField}><Image {...images["bot-octopus"].preview} alt="" unoptimized loading="eager" className={styles.octopus} /></div>
+        <ChapterHeader number="01" id="bot0" title="bot0" category="Research workspace" href="https://bot0.dev">
           <p className={styles.chapterLead}>bot0 began as a workspace for scientific research. Access to a powerful model was only one piece. Researchers also needed to work with their data, run experiments, and manage the compute underneath it all. We wanted to bring those pieces together so they could spend more time investigating a question and less time assembling the system.</p>
         </ChapterHeader>
       </div>
@@ -199,10 +191,13 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
         {artwork("labs-healthcare", { caption: false })}
       </div>
       <HealthcareAnimations />
+      <div className={styles.labStudies}>
+        {(["labs-biology", "labs-anatomy", "labs-materials"] as ImageId[]).map(id => artwork(id, { surface: styles.labIllustration }))}
+      </div>
     </section>
 
     <section id="product-design" aria-labelledby="product-design-title" className={styles.chapter}>
-      <ChapterHeader number="03" id="product-design" title="cmd0" category="Bytespace Chrome Extension">
+      <ChapterHeader number="02" id="product-design" title="cmd0" category="Bytespace Chrome Extension">
         <p className={styles.chapterLead}>We kept running into the same problem with browser automation. Scripts broke when websites changed. Early AI agents were flexible, but often unreliable and expensive to run. With cmd0, we took a different approach. Workflows followed defined steps, while AI helped people build them and repair broken selectors when a page changed.</p>
       </ChapterHeader>
       <BytespaceHero />

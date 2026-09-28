@@ -9,14 +9,15 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = file => readFile(path.join(root, file), "utf8");
 const output = "public/showcases/healthcare-motion";
 
-test("the animations close the later healthcare exploration before cmd0", async () => {
+test("the healthcare animations remain within bot0 before the research triptych", async () => {
   const source = await read("components/ProductDesign.tsx");
   const animation = source.indexOf("<HealthcareAnimations />");
+  const research = source.indexOf('<div className={styles.labStudies}>');
   const end = source.indexOf('<section id="product-design"');
   assert.ok(animation > source.indexOf('artwork("labs-healthcare"'));
   assert.ok(source.indexOf('artwork("labs-healthcare"') > source.indexOf('<div className={styles.botIdentity}>'));
-  assert.ok(animation < end);
-  assert.equal(source.slice(animation, end).trim(), "<HealthcareAnimations />\n    </section>");
+  assert.ok(animation < research && research < end);
+  assert.equal(source.slice(animation, research).trim(), "<HealthcareAnimations />");
   const deferred = [
     "Talking with hospitals, clinics, and diagnostic labs raised another question. How could they use better AI without losing control of their data?",
     "These organizations were sitting on years of knowledge. We thought they should be able to put it to work on their own terms. That could mean adapting a model to their needs and running it on their own infrastructure. But finding a suitable open-weight model was only part of the equation. Getting it running reliably meant managing the compute and infrastructure behind it.",
