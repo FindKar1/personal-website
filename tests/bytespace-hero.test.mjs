@@ -36,10 +36,10 @@ test("the isolated light-mode bundle has no connected services", async () => {
 
 test("the hero appears before the desktop video without replacing existing studies", async () => {
   const source = await read("components/ProductDesign.tsx");
-  const heading = source.indexOf('title={<>Bytespace<br />Chrome Extension</>}');
+  const heading = source.indexOf('title="cmd0" category="Bytespace Chrome Extension"');
   const hero = source.indexOf("<BytespaceHero />");
   const video = source.indexOf("<BytespaceMonitor />");
-  assert.ok(heading < hero && hero < video && video < source.indexOf("<BytespaceStudies />"));
+  assert.ok(heading >= 0 && heading < hero && hero < video && video < source.indexOf("<BytespaceStudies />"));
 });
 
 test("entrance starts in view and replay messages are validated in both directions", async () => {

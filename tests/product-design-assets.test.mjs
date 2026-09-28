@@ -8,29 +8,47 @@ import sharp from "sharp";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const assets = JSON.parse(await readFile(path.join(root, "app/product-design-assets.json"), "utf8"));
 
-test("the Labs opening uses the approved narrative without changing the page intro", async () => {
+test("Labs, bot0, and cmd0 have distinct chapters while the page intro stays unchanged", async () => {
   const source = await readFile(path.join(root, "components/ProductDesign.tsx"), "utf8");
-  const opening = source.slice(source.indexOf('<ChapterHeader number="01"'), source.indexOf('<div className={styles.demo}>'));
-  const paragraphs = [
-    "We brought together a team of ML researchers, data scientists, and operators. Bytespace Labs became the banner for that work. A way to bring different kinds of expertise into the same conversation.",
-    "AI was finding its way into almost every industry, and we thought scientific research was one of the most interesting places it could go next.",
-    "Giving researchers access to powerful models was one layer. But what about the data those models would work with? How would researchers set up and run computational experiments? Where would the compute come from, and who would manage the infrastructure underneath it all?",
-    "We wanted a workspace where people could turn questions into experiments without building the infrastructure themselves.",
-  ];
-  assert.deepEqual([...opening.matchAll(/<p>(.*?)<\/p>/g)].map(match => match[1]), paragraphs);
+  const labsStart = source.indexOf('<section id="bytespace-labs"');
+  const botStart = source.indexOf('<section id="bot0"');
+  const cmdStart = source.indexOf('<section id="product-design"');
+  assert.ok(labsStart > 0 && labsStart < botStart && botStart < cmdStart);
+  const labs = source.slice(labsStart, botStart);
+  const bot = source.slice(botStart, cmdStart);
+  const cmd = source.slice(cmdStart);
+  assert.match(labs, /<ChapterHeader id="bytespace-labs" title="Bytespace Labs"/);
+  assert.match(bot, /<ChapterHeader number="02" id="bot0" title="bot0"/);
+  assert.match(cmd, /<ChapterHeader number="03" id="product-design" title="cmd0" category="Bytespace Chrome Extension"/);
+  assert.match(labs, /We brought together a team of ML researchers, data scientists, and operators\. Bytespace Labs became the banner for that work\. A way to bring different kinds of expertise into the same conversation\./);
+  assert.match(labs, /styles.scienceStage[\s\S]*<ChapterHeader[\s\S]*images\["labs-statue"\][\s\S]*styles.labStudies[\s\S]*"labs-biology", "labs-anatomy", "labs-materials"/);
+  assert.equal([...labs.matchAll(/<ChapterHeader\b/g)].length, 1);
+  assert.doesNotMatch(labs, /Accelerate|The physical world|Research & exploration|<h3/);
+  assert.doesNotMatch(labs, /bot-octopus|bot0 began|labs-healthcare/);
+  assert.match(bot, /images\["bot-octopus"\][\s\S]*bot0 began as a workspace for scientific research\./);
+  assert.doesNotMatch(bot, /labs-statue|We brought together a team/);
+  assert.match(cmd, /Workflows followed defined steps, while AI helped people build them and repair broken selectors when a page changed\./);
+  assert.match(cmd, /Giving them faces and personalities made them more approachable/);
+  for (const [id, label] of [["bytespace-labs", "Bytespace Labs"], ["bot0", "bot0"], ["product-design", "cmd0"]]) {
+    assert.ok(source.includes(`<a href="#${id}">${label}</a>`));
+    assert.equal([...source.matchAll(new RegExp(`<section id="${id}"`, "g"))].length, 1);
+  }
+  assert.doesNotMatch(source, /Bytespace Labs & bot0|Bytespace Labs<br \/>& bot0/);
   assert.doesNotMatch(source, /<p>\{children\}<\/p>/);
   assert.doesNotMatch(source, /A scientific identity shared with Bytespace Labs/);
   assert.match(source, /<p className=\{styles.intro\}>I like the part of building where an idea starts to feel like something you can actually use\. The interface, the way things move, the little details that give it personality\. This is a collection of that work: research tools, browser automations, and the characters and visual worlds that grew around them\.<\/p>/);
 });
 
-test("the healthcare artwork follows the demo without the deferred narrative passages", async () => {
+test("healthcare is framed as a later exploration after the bot0 product illustrations", async () => {
   const source = await readFile(path.join(root, "components/ProductDesign.tsx"), "utf8");
   const start = source.indexOf('<div id="labs-healthcare"');
   const end = source.indexOf('<HealthcareAnimations />', start);
   const narrative = source.slice(start, end);
-  assert.ok(start > source.indexOf('title="bot0 interactive product showcase"') && start < end);
+  const identity = source.indexOf('<div className={styles.botIdentity}>');
+  assert.ok(identity > source.indexOf('title="bot0 interactive product showcase"') && start > identity && start < end);
   assert.doesNotMatch(source, /Interactive archive \/ No live compute/);
-  assert.doesNotMatch(narrative, /<p>/);
+  assert.equal([...narrative.matchAll(/<p\b/g)].length, 1);
+  assert.match(narrative, /We later explored how the same foundation might serve hospitals and clinics\./);
   const deferred = [
     "Working with hospitals made us realize how much work came before AI. Some of the clinical notes we received from Guatemala were handwritten. The knowledge was there, but getting it into a form a system could reliably use was another problem.",
     "We explored OCR to turn those notes into text. Once we saw the datasets, though, we realized some of the handwriting was difficult even for people to decipher. This wasn't going to be a straightforward scanning project.",
@@ -49,6 +67,20 @@ test("the healthcare artwork follows the demo without the deferred narrative pas
   const prepare = await readFile(path.join(root, "scripts/prepare-product-designs.mjs"), "utf8");
   assert.match(prepare, /\["labs-healthcare", "landing\/healthcare-narrative-visual.webp"\]/);
   assert.ok(assets["labs-healthcare"].preview.width > 1000);
+});
+
+test("chapter typography is shared and Labs illustrations span the full content width", async () => {
+  const css = await readFile(path.join(root, "components/ProductDesign.module.css"), "utf8");
+  assert.match(css, /\.chapterLead \{[^}]*color: var\(--graphite\); font: 400 22px\/1.65 "Hoefler Text", Palatino, Georgia, serif/);
+  assert.match(css, /\.chapterHeader h2 \{[^}]*font-size: 56px/);
+  assert.doesNotMatch(css, /\.botIntro \.chapterHeader h2/);
+  assert.match(css, /\.labStudies \{[^}]*grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/);
+  assert.doesNotMatch(css, /\.labStudies \{[^}]*(?:max-width|margin-inline)|\.labIllustration \{[^}]*height:/);
+  assert.match(css, /\.labIllustration \{ aspect-ratio: 640 \/ 1137/);
+  assert.match(css, /\.labIllustration img \{ width: 100%; height: auto/);
+  assert.match(css, /\.scienceStage \.chapterHeader \{ display: block/);
+  assert.match(css, /@media \(max-width: 700px\)[\s\S]*?\.scienceStage \{ grid-template-columns: minmax\(0, 1fr\)/);
+  assert.doesNotMatch(css, /\.scienceIdentity|\.scienceCopy|\.scienceStatement/);
 });
 
 test("removed prose leaves no empty wrappers and undescribed images omit the viewer caption", async () => {

@@ -88,10 +88,10 @@ const characters: ImageId[] = ["character-samurai", "character-ice", "character-
 const portals: ImageId[] = ["portal-energy", "portal-gateway", "portal-garden"];
 
 function ChapterHeader({ number, id, title, category, children, href }: {
-  number: string; id: string; title: ReactNode; category: string; children: ReactNode; href?: string;
+  number?: string; id: string; title: ReactNode; category?: string; children: ReactNode; href?: string;
 }) {
   return <header className={styles.chapterHeader}>
-    <div><p className={styles.eyebrow}>{number} / {category}</p><h2 id={`${id}-title`}>{title}</h2></div>
+    <div>{category && <p className={styles.eyebrow}>{number && `${number} / `}{category}</p>}<h2 id={`${id}-title`}>{title}</h2></div>
     <div className={styles.chapterSummary}>{children}{href && <a href={href} target="_blank" rel="noopener noreferrer">Visit {new URL(href).hostname}<ArrowUpRight size={14} aria-hidden="true" /></a>}</div>
   </header>;
 }
@@ -162,17 +162,26 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
   return <div className={styles.portfolio}>
     <p className={styles.intro}>I like the part of building where an idea starts to feel like something you can actually use. The interface, the way things move, the little details that give it personality. This is a collection of that work: research tools, browser automations, and the characters and visual worlds that grew around them.</p>
     <nav aria-label="Product and design sections" className={styles.sectionNav}>
-      <a href="#bot0">Bytespace Labs & bot0</a><a href="#product-design">Chrome extension</a><a href="#design-evolution">Design evolution <ArrowDown size={13} aria-hidden="true" /></a>
+      <a href="#bytespace-labs">Bytespace Labs</a><a href="#bot0">bot0</a><a href="#product-design">cmd0</a><a href="#design-evolution">Design evolution <ArrowDown size={13} aria-hidden="true" /></a>
     </nav>
+
+    <section id="bytespace-labs" aria-labelledby="bytespace-labs-title" className={styles.chapter}>
+      <div className={styles.scienceStage}>
+        <ChapterHeader id="bytespace-labs" title="Bytespace Labs" href="https://bytespace.ai">
+          <p className={styles.chapterLead}>We brought together a team of ML researchers, data scientists, and operators. Bytespace Labs became the banner for that work. A way to bring different kinds of expertise into the same conversation.</p>
+        </ChapterHeader>
+        <div className={styles.statueField}><Image {...images["labs-statue"].preview} alt="Computational statue from the Bytespace Labs identity" unoptimized loading="eager" className={styles.statue} /></div>
+      </div>
+      <div className={styles.labStudies}>
+        {(["labs-biology", "labs-anatomy", "labs-materials"] as ImageId[]).map(id => artwork(id, { surface: styles.labIllustration }))}
+      </div>
+    </section>
 
     <section id="bot0" aria-labelledby="bot0-title" className={styles.chapter}>
       <div className={styles.botIntro}>
-        <div className={styles.octopusField}><Image {...images["bot-octopus"].preview} alt="" unoptimized loading="eager" className={styles.octopus} /></div>
-        <ChapterHeader number="01" id="bot0" title={<>Bytespace Labs<br />& bot0</>} category="Research" href="https://bot0.dev">
-          <p>We brought together a team of ML researchers, data scientists, and operators. Bytespace Labs became the banner for that work. A way to bring different kinds of expertise into the same conversation.</p>
-          <p>AI was finding its way into almost every industry, and we thought scientific research was one of the most interesting places it could go next.</p>
-          <p>Giving researchers access to powerful models was one layer. But what about the data those models would work with? How would researchers set up and run computational experiments? Where would the compute come from, and who would manage the infrastructure underneath it all?</p>
-          <p>We wanted a workspace where people could turn questions into experiments without building the infrastructure themselves.</p>
+        <div className={styles.octopusField}><Image {...images["bot-octopus"].preview} alt="" unoptimized loading="lazy" className={styles.octopus} /></div>
+        <ChapterHeader number="02" id="bot0" title="bot0" category="Research workspace" href="https://bot0.dev">
+          <p className={styles.chapterLead}>bot0 began as a workspace for scientific research. Access to a powerful model was only one piece. Researchers also needed to work with their data, run experiments, and manage the compute underneath it all. We wanted to bring those pieces together so they could spend more time investigating a question and less time assembling the system.</p>
         </ChapterHeader>
       </div>
       <div className={styles.demo}>
@@ -182,31 +191,20 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
           <iframe ref={attachDemo} src="/showcases/bot0/index.html" title="bot0 interactive product showcase" onLoad={() => setDemoLoaded(true)} loading="lazy" />
         </div>
       </div>
-      <div id="labs-healthcare" className={styles.researchNarrative}>
-        {artwork("labs-healthcare", { caption: false })}
-      </div>
-      <HealthcareAnimations />
       <div className={styles.botIdentity}>
         {(["bot-models", "bot-data", "bot-compute", "bot-team"] as ImageId[]).map(id => artwork(id, { surface: styles.botIllustration }))}
       </div>
-      <section id="bytespace-labs" aria-labelledby="bytespace-labs-title" className={styles.scienceIdentity}>
-        <div className={styles.scienceStage}>
-          <div className={styles.statueField}><Image {...images["labs-statue"].preview} alt="Computational statue from the Bytespace Labs identity" unoptimized loading="lazy" className={styles.statue} /></div>
-          <div className={styles.scienceCopy}>
-            <p className={styles.eyebrow}>Bytespace Labs</p>
-            <h3 id="bytespace-labs-title">Accelerate<br />Science</h3>
-            <p className={styles.scienceStatement}>The physical world is becoming something we can measure, model, simulate, and act back upon.</p>
-            <a href="https://bytespace.ai" target="_blank" rel="noopener noreferrer">Visit bytespace.ai <ArrowUpRight size={14} aria-hidden="true" /></a>
-          </div>
-        </div>
-        <div className={styles.labStudies}>
-          {(["labs-biology", "labs-anatomy", "labs-materials"] as ImageId[]).map(id => artwork(id, { surface: styles.labIllustration }))}
-        </div>
-      </section>
+      <div id="labs-healthcare" className={styles.researchNarrative}>
+        <p className={styles.contextCopy}>We later explored how the same foundation might serve hospitals and clinics. The workflows were different. Data ownership mattered, and different people needed different levels of control. It pushed us to think beyond a single researcher&apos;s workspace.</p>
+        {artwork("labs-healthcare", { caption: false })}
+      </div>
+      <HealthcareAnimations />
     </section>
 
     <section id="product-design" aria-labelledby="product-design-title" className={styles.chapter}>
-      <ChapterHeader number="02" id="product-design" title={<>Bytespace<br />Chrome Extension</>} category="Browser automation"><p>Browser automation, from the first workflow to a world of agents.</p></ChapterHeader>
+      <ChapterHeader number="03" id="product-design" title="cmd0" category="Bytespace Chrome Extension">
+        <p className={styles.chapterLead}>We kept running into the same problem with browser automation. Scripts broke when websites changed. Early AI agents were flexible, but often unreliable and expensive to run. With cmd0, we took a different approach. Workflows followed defined steps, while AI helped people build them and repair broken selectors when a page changed.</p>
+      </ChapterHeader>
       <BytespaceHero />
       <div className={styles.productStage}>
         <div className={styles.desktopComposition}>
@@ -239,6 +237,7 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
       </section>
 
       <div className={styles.subheading}><h3>Giving the agents a world</h3></div>
+      <p className={styles.contextCopy}>We also wanted agents to feel less abstract. Giving them faces and personalities made them more approachable. Managing them borrowed from the familiar experience of managing a team, while the visual world borrowed from games. We wanted building automations to feel playful, not just technical.</p>
       <div className={styles.portalGrid}>{portals.map(id => artwork(id, { caption: false, className: id === "portal-gateway" ? styles.gatewayPortal : undefined }))}</div>
       <div className={styles.characterLineup} aria-label="Bytespace character designs">
         {characters.map(id => artwork(id, { surface: styles.characterPortrait, caption: false }))}
