@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowDown, ArrowRight, ChevronLeft, ChevronRight, Download, FileText, Maximize2, RotateCcw, X, ZoomIn, ZoomOut } from "lucide-react";
 import assets from "@/app/systems-assets.json";
 import designAssets from "@/app/bytespace-design-assets.json";
@@ -24,23 +24,29 @@ const artifacts: Artifact[] = [
   { id: "systems-processes-procedures", title: "Systems, Processes & Procedures", detail: "Move from core business functions to the processes that connect them, then document the procedures that make each task repeatable.", status: "Methodology", document: "building-agile-organizations.pdf", page: 5 },
   { id: "agile-execution", title: "Agile Execution", detail: "Prioritize and assign work, monitor execution, then use retrospectives and performance measures to refine the next cycle.", status: "Methodology", document: "building-agile-organizations.pdf", page: 9 },
   { id: "organization-overview", title: "Organizational Structure", detail: "A high-level model of reporting, oversight, and functional ownership across the organization.", status: "Methodology", document: "building-agile-organizations.pdf", page: 11 },
-  { id: "role-fundamentals", title: "Role Fundamentals", detail: "An adapted entrepreneur, manager, and technician framework distinguishing strategic direction, system design, and day-to-day execution.", status: "Methodology", document: "building-agile-organizations.pdf", page: 12, embeddedTitle: true },
+  { id: "role-fundamentals", title: "Role Fundamentals", detail: "An adapted entrepreneur, manager, and technician framework distinguishing strategic direction, system design, and day-to-day execution.", status: "Methodology", document: "building-agile-organizations.pdf", page: 12, layout: "wide", embeddedTitle: true },
   { id: "revenue-machine", title: "Revenue Machine", detail: "Marketing, sales, and customer success as one connected system. The next three diagrams unpack each part and its handoffs.", status: "Methodology", document: "building-agile-organizations.pdf", page: 24, layout: "wide", embeddedTitle: true },
   { id: "marketing-system", title: "Marketing", detail: "How creative, content, community, events, and PR contribute to lead generation.", status: "Methodology", document: "building-agile-organizations.pdf", page: 19, embeddedTitle: true },
   { id: "sales-system", title: "Sales", detail: "From nurturing and qualification to solution design, commercial review, and handoff.", status: "Methodology", document: "building-agile-organizations.pdf", page: 20, embeddedTitle: true },
   { id: "lead-to-customer", title: "Lead to Customer Transition", detail: "Connecting account management, implementation, and ongoing support so a closed deal becomes a supported customer.", status: "Methodology", document: "building-agile-organizations.pdf", page: 21, embeddedTitle: true },
   { id: "tech-stack", title: "Optimizing Tech Stack", detail: "Mapping departmental tools and shared infrastructure before deciding what to connect, replace, or automate.", status: "Methodology", document: "building-agile-organizations.pdf", page: 18, embeddedTitle: true },
   { id: "implementation", title: "Implementation", detail: "A delivery sequence with account ownership, handoffs, setup, activation, and the outputs needed at each stage.", status: "Methodology", document: "building-agile-organizations.pdf", page: 29, embeddedTitle: true },
-  { id: "reporting", title: "Reporting", detail: "Connect departmental measures to strategic targets and a regular reporting cadence, so results inform the next decision.", status: "Methodology", document: "building-agile-organizations.pdf", page: 15, embeddedTitle: true },
+  { id: "reporting", title: "Reporting", detail: "Connect departmental measures to strategic targets and a regular reporting cadence, so results inform the next decision.", status: "Methodology", document: "building-agile-organizations.pdf", page: 15, layout: "wide", embeddedTitle: true },
+  { id: "connected-healthcare", title: "From disconnected tools to a shared system", detail: "A proposed shift from scattered tools and data to a shared knowledge base, coordinated workflows, and governed access. An architectural comparison, not a completed hospital transformation.", status: "Proposed architecture", document: "bytespace-overview.pdf", page: 9, layout: "wide" },
+  { id: "healthcare-data-foundation", title: "A shared data foundation", detail: "Connecting clinical records, diagnostics, institutional knowledge, and operational data so hospital systems and approved tools can work from shared context.", status: "Proposed architecture", document: "bytespace-overview.pdf", page: 11, layout: "wide", embeddedTitle: true },
   { id: "healthcare-system", title: "The full patient lifecycle", detail: "Connecting acquisition, care delivery, billing, and follow-up in one system. The four flows below unpack how each part could operate.", status: "Proposed workflow", document: "healthcare-workflow-design.pdf", page: 1, layout: "wide" },
   { id: "patient-journey", title: "The patient journey", detail: "Mapping the gaps between a first inquiry and the next visit, then considering where automation could support staff and patients.", status: "Proposed workflow", document: "healthcare-workflow-design.pdf", page: 2 },
   { id: "doctor-journey", title: "The doctor's journey", detail: "A proposed visit workflow, including documentation assistance, clinician approval, eligibility checks, and follow-up.", status: "Proposed workflow", document: "healthcare-workflow-design.pdf", page: 3 },
   { id: "revenue-cycle", title: "The revenue cycle", detail: "A proposed flow from encounter to claim and collection, with exception review and operational visibility.", status: "Proposed workflow", document: "healthcare-workflow-design.pdf", page: 4 },
   { id: "marketing-acquisition", title: "Marketing and acquisition", detail: "Connecting new-patient acquisition and returning-patient outreach to one scheduling and care-delivery flow.", status: "Proposed workflow", document: "healthcare-workflow-design.pdf", page: 5 },
-  { id: "agent-operating-model", title: "Agent operating model", detail: "Growth, operations, and revenue engines coordinating through shared knowledge, permissions, and organizational analytics.", status: "Conceptual architecture", document: "ai-operating-architecture.pdf", page: 6, layout: "wide" },
+  { id: "system-optimization", title: "Improving the system over time", detail: "A proposed feedback loop from real-task benchmarks to specialized model selection, fine-tuning, and infrastructure choices. Evaluation guides changes rather than assuming a newer model is better.", status: "Proposed architecture", document: "bytespace-overview.pdf", page: 17, layout: "wide", embeddedTitle: true },
+  { id: "agent-operating-model", title: "Agent operating model", detail: "Growth, operations, and revenue engines coordinating through shared knowledge, permissions, and organizational analytics.", status: "Conceptual architecture", document: "ai-operating-architecture.pdf", page: 6 },
   { id: "human-agent-architecture", title: "People, agents, and oversight", detail: "How human direction connects to agent orchestration, tool access, and review. Responsibility stays visible alongside automation.", status: "Conceptual architecture", document: "ai-operating-architecture.pdf", page: 3, layout: "wide" },
-  { id: "research-workflow", title: "Research workflow", detail: "Gather evidence, compare it with prior context, then decide whether to log, report, or escalate. Each path feeds back into shared memory.", status: "Conceptual architecture", document: "ai-operating-architecture.pdf", page: 7, layout: "wide" },
-  { id: "shared-memory", title: "Shared memory", detail: "Connecting source material, ingestion, entity linking, and retrieval so agents and people can draw on the same accumulated context.", status: "Conceptual architecture", document: "ai-operating-architecture.pdf", page: 8, layout: "wide" },
+  { id: "growth-engine", title: "Growth Engine", detail: "Research, content, and advertising systems sharing approved knowledge, reusable workflows, and access rules within one business function.", status: "Conceptual architecture", document: "ai-operating-architecture.pdf", page: 6, embeddedTitle: true },
+  { id: "research-workflow", title: "Research workflow", detail: "Gather evidence, compare it with prior context, then decide whether to log, report, or escalate. Each path feeds back into shared memory.", status: "Conceptual architecture", document: "ai-operating-architecture.pdf", page: 7, embeddedTitle: true },
+  { id: "historical-comparison", title: "Historical Comparison Skill", detail: "One step inside the research workflow. Retrieve prior signals and benchmarks, compare patterns, then return a structured assessment and routing recommendation.", status: "Conceptual architecture", document: "ai-operating-architecture.pdf", page: 8, embeddedTitle: true },
+  { id: "shared-memory", title: "Shared memory", detail: "Connecting source material, ingestion, entity linking, and retrieval so agents and people can draw on the same accumulated context.", status: "Conceptual architecture", document: "ai-operating-architecture.pdf", page: 8, embeddedTitle: true },
+  { id: "observability-analytics", title: "Observability & Analytics Layer", detail: "Connecting operational signals to benchmarks, quality review, and agent health so teams can see what is working and where the system needs attention.", status: "Conceptual architecture", document: "ai-operating-architecture.pdf", page: 9, embeddedTitle: true },
   { id: "bytespace-interface", title: "A workspace for automated teams", detail: "A Bytespace interface design bringing agent activity into departmental views, with the work and its performance visible together.", status: "Product design artifact", layout: "wide" },
   { id: "company-overview", title: "Company Overview", detail: "The product, its positioning, and the commercial story. Metrics and comparisons are reproduced from the May 2025 overview, not presented as current figures.", status: "May 2025 / Positioning & communication design", poster: true },
   { id: "use-cases", title: "Use Cases", detail: "Workflow examples, business applications, and customer feedback, brought together in one visual narrative. Historical material from April 2025.", status: "April 2025 / Workflow & communication design", poster: true },
@@ -54,30 +60,59 @@ type ArtifactGroup = {
   description?: string;
   context?: string;
   paragraphs?: string[];
+  bridge?: { id: string; after: Artifact["id"]; text: string };
   items: Artifact["id"][];
   columns?: 3;
 };
 
 const businessGroups: ArtifactGroup[] = [
   {
-    id: "structure-responsibility", title: "People & responsibility",
+    id: "structure-responsibility", title: "People & work",
     paragraphs: [
       "Before I map an organization, I think about three kinds of work.",
       "Entrepreneurial work looks ahead. Where are we going, and why should anyone care? Managerial work turns that direction into something repeatable. It uses past results to improve how the team operates. Technical work gets things done today. Serving customers, building the product, and keeping the organization moving.",
       "These aren't three different kinds of people. Everyone does some of each. What changes is the balance, depending on their role and what the organization needs at that stage.",
       "That balance helps me think about how to structure a team and where each person can contribute most.",
     ],
-    items: ["role-fundamentals", "organization-overview"],
+    bridge: {
+      id: "the-method", after: "role-fundamentals",
+      text: "Then I map how work actually moves. Who owns each step? What tools do they use? Where does information get lost between one person and the next?",
+    },
+    items: ["role-fundamentals", "organization-overview", "tech-stack", "business-process", "systems-processes-procedures"],
   },
-  { id: "the-method", title: "Mapping the work", items: ["business-process", "systems-processes-procedures"] },
-  { id: "the-revenue-system", title: "The revenue system", items: ["revenue-machine", "marketing-system", "sales-system", "lead-to-customer"], columns: 3 },
-  { id: "execution-feedback", title: "Making it work", items: ["tech-stack", "implementation", "agile-execution", "reporting"] },
+  {
+    id: "the-revenue-system", title: "A system in practice",
+    paragraphs: [
+      "Once the pieces are mapped, I look at how they work together. The output of one process often becomes the input for another. Those connections can reveal problems that aren't obvious when each team looks only at its own work.",
+      "Revenue is the example here. The same approach applies to hiring, product development, or any other part of the business.",
+    ],
+    items: ["revenue-machine", "marketing-system", "sales-system", "lead-to-customer"], columns: 3,
+  },
+  {
+    id: "execution-feedback", title: "Making it work",
+    paragraphs: ["This is where ownership and handoffs become instructions people can follow. The reporting should tell us where the process needs attention, not just produce another dashboard."],
+    items: ["implementation", "agile-execution", "reporting"],
+  },
 ];
 
 const sections: ArtifactGroup[] = [
   { id: "business-systems", title: "Business systems", items: ["business-systems-cover", ...businessGroups.flatMap((group) => group.items)] },
-  { id: "workflow-planning", title: "Workflows & delivery", context: "Healthcare / Anonymized proposals", items: ["healthcare-system", "patient-journey", "doctor-journey", "revenue-cycle", "marketing-acquisition"] },
-  { id: "ai-architecture", title: "AI systems", context: "Conceptual architecture", items: ["agent-operating-model", "human-agent-architecture", "research-workflow", "shared-memory"] },
+  {
+    id: "ai-architecture", title: "AI systems", context: "Conceptual architecture",
+    paragraphs: [
+      "The same questions apply when agents take on part of the work. Who sets direction? What can they access? When does a person need to step in?",
+      "We designed around those questions. Clear responsibilities, shared context, and human oversight built into the architecture.",
+    ],
+    items: ["human-agent-architecture", "agent-operating-model", "growth-engine", "research-workflow", "historical-comparison", "shared-memory", "observability-analytics"],
+  },
+  {
+    id: "workflow-planning", title: "Healthcare systems", context: "Anonymized proposals",
+    paragraphs: [
+      "Healthcare is the example here. The same approach applies across industries. Start with the people doing the work, map how the pieces connect, and design around what they need.",
+      "Our healthcare work focused on connecting scattered tools and information. We mapped how work moved across the organization, then designed a shared data foundation to support it.",
+    ],
+    items: ["connected-healthcare", "healthcare-data-foundation", "healthcare-system", "patient-journey", "doctor-journey", "revenue-cycle", "marketing-acquisition", "system-optimization"],
+  },
   { id: "product-design", title: "Product design", description: "Eventually, someone has to use all of this. I like working through how a complicated system becomes something a person can understand and act on.", items: ["bytespace-interface"] },
 ];
 
@@ -154,15 +189,11 @@ export function PortfolioCollection({ collection, children }: { collection: "sys
           <Image {...artifactImage(id)} alt={artifact.title} unoptimized loading={index === 0 ? "eager" : "lazy"} sizes={isWide ? "(min-width: 1280px) 1024px, 100vw" : "(min-width: 640px) 500px, 100vw"} className="h-auto w-full" />
           <span aria-hidden="true" className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center border border-ink/10 bg-white/95 text-ink opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 max-sm:opacity-90"><Maximize2 size={15} /></span>
         </button>
-        {(isProduct || !artifact.embeddedTitle) && <figcaption className="mt-2">
+        {isProduct && <figcaption className="mt-2">
           <p className="text-sm font-medium text-ink">{artifact.title}</p>
-          {isProduct && (
-            <>
-              <p className="mt-1 text-sm leading-6 text-graphite/80">{artifact.detail}</p>
-              <p className="mt-2 font-mono text-[11px] leading-5 text-graphite/65">{artifact.status}</p>
-              {artifact.document && <a href={`/documents/${artifact.document}#page=${artifact.page}`} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex min-h-8 items-center gap-1.5 text-xs text-graphite underline decoration-ink/20 underline-offset-4 hover:text-ink">Source document <ArrowRight size={13} aria-hidden="true" /></a>}
-            </>
-          )}
+          <p className="mt-1 text-sm leading-6 text-graphite/80">{artifact.detail}</p>
+          <p className="mt-2 font-mono text-[11px] leading-5 text-graphite/65">{artifact.status}</p>
+          {artifact.document && <a href={`/documents/${artifact.document}#page=${artifact.page}`} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex min-h-8 items-center gap-1.5 text-xs text-graphite underline decoration-ink/20 underline-offset-4 hover:text-ink">Source document <ArrowRight size={13} aria-hidden="true" /></a>}
         </figcaption>}
       </figure>
     );
@@ -219,6 +250,9 @@ export function PortfolioCollection({ collection, children }: { collection: "sys
             <h3 id={`${section.id}-title`} className="text-xl font-medium leading-7 text-ink">{section.title}</h3>
             {section.context && <p className="font-mono text-xs leading-5 text-graphite/65">{section.context}</p>}
           </div>}
+          {!isProduct && section.paragraphs && <div className="mb-6 max-w-4xl space-y-4 text-base leading-7 text-graphite sm:mb-8">
+            {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          </div>}
           {section.id === "business-systems" ? (
             <>
               <div className="mb-10 sm:mb-12">{renderArtifact("business-systems-cover")}</div>
@@ -232,14 +266,19 @@ export function PortfolioCollection({ collection, children }: { collection: "sys
                       {group.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                     </div>}
                     <div className={`grid items-start gap-x-5 gap-y-6 sm:grid-cols-2 ${group.columns === 3 ? "md:grid-cols-3" : ""}`}>
-                      {group.items.map((id) => renderArtifact(id))}
+                      {group.items.map((id) => (
+                        <Fragment key={id}>
+                          {renderArtifact(id)}
+                          {group.bridge?.after === id && <p id={group.bridge.id} className="col-span-full max-w-4xl scroll-mt-24 py-2 text-base leading-7 text-graphite sm:py-3">{group.bridge.text}</p>}
+                        </Fragment>
+                      ))}
                     </div>
                   </section>
                 ))}
               </div>
             </>
           ) : (
-            <div className="grid items-start gap-x-5 gap-y-8 sm:grid-cols-2">
+            <div className={`grid items-start gap-x-5 gap-y-8 ${section.id === "ai-architecture" ? "lg:grid-cols-2" : "sm:grid-cols-2"}`}>
               {section.items.map((id) => renderArtifact(id))}
             </div>
           )}

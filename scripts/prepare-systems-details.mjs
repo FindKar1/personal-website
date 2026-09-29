@@ -5,8 +5,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
 
-const orgChart = process.argv[2];
-if (!orgChart) throw new Error("Pass the original Bytespace organization chart image.");
+const chaptersOnly = process.argv[2] === "--chapters";
+const orgChart = chaptersOnly ? undefined : process.argv[2];
+if (!chaptersOnly && !orgChart) throw new Error("Pass the original Bytespace organization chart image, or --chapters for the AI and healthcare additions.");
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const output = path.join(root, "public/media/systems");
@@ -15,7 +16,15 @@ const assets = JSON.parse(await readFile(manifest, "utf8"));
 const temporary = await mkdtemp(path.join(tmpdir(), "systems-details-"));
 
 // Render only the public editions, preserving anonymization in every excerpt.
-const selections = [
+const chapterSelections = [
+  { id: "growth-engine", file: "ai-operating-architecture.pdf", page: 6, crop: [64, 418, 531, 709] },
+  { id: "historical-comparison", file: "ai-operating-architecture.pdf", page: 8, crop: [36, 55, 560, 312] },
+  { id: "observability-analytics", file: "ai-operating-architecture.pdf", page: 9, crop: [36, 106, 560, 307] },
+  { id: "connected-healthcare", file: "bytespace-overview.pdf", page: 9 },
+  { id: "healthcare-data-foundation", file: "bytespace-overview.pdf", page: 11 },
+  { id: "system-optimization", file: "bytespace-overview.pdf", page: 17 },
+];
+const selections = chaptersOnly ? chapterSelections : [
   { id: "business-process", file: "building-agile-organizations.pdf", page: 2 },
   { id: "systems-processes-procedures", file: "building-agile-organizations.pdf", page: 5 },
   { id: "agile-execution", file: "building-agile-organizations.pdf", page: 9 },
@@ -30,6 +39,7 @@ const selections = [
   { id: "implementation", file: "building-agile-organizations.pdf", page: 29 },
   { id: "agent-operating-model", file: "ai-operating-architecture.pdf", page: 6, crop: [32, 90, 564, 379] },
   { id: "shared-memory", file: "ai-operating-architecture.pdf", page: 8, crop: [32, 414, 564, 668] },
+  ...chapterSelections,
 ];
 
 async function encode(input, id, crop) {
@@ -54,14 +64,24 @@ async function encode(input, id, crop) {
 try {
   for (const { id, file, page, crop } of selections) {
     const prefix = path.join(temporary, id);
+    let input = path.join(root, "public/documents", file);
+    let renderPage = page;
+    if (file === "bytespace-overview.pdf") {
+      const corrected = `${prefix}.pdf`;
+      execFileSync(process.env.PYTHON || "python3", [
+        path.join(root, "scripts/prepare-healthcare-diagram.py"), input, String(page), corrected,
+      ]);
+      input = corrected;
+      renderPage = 1;
+    }
     execFileSync(process.env.PDFTOPPM || "pdftoppm", [
-      "-f", String(page), "-l", String(page), "-singlefile", "-png",
+      "-f", String(renderPage), "-l", String(renderPage), "-singlefile", "-png",
       "-scale-to-x", "3000", "-scale-to-y", "-1",
-      path.join(root, "public/documents", file), prefix,
+      input, prefix,
     ]);
     await encode(`${prefix}.png`, id, crop);
   }
-  await encode(orgChart, "bytespace-org-chart");
+  if (orgChart) await encode(orgChart, "bytespace-org-chart");
   await writeFile(manifest, `${JSON.stringify(assets, null, 2)}\n`);
 } finally {
   await rm(temporary, { recursive: true, force: true });

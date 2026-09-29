@@ -128,5 +128,35 @@
     "src": "/media/systems/lead-to-customer.webp",
     "width": 2400,
     "height": 1350
+  },
+  "growth-engine": {
+    "src": "/media/systems/growth-engine.webp",
+    "width": 2354,
+    "height": 1467
+  },
+  "historical-comparison": {
+    "src": "/media/systems/historical-comparison.webp",
+    "width": 2400,
+    "height": 1177
+  },
+  "observability-analytics": {
+    "src": "/media/systems/observability-analytics.webp",
+    "width": 2400,
+    "height": 920
+  },
+  "connected-healthcare": {
+    "src": "/media/systems/connected-healthcare.webp",
+    "width": 2400,
+    "height": 1350
+  },
+  "healthcare-data-foundation": {
+    "src": "/media/systems/healthcare-data-foundation.webp",
+    "width": 2400,
+    "height": 1350
+  },
+  "system-optimization": {
+    "src": "/media/systems/system-optimization.webp",
+    "width": 2400,
+    "height": 1350
   }
 }
