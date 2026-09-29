@@ -774,12 +774,27 @@ export default async function Home({ searchParams }: HomeProps) {
 
             {activeTab === "notebook" && (
               <div className="mb-8 w-full">
-                <p className="max-w-4xl text-base leading-7 text-graphite">
-                  I like getting ideas out of my head and onto paper, and
-                  following one question into the next. This is a collection of
-                  sketches, whiteboards, half-formed plans, and books I&apos;ve
-                  kept along the way.
-                </p>
+                <div className="max-w-4xl space-y-4 text-base leading-7 text-graphite">
+                  <p>
+                    I remember the first time I made a mind map. Everything
+                    clicked.
+                  </p>
+                  <p>
+                    I&apos;ve always had a thousand things going on in my head.
+                    Getting them onto paper gave me a way to see how they
+                    connected, instead of trying to hold everything at once.
+                  </p>
+                  <p>
+                    There&apos;s something about working with a pen or standing in
+                    front of a whiteboard. It slows me down. I have to think about
+                    how one idea relates to the next. Sometimes drawing the
+                    connection is what helps me understand it.
+                  </p>
+                  <p>
+                    These are some of the sketches, whiteboards, half-formed
+                    plans, and books that have helped me think along the way.
+                  </p>
+                </div>
                 <nav aria-label="Notebook views" className="mt-5 flex gap-6 border-b border-ink/10 font-mono text-sm">
                   {(["notes", "reading"] as const).map((view) => (
                     <Link key={view} href={`/?tab=notebook&view=${view}`} scroll={false}
