@@ -160,7 +160,7 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
 
   return <div className={styles.portfolio}>
     <div className={styles.intro}>
-      <p>I fucking love product and design. It&apos;s where all the brainstorming and theorizing finally becomes something someone can touch, feel, and use. It&apos;s also an exercise in psychology. You have to understand how people think, not just how your system works.</p>
+      <p>I love designing products and user experiences. It&apos;s where all the brainstorming and theorizing finally becomes something someone can touch, feel, and use. It&apos;s also an exercise in psychology. You have to understand how people think, not just how your system works.</p>
       <p>A clever idea doesn&apos;t mean much if using it is a pain in the ass.</p>
       <p>I can lose hours to the smallest details. How a button responds. The rhythm of an animation. What a color makes you feel. Even the skeleton loader someone sees while they&apos;re waiting. Those details shape how a product feels long before someone can explain why they like it. That&apos;s the part I obsess over.</p>
       <p>Below are two products from that work. bot0, an agent workspace originally designed for researchers. And cmd0, my favorite, a Chrome extension that brings browser automation and world-building together.</p>

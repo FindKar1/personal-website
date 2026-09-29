@@ -831,13 +831,32 @@ export default async function Home({ searchParams }: HomeProps) {
 
             {activeTab === "archive" && (
               <div className="w-full">
-                <p className="max-w-4xl text-base leading-7 text-graphite">
-                  I&apos;ve spent a lot of time moving between very different
-                  worlds. Rooftops and data centers, startup workshops, healthcare
-                  events, and rooms full of people building something. These are
-                  a few photos, conversations, and moments I&apos;ve kept from along the
-                  way.
-                </p>
+                <div className="max-w-4xl space-y-4 text-base leading-7 text-graphite">
+                  <p>
+                    I&apos;ve spent a lot of time moving between very different
+                    worlds.
+                  </p>
+                  <p>
+                    The common thread has usually been people and what technology
+                    could make possible for them. At Bytespace, that meant getting
+                    people out of soul-crushing, repetitive work. Building tools
+                    that could take things off their plate and help them think
+                    through what came next.
+                  </p>
+                  <p>
+                    At 6x7 Networks, I was fascinated by what telecommunications
+                    could unlock for people. Internet access could put the
+                    world&apos;s accumulated knowledge within reach for more people.
+                    Learning shouldn&apos;t depend so heavily on where you were
+                    born or what you could afford.
+                  </p>
+                  <p>
+                    At Paladin Partners, it was helping companies make complicated
+                    technology easier to understand. Connecting what they were
+                    building with the people who could actually use it.
+                  </p>
+                  <p>These are some photos from the journey so far.</p>
+                </div>
                 <WorkPhotoCollage sections={workArtifactSections} />
                 <ArchiveTalks />
                 <PeoplePhotoCollage section={archiveArtifactSections[0]} />

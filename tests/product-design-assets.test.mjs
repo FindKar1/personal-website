@@ -35,7 +35,8 @@ test("the personal page intro leads into bot0 and cmd0 without a Labs chapter", 
   assert.ok(introStart > 0 && introStart < navStart && navStart < botStart);
   const intro = source.slice(introStart, navStart);
   assert.equal([...intro.matchAll(/<p>/g)].length, 4);
-  assert.match(intro, /I fucking love product and design\./);
+  assert.match(intro, /I love designing products and user experiences\./);
+  assert.doesNotMatch(intro, /I fucking love product and design\./);
   assert.match(intro, /<p>A clever idea doesn&apos;t mean much if using it is a pain in the ass\.<\/p>/);
   assert.match(intro, /I can lose hours to the smallest details\./);
   assert.match(intro, /Below are two products from that work\. bot0, an agent workspace originally designed for researchers\. And cmd0, my favorite, a Chrome extension that brings browser automation and world-building together\./);
