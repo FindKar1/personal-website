@@ -11,6 +11,10 @@ export const profileLabels: Record<ProfileTab, string> = {
   notebook: "Notebook",
 };
 
+export function getNextProfileTab(tab: ProfileTab): ProfileTab {
+  return profileTabs[(profileTabs.indexOf(tab) + 1) % profileTabs.length];
+}
+
 export function getProfileLocation(tab: QueryValue, view: QueryValue) {
   const requested = Array.isArray(tab) ? tab[0] : tab;
   const requestedView = Array.isArray(view) ? view[0] : view;

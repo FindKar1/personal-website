@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import localFont from "next/font/local";
+import { ArrowRight } from "lucide-react";
+import { ProfileHeader } from "@/components/ProfileHeader";
 import { PortfolioCollection } from "@/components/PortfolioCollection";
 import { ProductDesign } from "@/components/ProductDesign";
 import { ArchiveTalks, ProductDemos } from "@/components/PortfolioVideos";
@@ -9,7 +11,7 @@ import { NotebookCollage } from "@/components/NotebookCollage";
 import { Biography } from "@/components/Biography";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { ArchiveTravel } from "@/components/ArchiveTravel";
-import { getProfileLocation, profileLabels, profileTabs, type QueryValue } from "./profile-navigation";
+import { getNextProfileTab, getProfileLocation, profileLabels, profileTabs, type QueryValue } from "./profile-navigation";
 import systemsAssets from "./systems-assets.json";
 import {
   archiveArtifactSections,
@@ -439,6 +441,7 @@ export default async function Home({ searchParams }: HomeProps) {
   const params = await searchParams;
   const { tab: activeTab, view: notebookView } = getProfileLocation(params?.tab, params?.view);
   const isAbout = activeTab === "about";
+  const nextTab = getNextProfileTab(activeTab);
   const notesPreview = [
     notesArtifactSections[0].items[0],
     notesArtifactSections[2].items[0],
@@ -459,8 +462,7 @@ export default async function Home({ searchParams }: HomeProps) {
       }}
     >
       <LegacyProfileLinks tab={params?.tab} />
-      <div className="mx-auto max-w-5xl">
-        <header className="mb-8">
+      <ProfileHeader key={activeTab}>
           <div className="flex flex-col gap-3 border-b border-ink/15 pb-3 md:flex-row md:items-center md:justify-between md:gap-8">
             <h1 className={`${wordmarkFont.className} shrink-0 text-[23px] font-bold leading-none uppercase tracking-normal text-ink`}>
               <Link href="/" className="inline-flex min-h-11 items-center focus-visible:outline-2 focus-visible:outline-offset-4">
@@ -487,8 +489,10 @@ export default async function Home({ searchParams }: HomeProps) {
               ))}
             </nav>
           </div>
+      </ProfileHeader>
+      <div className="mx-auto max-w-5xl">
           {isAbout && (
-            <div id="about-intro" className="mt-8 text-base leading-7 text-graphite">
+            <header id="about-intro" className="mb-8 text-base leading-7 text-graphite">
               <p className="max-w-4xl text-[22px] font-medium leading-8 text-ink">
                 Most of the things I care about started with a question I
                 couldn&apos;t leave alone.
@@ -528,9 +532,8 @@ export default async function Home({ searchParams }: HomeProps) {
                 </a>
                 . I&apos;m always happy to make new friends.
               </p>
-            </div>
+            </header>
           )}
-        </header>
 
         {isAbout && (
           <>
@@ -893,6 +896,15 @@ export default async function Home({ searchParams }: HomeProps) {
         )}
 
         <footer className={`${activeTab === "product" ? "mt-0" : "mt-16"} scroll-mt-6 border-t border-ink/10 pt-5`} id="contact" tabIndex={-1}>
+          <nav aria-label="Continue exploring" className="mb-8 border-b border-ink/10 pb-8 pt-3">
+            <p className="mb-2 text-sm text-graphite">{nextTab === "about" ? "Back to" : "Continue exploring"}</p>
+            <Link href={`/?tab=${nextTab}`}
+              aria-label={nextTab === "about" ? "Back to About" : `Continue to ${profileLabels[nextTab]}`}
+              className="group inline-flex min-h-11 max-w-full items-center gap-4 text-2xl font-medium leading-8 text-ink focus-visible:outline-2 focus-visible:outline-offset-4 sm:text-3xl sm:leading-10">
+              <span className="underline decoration-transparent underline-offset-4 transition-colors group-hover:decoration-ink/30">{profileLabels[nextTab]}</span>
+              <ArrowRight size={24} className="shrink-0" aria-hidden="true" />
+            </Link>
+          </nav>
           <div className="grid gap-2 text-sm leading-6 sm:grid-cols-[8rem_1fr]">
             <p className="font-mono text-xs uppercase text-graphite/50">
               contact

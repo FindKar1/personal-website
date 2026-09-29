@@ -36,6 +36,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${inter.variable} ${cormorant.variable} ${geistMono.variable} antialiased`}
     >
       <body>{children}</body>

@@ -158,18 +158,33 @@ export function PortfolioCollection({ collection, children }: { collection: "sys
 
   return (
     <div className="w-full">
-      <p className="max-w-4xl text-base leading-7 text-graphite">
+      <div className="max-w-4xl space-y-4 text-base leading-7 text-graphite">
         {isProduct ? (
-          <>I like making complex ideas tangible. Interfaces, working demos, and visual stories from building Bytespace, from how the product works to how we explain it.</>
+          <p>I like making complex ideas tangible. Interfaces, working demos, and visual stories from building Bytespace, from how the product works to how we explain it.</p>
         ) : (
-          <>I tend to see businesses as systems: how decisions get made, how work
-          moves between people, and where things get stuck. I usually start by
-          mapping the organization, then work through its processes and the
-          details of execution. These frameworks, workflow maps, and AI
-          architecture studies show how that thinking has evolved across human
-          teams and agentic systems.</>
+          <>
+            <p>I can&apos;t help but see everything as systems, processes, and procedures.</p>
+            <p>
+              My morning routine. The way I set up my desk. How I organize a team.
+              Once I notice how the pieces fit together, I start wondering why
+              they&apos;re arranged that way. What are we trying to accomplish?
+              Where does it get unnecessarily complicated?
+            </p>
+            <p>
+              For a business, the system is how teams, tools, and responsibilities
+              fit together. Bringing a new customer onboard is one process within
+              it. The instructions for setting up their account and handing it
+              over to the right team are the procedures. People might handle some
+              steps. Software might handle others. It all needs to work together.
+            </p>
+            <p>
+              And putting it on paper is only the beginning. You try it. See where
+              people get stuck. Look at the results and adjust. I like that part
+              just as much as designing the thing in the first place.
+            </p>
+          </>
         )}
-      </p>
+      </div>
 
       <nav aria-label={isProduct ? "Product and design sections" : "Systems sections"} className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-xs leading-6 text-graphite/75 sm:text-sm">
         {collectionSections.map((section) => <a key={section.id} href={`#${section.id}`} className="underline decoration-ink/20 underline-offset-4 hover:text-ink">{section.title}</a>)}

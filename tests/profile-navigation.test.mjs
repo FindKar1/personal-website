@@ -1,12 +1,16 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { getProfileLocation, legacyProfileDestination, profileTabs } from "../app/profile-navigation.ts";
+import { getNextProfileTab, getProfileLocation, legacyProfileDestination, profileTabs } from "../app/profile-navigation.ts";
 
 test("navigation leads from About to Product & Design, with Notes as the Notebook default", () => {
   assert.deepEqual(profileTabs, ["about", "product", "systems", "archive", "notebook"]);
   for (const tab of profileTabs) assert.deepEqual(getProfileLocation(tab), { tab, view: "notes" });
   assert.deepEqual(getProfileLocation("notebook", "reading"), { tab: "notebook", view: "reading" });
   assert.deepEqual(getProfileLocation("notebook", "invalid"), { tab: "notebook", view: "notes" });
+});
+
+test("every page continues to the next page, with Notebook returning to About", () => {
+  assert.deepEqual(profileTabs.map(getNextProfileTab), ["product", "systems", "archive", "notebook", "about"]);
 });
 
 test("legacy pages select the right content before hydration", () => {

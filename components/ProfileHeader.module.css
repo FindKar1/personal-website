@@ -1,0 +1,23 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  margin: -12px -24px 32px;
+  padding: 12px 24px 0;
+  transform: translateY(0);
+  transition: transform 180ms ease-out;
+}
+
+.inner { max-width: 1024px; margin: 0 auto; }
+
+.header[data-docked="true"] { background: rgba(255, 255, 255, 0.97); }
+.header[data-hidden="true"] { transform: translateY(calc(-100% - 1px)); }
+.header:focus-within { transform: translateY(0); transition: none; }
+
+@media (min-width: 640px) {
+  .header { margin-inline: -40px; padding-inline: 40px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header { transition: none; }
+}

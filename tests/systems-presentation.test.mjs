@@ -22,11 +22,24 @@ new Function("require", "module", "exports", outputText)(
 const markup = renderToStaticMarkup(createElement(compiled.exports.PortfolioCollection, { collection: "systems" }));
 
 test("Systems keeps one introduction and only section-level qualification labels", () => {
-  assert.match(markup, /I tend to see businesses as systems:/);
-  assert.doesNotMatch(markup, /I design systems first|Map the organization, decide what needs to change/);
+  assert.equal(markup.match(/help but see everything as systems, processes, and procedures\./g)?.length, 1);
+  assert.doesNotMatch(markup, /I tend to see businesses as systems:|I design systems first|Map the organization, decide what needs to change/);
   assert.equal(markup.match(/Healthcare \/ Anonymized proposals/g)?.length, 1);
   assert.equal(markup.match(/Conceptual architecture/g)?.length, 1);
   assert.doesNotMatch(markup, />Source document\s|>Methodology<|>Proposed workflow</);
+});
+
+test("Systems introduces the personal habit, onboarding example, and feedback in separate paragraphs", () => {
+  const intro = markup.match(/<div class="max-w-4xl space-y-4 text-base leading-7 text-graphite">([\s\S]*?)<\/div>/)?.[1];
+  assert.ok(intro);
+  const paragraphs = [...intro.matchAll(/<p>([\s\S]*?)<\/p>/g)].map(match => match[1]);
+  assert.equal(paragraphs.length, 4);
+  assert.match(paragraphs[1], /My morning routine\. The way I set up my desk\./);
+  assert.match(paragraphs[2], /Bringing a new customer onboard is one process within it\./);
+  assert.match(paragraphs[2], /People might handle some steps\. Software might handle others\./);
+  assert.match(paragraphs[3], /Look at the results and adjust\./);
+  assert.match(paragraphs[3], /just as much as designing the thing in the first place\.$/);
+  assert.doesNotMatch(intro, /These are some of the frameworks/);
 });
 
 test("all Systems diagrams remain accessible without duplicate slide titles", () => {
