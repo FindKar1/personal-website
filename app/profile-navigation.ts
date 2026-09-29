@@ -1,12 +1,12 @@
-export const profileTabs = ["about", "systems", "product", "archive", "notebook"] as const;
+export const profileTabs = ["about", "product", "systems", "archive", "notebook"] as const;
 export type ProfileTab = (typeof profileTabs)[number];
 export type NotebookView = "notes" | "reading";
 export type QueryValue = string | string[] | undefined;
 
 export const profileLabels: Record<ProfileTab, string> = {
   about: "About",
-  systems: "Systems",
   product: "Product & Design",
+  systems: "Systems",
   archive: "Archive",
   notebook: "Notebook",
 };

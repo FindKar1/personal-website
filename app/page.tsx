@@ -549,6 +549,9 @@ export default async function Home({ searchParams }: HomeProps) {
                     <div className="mt-auto flex items-center justify-between gap-4 pt-8 text-sm">
                       <a
                         href="https://www.bytespace.ai"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Opens in a new tab"
                         className="font-medium text-ink underline decoration-ink/25 underline-offset-4 transition-colors hover:decoration-ink"
                       >
                         bytespace labs -&gt;
@@ -568,6 +571,9 @@ export default async function Home({ searchParams }: HomeProps) {
                     <div className="mt-auto flex items-center justify-between gap-4 pt-8 text-sm">
                       <a
                         href="https://www.bot0.dev"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Opens in a new tab"
                         className="font-medium text-ink underline decoration-ink/25 underline-offset-4 transition-colors hover:decoration-ink"
                       >
                         bot0.dev -&gt;
@@ -587,6 +593,9 @@ export default async function Home({ searchParams }: HomeProps) {
                     <div className="mt-auto flex items-center justify-between gap-4 pt-8 text-sm">
                       <a
                         href="https://www.cmd0.dev"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Opens in a new tab"
                         className="font-medium text-ink underline decoration-ink/25 underline-offset-4 transition-colors hover:decoration-ink"
                       >
                         cmd0.dev -&gt;
@@ -706,6 +715,9 @@ export default async function Home({ searchParams }: HomeProps) {
               <div className="mt-4 border-t border-ink/10">
                 <a
                   href="https://bytespace.ai/blog/the-earth-assumption"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Opens in a new tab"
                   className="grid gap-1 py-3 text-sm sm:grid-cols-[1.4fr_0.7fr_0.6fr] sm:gap-4"
                 >
                   <p className="font-medium text-ink underline decoration-ink/20 underline-offset-4 transition-colors hover:decoration-ink">
@@ -718,6 +730,9 @@ export default async function Home({ searchParams }: HomeProps) {
                 </a>
                 <a
                   href="https://www.bytespace.ai/blog/simulations-are-theories-of-what-matters"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Opens in a new tab"
                   className="grid gap-1 py-3 text-sm sm:grid-cols-[1.4fr_0.7fr_0.6fr] sm:gap-4"
                 >
                   <p className="font-medium text-ink underline decoration-ink/20 underline-offset-4 transition-colors hover:decoration-ink">
@@ -891,12 +906,18 @@ export default async function Home({ searchParams }: HomeProps) {
               </a>
               <a
                 href="https://www.linkedin.com/in/kardhillon/"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Opens in a new tab"
                 className="font-medium text-ink underline decoration-ink/20 underline-offset-4 transition-colors hover:decoration-ink"
               >
                 LinkedIn
               </a>
               <a
                 href="https://github.com/FindKar1"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Opens in a new tab"
                 className="font-medium text-ink underline decoration-ink/20 underline-offset-4 transition-colors hover:decoration-ink"
               >
                 GitHub
