@@ -5,7 +5,10 @@ import { RotateCcw } from "lucide-react";
 import styles from "./ProductDesign.module.css";
 
 const studies = [
-  { id: "spaces", title: "Workspaces", height: 446, layout: "workspaceStudy" },
+  { id: "spaces", title: "Workspaces", height: 420, layout: "workspaceStudy" },
+  { id: "agents", title: "The agents", height: 1000, layout: "agentStudy" },
+  { id: "analytics", title: "Workflow analytics", height: 1000, layout: "analyticsStudy" },
+  { id: "results", title: "Execution results", height: 600, layout: "resultsStudy" },
   { id: "signin", title: "Sign in", height: 422, layout: "signinStudy" },
   { id: "execution", title: "Execution", height: 211, layout: "executionStudy" },
   { id: "triggers", title: "Triggers", height: 183, layout: "triggerStudy" },
@@ -68,9 +71,12 @@ function LiveStudy({ study }: { study: typeof studies[number] }) {
 }
 
 export function BytespaceStudies() {
-  const [workspace, signin, execution, triggers, ...otherStudies] = studies;
+  const [workspace, agents, analytics, results, signin, execution, triggers, ...otherStudies] = studies;
   return <div className={styles.liveStudies}>
     <LiveStudy study={workspace} />
+    <LiveStudy study={agents} />
+    <LiveStudy study={analytics} />
+    <LiveStudy study={results} />
     <div className={styles.runtimeStudies}>
       <LiveStudy study={execution} />
       <LiveStudy study={triggers} />

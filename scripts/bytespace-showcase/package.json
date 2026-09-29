@@ -5,7 +5,9 @@
   "dependencies": {
     "@hookform/resolvers": "3.10.0",
     "@radix-ui/react-label": "2.1.7",
+    "@tremor/react": "4.0.0-beta-tremor-v4.4",
     "react-hook-form": "7.62.0",
+    "recharts": "2.15.4",
     "zod": "3.25.76"
   }
 }

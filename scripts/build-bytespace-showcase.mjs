@@ -1,9 +1,10 @@
 import { createRequire } from "node:module";
-import { readFile, writeFile, mkdir, copyFile, access, readdir } from "node:fs/promises";
+import { readFile, writeFile, mkdir, copyFile, access, readdir, unlink } from "node:fs/promises";
 import { execFileSync } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
+import { extractAnalytics } from "./bytespace-showcase/extract-analytics.mjs";
 
 if (process.argv.length < 4) throw new Error("Pass elnugget/bytespace and portfolio-sites checkouts.");
 const [sourceRepo, archiveRepo] = process.argv.slice(2).map(value => path.resolve(value));
@@ -39,20 +40,44 @@ function adaptSource(source, filename) {
         const empty = () => ts.isJsxElement(node.parent) || ts.isJsxFragment(node.parent)
           ? ts.factory.createJsxExpression(undefined, ts.factory.createNull())
           : ts.factory.createNull();
+        // The showcase always presents every agent, including at narrow widths.
+        if (ts.isVariableDeclaration(node) && ts.isIdentifier(node.name)) {
+          const values = {
+            totalPages: ts.factory.createNumericLiteral(1),
+            pageItems: ts.factory.createIdentifier("allItems"),
+            calculatedAgents: ts.factory.createPropertyAccessExpression(ts.factory.createPropertyAccessExpression(ts.factory.createIdentifier("group"), "agents"), "length"),
+          };
+          if (values[node.name.text]) return ts.factory.updateVariableDeclaration(node, node.name, node.exclamationToken, node.type, values[node.name.text]);
+        }
         // These controls mutate real accounts; omit them in the archive.
         if (ts.isJsxElement(node) && node.openingElement.tagName.getText(renderedAst) === "button" && ((/<Plus\b/.test(node.getText(renderedAst)) && /Add Agent/.test(node.getText(renderedAst))) || /aria-label="Edit space name"/.test(node.getText(renderedAst)))) return empty();
-        if (ts.isJsxSelfClosingElement(node) && node.tagName.getText(renderedAst) === "SpaceOptionsMenu") return empty();
+        if (ts.isJsxSelfClosingElement(node) && ["SpaceOptionsMenu", "button"].includes(node.tagName.getText(renderedAst))) return empty();
         const isButton = ts.isJsxElement(node) && node.openingElement.tagName.getText(renderedAst) === "button";
-        if (isButton && node.children.some(child => ts.isJsxText(child) && child.text.trim() === "Open")) return empty();
-        if (variableName(node) === "DataTypeIndicators" || (isButton && node.getText(renderedAst).includes("onOpenSpace?.(group.name)"))) {
-          const allowPreview = child => ts.isIfStatement(child) && child.expression.getText(renderedAst) === "disableClicks" ? undefined : ts.visitEachChild(child, allowPreview, context);
-          return ts.visitEachChild(node, allowPreview, context);
+        if (isButton) {
+          const label = node.children.filter(ts.isJsxText).map(child => child.text.trim()).join("");
+          if (["Table", "Summary"].includes(label)) {
+            return ts.factory.createJsxElement(
+              ts.factory.createJsxOpeningElement(ts.factory.createIdentifier("span"), undefined, ts.factory.createJsxAttributes([])),
+              node.children,
+              ts.factory.createJsxClosingElement(ts.factory.createIdentifier("span")));
+          }
+          return empty();
         }
         return ts.visitEachChild(node, visit, context);
       };
       return node => ts.visitNode(node, visit);
     }]);
-    const result = ts.createPrinter().printFile(transformed.transformed[0])
+    const result = `import { agentExamples } from ${JSON.stringify(path.join(support, "agent-fixtures.mjs"))};\n` + ts.createPrinter().printFile(transformed.transformed[0])
+      .replace("const AgentCard", "export const AgentCard")
+      .replace("initial={{ opacity: 0 }}", "initial={false}")
+      .replace("animate={{ opacity: isCalculating ? 0 : 1 }}", "animate={{ opacity: 1 }}")
+      .replace('drag="x"', 'drag={false}')
+      .replace("Math.min(actualRows, 3)", "actualRows")
+      .replace("totalRows = 1247,", "agentId, totalRows = 1247,")
+      .replace("<TablePreview totalRows={totalRows}", "<TablePreview agentId={agentId} totalRows={totalRows}")
+      .replace('<div className="h-3 w-12 rounded bg-gray-200 dark:bg-white/[0.08]"/>', '{agentExamples[agentId]?.rows[rowIdx]?.[colIdx] ?? ""}')
+      .replaceAll("{col.length > 8 ? `${col.substring(0, 8)}...` : col}", "{col}")
+      .replaceAll("isHovered ? 'translate-x-[-8px] opacity-0' : 'translate-x-0 opacity-100'", "'translate-x-0 opacity-100'")
       .replaceAll("repeat(auto-fill, minmax(315px, 1fr))", "repeat(auto-fill, minmax(min(315px, 100%), 1fr))")
       .replaceAll("computedColumns = 3;", "computedColumns = 2;")
       .replaceAll("alert('Table data clicked');", 'window.dispatchEvent(new CustomEvent("showcase-output", { detail: "table" }));')
@@ -60,6 +85,61 @@ function adaptSource(source, filename) {
       .replaceAll("alert('Fork to Builder clicked');", 'window.dispatchEvent(new CustomEvent("showcase-notice", { detail: "Workflow editing is disconnected in this interface archive." }));');
     transformed.dispose();
     return result;
+  }
+  if (filename.endsWith("OwnerAgentView.tsx")) return extractAnalytics(ts, source, filename);
+  if (filename.endsWith("RunOutputDisplay.tsx")) {
+    const transformed = ts.transform(ast, [context => {
+      const visit = node => {
+        if (ts.isJsxElement(node) && ["button", "DropdownMenu"].includes(node.openingElement.tagName.getText(ast))) return ts.isJsxElement(node.parent) || ts.isJsxFragment(node.parent) ? ts.factory.createJsxExpression(undefined, ts.factory.createNull()) : ts.factory.createNull();
+        return ts.visitEachChild(node, visit, context);
+      };
+      return node => ts.visitNode(node, visit);
+    }]);
+    const result = ts.createPrinter().printFile(transformed.transformed[0]);
+    transformed.dispose();
+    return result;
+  }
+  if (filename.endsWith("LatestRunItem.tsx")) {
+    return source.replace("  started_at,", "  started_at, time,")
+      .replace("{timeAgo}", "{time}").replace("onClick={handleClick}", "")
+      .replaceAll("cursor-pointer", "cursor-default");
+  }
+  if (filename.endsWith("WorkflowPreview.tsx")) {
+    // Fit measured nodes even when the original interactive controls are omitted.
+    const setter = ast.statements.find(node => variableName(node) === "ViewportSetter");
+    return source.replace("  useReactFlow,", "  useReactFlow, useNodesInitialized,")
+      .replace(setter.getText(ast), `const ViewportSetter = () => {
+        const ready = useNodesInitialized();
+        const { fitView } = useReactFlow();
+        useEffect(() => {
+          if (!ready) return;
+          const container = document.querySelector('.react-flow');
+          if (!container) return;
+          let frame;
+          const fit = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(() => fitView({ padding: 0.16, minZoom: 0.05, maxZoom: 1, duration: 0 })); };
+          const observer = new ResizeObserver(fit);
+          observer.observe(container); fit();
+          return () => { observer.disconnect(); cancelAnimationFrame(frame); };
+        }, [ready, fitView]);
+        return null;
+      };`)
+      .replace("nodesDraggable={false}", "nodesDraggable={false} nodesFocusable={false} edgesFocusable={false}");
+  }
+  if (filename.endsWith("WorkflowNode.tsx")) {
+    return source.replaceAll('tabIndex={0}', 'tabIndex={-1}')
+      .replaceAll("text-gray-200", "text-gray-700")
+      .replaceAll("bg-red-900", "bg-red-100").replaceAll("bg-red-950", "bg-red-50")
+      .replaceAll("text-red-200", "text-red-700")
+      .replaceAll("bg-yellow-900", "bg-yellow-100").replaceAll("bg-yellow-950", "bg-yellow-50")
+      .replaceAll("text-yellow-200", "text-yellow-700");
+  }
+  if (filename.endsWith("nodes/TriggerNode.tsx")) {
+    return source.replaceAll('tabIndex={0}', 'tabIndex={-1}')
+      .replaceAll('cmd0 Agent', 'Lead Generator')
+      .replaceAll('bg-[#3B3B06]', 'bg-[#FFF4C4]').replaceAll('bg-[#323200]', 'bg-[#FFFEF5]')
+      .replaceAll('bg-gray-800', 'bg-gray-50').replaceAll('bg-gray-700', 'bg-white')
+      .replaceAll('text-gray-200', 'text-gray-700').replaceAll('text-gray-300', 'text-gray-600')
+      .replaceAll('from-gray-700 to-gray-800', 'from-gray-100 to-gray-200');
   }
   if (filename.endsWith("AgentExecutionDemo.tsx")) {
     return source
@@ -111,11 +191,12 @@ function adaptSource(source, filename) {
 }
 
 await mkdir(output, { recursive: true });
+const previousBundles = JSON.parse(await readFile(path.join(output, "provenance.json"), "utf8").catch(() => "{}")).bundles ?? [];
 const entry = await readFile(path.join(support, "entry.jsx"), "utf8");
 const result = await build({
-  stdin: { contents: entry, resolveDir: support, loader: "jsx" },
-  outfile: path.join(output, "demo.js"), bundle: true, minify: true, metafile: true,
-  platform: "browser", format: "iife", jsx: "automatic", target: ["es2020"],
+  entryPoints: { demo: path.join(support, "entry.jsx") },
+  outdir: output, chunkNames: "chunks/[name]-[hash]", splitting: true, bundle: true, minify: true, metafile: true,
+  platform: "browser", format: "esm", jsx: "automatic", target: ["es2020"],
   define: { "process.env.NODE_ENV": '"production"' },
   plugins: [{ name: "archived-interface", setup(build) {
     build.onResolve({ filter: /.*/ }, ({ path: name, importer }) => {
@@ -169,7 +250,8 @@ const colorNames = ["background", "foreground", "border", "input", "ring"];
 const colors = Object.fromEntries(colorNames.map(name => [name, `hsl(var(--${name}))`]));
 for (const name of ["card", "popover", "primary", "secondary", "muted", "accent", "destructive"]) colors[name] = { DEFAULT: `hsl(var(--${name}))`, foreground: `hsl(var(--${name}-foreground))` };
 const css = await postcss([tailwind({
-  content: [...inputs.values(), entry, await readFile(path.join(support, "adapters.jsx"), "utf8")].map(raw => ({ raw, extension: "tsx" })),
+  content: [...inputs.values(), entry, ...await Promise.all(["adapters.jsx", "AgentDetailStudies.jsx"].map(file => readFile(path.join(support, file), "utf8")))].map(raw => ({ raw, extension: "tsx" })),
+  safelist: ["fill-emerald-500", "fill-yellow-500", "fill-red-500", "stroke-white"],
   darkMode: "class", theme: { extend: { colors } }, plugins: [],
 })]).process(originalStyles.join("\n") + "\n" + await readFile(path.join(support, "frame.css"), "utf8"), { from: undefined });
 await writeFile(path.join(output, "demo.css"), css.css);
@@ -194,12 +276,16 @@ for (const asset of assets) {
   else await sharp(from).resize({ width: 440, height: 520, fit: "inside", withoutEnlargement: true }).toFile(to);
   copied.push(asset);
 }
+const bundles = Object.keys(result.metafile.outputs).map(filename => path.relative(output, path.resolve(filename)));
 await writeFile(path.join(output, "provenance.json"), JSON.stringify({
   repository: "https://github.com/elnugget/bytespace",
   revision: execFileSync("git", ["rev-parse", "HEAD"], { cwd: sourceRepo, encoding: "utf8" }).trim(),
   assetsRepository: "https://github.com/FindKar1/portfolio-sites",
   assetsRevision: execFileSync("git", ["rev-parse", "HEAD"], { cwd: archiveRepo, encoding: "utf8" }).trim(),
-  sourceFiles: [...inputs.keys()].map(filename => path.relative(sourceRepo, filename)), assets: copied,
-  adaptations: ["Original AgentGroupCard, activity graphs, counters and output previews", "Original preview workspace fixtures only", "Original sign-in form with read-only fixture credentials and local preview action", "Original calendar, execution, context and trigger animations", "Compact execution and trigger layouts, repaired chart height constraints, and sign-in header portrait", "Origin-validated execution replay control in the host heading", "Local image and navigation adapters", "Service-backed page excluded", "External favicons replaced locally", "Network and forms disabled by CSP", "Light theme with six auto-sized studies in the host page's responsive grid"],
+  sourceFiles: [...inputs.keys()].map(filename => path.relative(sourceRepo, filename)), assets: copied, bundles,
+  adaptations: ["Original AgentGroupCard and AgentCard with activity graphs and counters", "Sales overview and populated expanded cards are separate, always-visible studies", "Agent rows are visible from first paint and never paginated or draggable", "Original OwnerAgentView analytics composition extracted without its service lifecycle or tabs", "Original workflow renderer fitted to show the entire example without panning", "Original run outputs and history with consistent synthetic fixtures", "Disconnected workspace and output controls removed", "Original sign-in form with read-only fixture credentials and local preview action", "Original calendar, execution, context and trigger animations", "Compact execution and trigger layouts, repaired chart height constraints, and sign-in header portrait", "Origin-validated execution replay control in the host heading", "Local image and navigation adapters", "Service-backed page excluded", "External favicons replaced locally", "Network and forms disabled by CSP", "Light theme with nine auto-sized studies in the host page's responsive grid"],
 }, null, 2) + "\n");
+for (const file of previousBundles) {
+  if (/^chunks\/[\w-]+\.js$/.test(file) && !bundles.includes(file)) await unlink(path.join(output, file)).catch(error => { if (error.code !== "ENOENT") throw error; });
+}
 console.log(`Built Bytespace showcase: ${inputs.size} original source files, ${copied.length} local assets, ${Object.keys(result.metafile.inputs).length} modules.`);

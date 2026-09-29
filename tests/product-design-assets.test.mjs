@@ -24,7 +24,7 @@ test("the personal page intro leads into bot0 and cmd0 without a Labs chapter", 
   assert.match(cmd, /Workflows followed defined steps, while AI helped people build them and repair broken selectors when a page changed\./);
   assert.match(cmd, /Giving them faces and personalities made them more approachable/);
   for (const [id, label] of [["bot0", "bot0"], ["product-design", "cmd0"]]) {
-    assert.ok(source.includes(`<a href="#${id}">${label}</a>`));
+    assert.ok(source.includes(`<a href="#${id}">${label}`));
     assert.equal([...source.matchAll(new RegExp(`<section id="${id}"`, "g"))].length, 1);
   }
   assert.doesNotMatch(source, /Bytespace Labs & bot0|Bytespace Labs<br \/>& bot0/);
@@ -167,15 +167,78 @@ test("preserved Bytespace UI uses original sources and only local assets", async
   for (const file of ["demo.js", "demo.css"]) assert.ok((await stat(path.join(folder, file))).size > 0);
 });
 
-test("the product sequence keeps the intro-aware desktop, demos, and three portals together", async () => {
+test("cmd0 keeps its opening and follows with world-building, marketplace, interfaces and origins", async () => {
   const source = await readFile(path.join(root, "components/ProductDesign.tsx"), "utf8");
   const monitor = await readFile(path.join(root, "components/BytespaceMonitor.tsx"), "utf8");
   assert.match(monitor, /muted loop playsInline controls/);
   assert.match(source, /const portals: ImageId\[\] = \["portal-energy", "portal-gateway", "portal-garden"\]/);
   const component = source.slice(source.indexOf("export function ProductDesign"));
-  assert.ok(component.indexOf("{children}") > component.indexOf("<BytespaceMonitor />"));
-  assert.ok(component.indexOf("{children}") < component.indexOf('id="bytespace-live-title"'));
+  const sequence = [
+    "<BytespaceHero />", "<BytespaceMonitor />", "{children}", "<BytespaceVideoWall />",
+    'id="bytespace-world"', "styles.portalGrid", "styles.characterLineup",
+    "<BytespaceMarketplace />", "<BytespaceNodeCatalog />", 'artwork("world-landscape"',
+    'id="bytespace-interfaces"', 'artwork("extension-popup"', "<BytespaceStudies />",
+    'id="design-evolution"', 'artwork("product-composition"', 'artwork("office-landscape"',
+  ].map(value => component.indexOf(value));
+  assert.ok(sequence.every((position,index) => position >= 0 && (!index || position > sequence[index-1])));
+  assert.equal([...component.matchAll(/styles.portalGrid/g)].length,1);
+  assert.equal([...component.matchAll(/styles.characterLineup/g)].length,1);
   assert.match(source, /Chrome Extension/);
+});
+
+test("the portals and seven head-scaled agents form separate layered compositions", async () => {
+  const source = await readFile(path.join(root, "components/ProductDesign.tsx"), "utf8");
+  const css = await readFile(path.join(root, "components/ProductDesign.module.css"), "utf8");
+  const lineup = source.match(/const characters: ImageId\[\] = \[([^\]]+)\]/)[1].match(/"[^"]+"/g);
+  assert.equal(lineup.length,7);
+  assert.equal(lineup[3],'"character-samurai"');
+  assert.ok(lineup.includes('"character-pirate"'));
+  assert.ok(!lineup.includes('"character-fairy"'));
+  assert.match(source,/open\("characters"\)/);
+  assert.match(css,/\.portalGrid \{[^}]*isolation: isolate; aspect-ratio: 1\.92/);
+  assert.match(css,/\.portalGrid > \.gatewayPortal \{ z-index: 2; top: 0; left: 22%; width: 56%/);
+  assert.doesNotMatch(css,/\.gatewayPortal img \{ object-fit: fill/);
+  assert.match(css,/\.characterLineup \{[^}]*isolation: isolate; aspect-ratio: 2/);
+  assert.match(css,/\.characterLineup > \.artwork \{ position: absolute/);
+  for (const id of lineup) {
+    assert.ok(css.includes(`[data-artwork=${id}]`), `${id} has an individual placement`);
+  }
+  assert.match(css,/\[data-artwork="character-samurai"\] \{ z-index: 4; width: 34\.5%/);
+  assert.match(css,/\.characterPortrait img \{ width: 100%; height: auto/);
+  assert.doesNotMatch(css,/\.characterLineup[^}]*grid-template-columns/);
+});
+
+test("agent pairs share foot baselines without stretching their artwork", async () => {
+  const css = await readFile(path.join(root, "components/ProductDesign.module.css"), "utf8");
+  function placement(id) {
+    const rule = css.match(new RegExp(`\\[data-artwork="${id}"\\] \\{([^}]+)\\}`))[1];
+    return Object.fromEntries([...rule.matchAll(/(width|left|bottom|top): ([\d.]+)%/g)].map(([,key,value]) => [key,Number(value)]));
+  }
+  assert.equal(placement("character-ice").bottom, placement("character-fire").bottom);
+  assert.equal(placement("character-code").bottom, placement("character-armor").bottom);
+  const height = id => placement(id).width * assets[id].preview.height / assets[id].preview.width;
+  assert.ok(height("character-armor") > height("character-code"), "armored agent stands taller on the same baseline");
+  for (const id of ["character-space", "character-pirate", "character-code", "character-armor", "character-ice", "character-fire", "character-samurai"]) {
+    const { width, left, bottom = 0, top = 0 } = placement(id);
+    assert.ok(left >= 0 && left + width <= 100, `${id} stays within the horizontal stage`);
+    assert.ok(bottom + top + height(id) * 2 <= 100, `${id} stays within the reserved vertical stage`);
+  }
+});
+
+test("portal separation and layer order survive viewer focus restoration", async () => {
+  const css = await readFile(path.join(root, "components/ProductDesign.module.css"), "utf8");
+  assert.match(css,/\.portalGrid > \.gatewayPortal \{[^}]*filter: drop-shadow\(/);
+  assert.doesNotMatch(css,/\.(?:portalGrid|characterLineup)[^{}]*:focus[^{}]*\{[^}]*z-index/);
+  assert.match(css,/\.artButton:focus-visible \{[^}]*outline: 2px solid/);
+});
+
+test("the featured pirate uses the original transparent character artwork", async () => {
+  const preparation = await readFile(path.join(root, "scripts/prepare-product-designs.mjs"), "utf8");
+  assert.match(preparation,/\["character-pirate", "agent_profiles\/Premium\/freedom-fighter\/freedom-fighter-fb.png"\]/);
+  for (const variant of ["preview", "full"]) {
+    const metadata = await sharp(path.join(root, "public", assets["character-pirate"][variant].src)).metadata();
+    assert.equal(metadata.hasAlpha,true);
+  }
 });
 
 test("the samurai eye band is backed in gray without flattening the artwork", async () => {
@@ -188,11 +251,11 @@ test("the samurai eye band is backed in gray without flattening the artwork", as
   }
 });
 
-test("all six original UI studies render together without a tabbed shell", async () => {
+test("all nine original UI studies render together without a tabbed shell", async () => {
   const host = await readFile(path.join(root, "components/BytespaceStudies.tsx"), "utf8");
   const entry = await readFile(path.join(root, "scripts/bytespace-showcase/entry.jsx"), "utf8");
   const ids = [...host.matchAll(/id: "(\w+)"/g)].map(match => match[1]);
-  assert.deepEqual(ids, ["spaces", "signin", "execution", "triggers", "calendar", "context"]);
+  assert.deepEqual(ids, ["spaces", "agents", "analytics", "results", "signin", "execution", "triggers", "calendar", "context"]);
   for (const id of ids) assert.ok(entry.includes(`view === "${id}"`), id);
   assert.match(host, /otherStudies\.map/);
   assert.match(host, /styles.runtimeStudies/);
@@ -266,16 +329,17 @@ test("the design archive retains its distinct artwork without repeating earlier 
   }
   assert.doesNotMatch(archive, /artwork\("characters"/);
   assert.match(source, /open\("characters"\)/);
-  assert.match(source, /artwork\("agent-run-light"/);
+  assert.doesNotMatch(source, /"agent-run-light"/);
   assert.match(source, /portals.map/);
 });
 
-test("the product overview follows the demos at full resolution before the interface details", async () => {
+test("the full-resolution product overview opens Early cmd0 without a duplicate run-view image", async () => {
   const source = await readFile(path.join(root, "components/ProductDesign.tsx"), "utf8");
   const css = await readFile(path.join(root, "components/ProductDesign.module.css"), "utf8");
   const overview = source.indexOf('artwork("product-composition"');
-  assert.ok(overview > source.indexOf("<BytespaceVideoWall />"));
-  assert.ok(overview < source.indexOf("<h3>Inside the extension</h3>"));
+  assert.ok(overview > source.indexOf('id="evolution-title"'));
+  assert.ok(overview < source.indexOf('artwork("office-landscape"'));
+  assert.doesNotMatch(source, /"agent-run-light"|<h3>Inside the extension<\/h3>/);
   assert.match(source, /artwork\("product-composition", \{ className: styles.productOverview, fullResolution: true \}\)/);
   assert.match(css, /\.productOverview \.artButton \{ aspect-ratio: 2800 \/ 1540/);
   assert.match(css, /@media \(min-width: 1200px\)[\s\S]*?\.productOverview \{ margin-inline: -60px/);

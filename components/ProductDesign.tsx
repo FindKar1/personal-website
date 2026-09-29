@@ -30,7 +30,6 @@ const captions: Partial<Record<ImageId, [string, string?]>> = {
   "labs-materials": ["Matter", "Scientific illustration / Bytespace Labs"],
   "labs-curiosity": ["A place for curiosity", "Editorial artwork / Bytespace Labs"],
   "labs-healthcare": ["Bytespace Healthcare"],
-  "agent-run-light": ["Configure, run, observe", "The light-mode interface: task inputs, a browser preview, and the agent's actions side by side."],
   "agent-library": ["A library of web agents", "Task-specific agents, organized around the work people want to get done."],
   "bytespace-workspace": ["A workspace for automated teams", "An earlier Bytespace interface study connecting agent activity, departments, and performance."],
   "portal-space": ["Space", "Bytespace / Light-mode environment study"],
@@ -68,6 +67,7 @@ const captions: Partial<Record<ImageId, [string, string?]>> = {
   "character-fire": ["Fire knight", "Bytespace / Character studies"],
   "character-armor": ["Robot armor", "Bytespace / Character studies"],
   "character-fairy": ["Space fairy", "Bytespace / Character studies"],
+  "character-pirate": ["Pirate", "Bytespace / Character studies"],
   "character-einstein": ["Einstein", "Bytespace / Character studies"],
   "icon-ai": ["Intelligence", "Bytespace / Isometric icon system"],
   "icon-control": ["Control", "Bytespace / Isometric icon system"],
@@ -83,7 +83,7 @@ const captions: Partial<Record<ImageId, [string, string?]>> = {
 const galleryOrder = Object.keys(captions) as ImageId[];
 const posters: ImageId[] = ["company-overview", "use-cases", "product-roadmap", "team-overview"];
 const icons: ImageId[] = ["icon-ai", "icon-control", "icon-identity", "icon-web", "icon-security", "icon-space"];
-const characters: ImageId[] = ["character-samurai", "character-ice", "character-fire", "character-armor", "character-fairy", "character-space", "character-code", "character-einstein"];
+const characters: ImageId[] = ["character-code", "character-ice", "character-space", "character-samurai", "character-pirate", "character-fire", "character-armor"];
 const portals: ImageId[] = ["portal-energy", "portal-gateway", "portal-garden"];
 
 function ChapterHeader({ number, id, title, category, children, href }: {
@@ -146,7 +146,7 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
 
   function artwork(id: ImageId, options: { className?: string; surface?: string; caption?: boolean; fullResolution?: boolean } = {}) {
     const [title] = captions[id]!;
-    return <figure className={`${styles.artwork} ${options.className ?? ""}`} key={id}>
+    return <figure className={`${styles.artwork} ${options.className ?? ""}`} data-artwork={id} key={id}>
       <button type="button" onClick={() => open(id)} aria-label={`Enlarge ${title}`} title={`Enlarge ${title}`} className={`${styles.artButton} ${options.surface ?? ""}`}>
         <Image {...images[id][options.fullResolution ? "full" : "preview"]} alt={title} unoptimized loading="lazy" className={styles.artImage} />
         <span className={styles.expandIcon} aria-hidden="true"><Maximize2 size={15} /></span>
@@ -166,7 +166,7 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
       <p>Below are two products from that work. bot0, an agent workspace originally designed for researchers. And cmd0, my favorite, a Chrome extension that brings browser automation and world-building together.</p>
     </div>
     <nav aria-label="Product and design sections" className={styles.sectionNav}>
-      <a href="#bot0">bot0</a><a href="#product-design">cmd0</a><a href="#design-evolution">Design evolution <ArrowDown size={13} aria-hidden="true" /></a>
+      <a href="#bot0">bot0</a><a href="#product-design">cmd0 <ArrowDown size={13} aria-hidden="true" /></a>
     </nav>
 
     <section id="bot0" aria-labelledby="bot0-title" className={styles.chapter}>
@@ -211,37 +211,36 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
       </div>
       {children}
       <BytespaceVideoWall />
-      {artwork("product-composition", { className: styles.productOverview, fullResolution: true })}
-      <div className={styles.subheading}><h3>Inside the extension</h3></div>
-      {artwork("agent-run-light", { className: styles.interface })}
-      <div className={styles.extensionComposition}>
-        {artwork("extension-popup", { className: styles.extensionPopup, caption: false })}
-        <div className={styles.extensionDetails}>
-          {artwork("agent-cursor", { className: styles.cursorStudy, caption: false })}
-          {artwork("bytespace-workspace", { className: styles.interface, caption: false })}
+      <section id="bytespace-world" aria-labelledby="bytespace-world-title">
+        <div className={styles.subheading}><h3 id="bytespace-world-title">Giving the agents a world</h3></div>
+        <p className={styles.contextCopy}>We also wanted agents to feel less abstract. Giving them faces and personalities made them more approachable. Managing them borrowed from the familiar experience of managing a team, while the visual world borrowed from games. We wanted building automations to feel playful, not just technical.</p>
+        <div className={styles.portalGrid}>{portals.map(id => artwork(id, { caption: false, className: id === "portal-gateway" ? styles.gatewayPortal : undefined }))}</div>
+        <div className={styles.characterLineup} aria-label="Bytespace character designs">
+          {characters.map(id => artwork(id, { surface: styles.characterPortrait, caption: false }))}
         </div>
-      </div>
+        <div className={styles.collectionLink}><button type="button" onClick={() => open("characters")}>All characters <ArrowUpRight size={14} aria-hidden="true" /></button></div>
+      </section>
 
       <BytespaceMarketplace />
       <BytespaceNodeCatalog />
+      {artwork("world-landscape", { className: styles.landscape, caption: false })}
 
-      <section aria-labelledby="bytespace-live-title">
-        <div className={styles.subheading}><h3 id="bytespace-live-title">Behind the browser</h3></div>
+      <section id="bytespace-interfaces" className={styles.productInterfaces} aria-labelledby="bytespace-live-title">
+        <div className={styles.subheading}><h3 id="bytespace-live-title">Inside the product</h3></div>
+        <div className={styles.extensionComposition}>
+          {artwork("extension-popup", { className: styles.extensionPopup, caption: false })}
+          <div className={styles.extensionDetails}>
+            {artwork("agent-cursor", { className: styles.cursorStudy, caption: false })}
+            {artwork("bytespace-workspace", { className: styles.interface, caption: false })}
+          </div>
+        </div>
         <BytespaceStudies />
         <p className={styles.credit}>Interactive archive / Sample data, no connected accounts or live runs.</p>
       </section>
 
-      <div className={styles.subheading}><h3>Giving the agents a world</h3></div>
-      <p className={styles.contextCopy}>We also wanted agents to feel less abstract. Giving them faces and personalities made them more approachable. Managing them borrowed from the familiar experience of managing a team, while the visual world borrowed from games. We wanted building automations to feel playful, not just technical.</p>
-      <div className={styles.portalGrid}>{portals.map(id => artwork(id, { caption: false, className: id === "portal-gateway" ? styles.gatewayPortal : undefined }))}</div>
-      <div className={styles.characterLineup} aria-label="Bytespace character designs">
-        {characters.map(id => artwork(id, { surface: styles.characterPortrait, caption: false }))}
-      </div>
-      <div className={styles.collectionLink}><button type="button" onClick={() => open("characters")}>All characters <ArrowUpRight size={14} aria-hidden="true" /></button></div>
-      {artwork("world-landscape", { className: styles.landscape, caption: false })}
-
       <section id="design-evolution" aria-labelledby="evolution-title" className={styles.evolution}>
-        <div className={styles.subheading}><h3 id="evolution-title">Design evolution</h3></div>
+        <div className={styles.subheading}><h3 id="evolution-title">Early cmd0</h3></div>
+        {artwork("product-composition", { className: styles.productOverview, fullResolution: true })}
         {artwork("office-landscape", { caption: false })}
         <div className={styles.browserStudies}>
           <div className={styles.browserPair}>{artwork("browser-modern", { caption: false })}{artwork("browser-legacy", { caption: false })}</div>

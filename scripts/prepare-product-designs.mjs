@@ -81,6 +81,7 @@ const browserFiles = [
   ["character-fire", "agent_profiles/Premium/fire-knight/fire-knight-fb.png"],
   ["character-armor", "agent_profiles/Premium/robot-armor/robot-armor-fb.png"],
   ["character-fairy", "agent_profiles/Premium/space-fairy/space-fairy-fb.png"],
+  ["character-pirate", "agent_profiles/Premium/freedom-fighter/freedom-fighter-fb.png"],
   ["character-einstein", "agent_profiles/Premium/einstein/einstein-fb.png"],
 ].map(([id, filename]) => [id, path.join(sourceRepo, "apps/cmd0/public", filename)]);
 

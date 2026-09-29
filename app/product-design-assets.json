@@ -754,5 +754,17 @@
       "width": 1323,
       "height": 404
     }
+  },
+  "character-pirate": {
+    "preview": {
+      "src": "/media/product/character-pirate-preview.webp",
+      "width": 360,
+      "height": 494
+    },
+    "full": {
+      "src": "/media/product/character-pirate-full.webp",
+      "width": 362,
+      "height": 497
+    }
   }
 }

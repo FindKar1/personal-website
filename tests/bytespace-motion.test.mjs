@@ -43,7 +43,7 @@ test("video wall follows In motion without replacing the hero or extension studi
   const source = await read("components/ProductDesign.tsx");
   const demos = source.indexOf("{children}", source.indexOf("<BytespaceHero />"));
   const wall = source.indexOf("<BytespaceVideoWall />");
-  const extension = source.indexOf("Inside the extension");
+  const extension = source.indexOf('id="bytespace-interfaces"');
   assert.ok(source.indexOf("<BytespaceHero />") < demos && demos < wall && wall < extension);
   assert.ok(source.includes("<BytespaceStudies />"));
 });
