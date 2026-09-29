@@ -1,4 +1,9 @@
 {
+  "business-systems-cover": {
+    "src": "/media/systems/business-systems-cover.webp",
+    "width": 2400,
+    "height": 1350
+  },
   "business-process": {
     "src": "/media/systems/business-process.webp",
     "width": 2400,

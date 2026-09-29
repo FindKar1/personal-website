@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
@@ -48,13 +48,50 @@ test("all Systems diagrams remain accessible without duplicate slide titles", ()
   assert.match(markup, /aria-label="Enlarge Process Overview"/);
 });
 
-test("organization and architecture diagrams have full-width layouts", () => {
+test("the opener, revenue overview, and architecture diagrams retain full-width layouts", () => {
   const figures = markup.match(/<figure\b[\s\S]*?<\/figure>/g);
-  for (const title of ["Bytespace org chart", "Agent operating model", "People, agents, and oversight", "Research workflow", "Shared memory"]) {
+  for (const title of ["Building Agile Organizations", "Revenue Machine", "Agent operating model", "People, agents, and oversight", "Research workflow", "Shared memory"]) {
     const figure = figures.find(item => item.includes(`aria-label="Enlarge ${title}"`));
     assert.ok(figure, title);
     assert.match(figure, /^<figure class="col-span-full min-w-0">/, title);
   }
+});
+
+test("Business systems opens with the illustrated cover and moves from people to execution", () => {
+  const business = markup.slice(markup.indexOf('<section id="business-systems"'), markup.indexOf('<section id="workflow-planning"'));
+  assert.deepEqual([...business.matchAll(/aria-label="Enlarge ([^"]+)"/g)].map(match => match[1]), [
+    "Building Agile Organizations", "Role Fundamentals", "Organizational Structure",
+    "Process Overview", "Systems, Processes &amp; Procedures", "Revenue Machine", "Marketing", "Sales",
+    "Lead to Customer Transition", "Optimizing Tech Stack", "Implementation", "Agile Execution", "Reporting",
+  ]);
+  assert.match(business, /src="\/media\/systems\/business-systems-cover.webp"/);
+  assert.ok(business.indexOf('Enlarge Building Agile Organizations') < business.indexOf("Before I map an organization"));
+  assert.ok(business.indexOf("Before I map an organization") < business.indexOf('Enlarge Role Fundamentals'));
+  assert.equal(business.match(/Before I map an organization/g)?.length, 1);
+  assert.doesNotMatch(business, />Building Agile Organizations<\/p>/);
+});
+
+test("supporting business slides use compact paired layouts", () => {
+  const figures = markup.match(/<figure\b[\s\S]*?<\/figure>/g);
+  for (const title of ["Role Fundamentals", "Organizational Structure", "Process Overview", "Systems, Processes &amp; Procedures", "Optimizing Tech Stack", "Implementation", "Agile Execution", "Reporting"]) {
+    const figure = figures.find(item => item.includes(`aria-label="Enlarge ${title}"`));
+    assert.ok(figure, title);
+    assert.match(figure, /^<figure class="min-w-0">/, title);
+  }
+  assert.match(source, /grid items-start gap-x-5 gap-y-6 sm:grid-cols-2/);
+});
+
+test("the Bytespace org chart is removed from the gallery but its asset is preserved", async () => {
+  assert.doesNotMatch(markup, /Bytespace org chart|bytespace-org-chart\.webp/);
+  assert.doesNotMatch(source, /id: "bytespace-org-chart"/);
+  const assets = JSON.parse(await readFile(new URL("../app/systems-assets.json", import.meta.url), "utf8"));
+  const asset = assets["bytespace-org-chart"];
+  assert.ok(asset);
+  assert.ok((await stat(new URL(`../public${asset.src}`, import.meta.url))).size > 0);
+});
+
+test("Systems lightbox follows the page order instead of the old artifact order", () => {
+  assert.match(source, /collectionSections\.flatMap\(\(section\) => section\.items\.map/);
 });
 
 test("source downloads and expanded-image context remain available", () => {
@@ -62,7 +99,6 @@ test("source downloads and expanded-image context remain available", () => {
   assert.match(markup, /href="\/documents\/building-agile-organizations.pdf"/);
   assert.match(source, /id="artifact-detail"[^>]*>\{active.detail\}/);
   assert.match(source, /active.document[\s\S]*?Source PDF/);
-  assert.match(source, /Dashed roles show planned hires, not filled positions/);
 });
 
 test("About previews two uncropped AI architecture diagrams without extra captions", async () => {

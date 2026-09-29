@@ -19,7 +19,8 @@ type Artifact = {
 };
 
 const artifacts: Artifact[] = [
-  { id: "business-process", title: "Process Overview", detail: "Map the organization, identify problems and design solutions, then deploy, assess, and adapt. The sequence behind the rest of the framework.", status: "Methodology", document: "building-agile-organizations.pdf", page: 2, layout: "wide", embeddedTitle: true },
+  { id: "business-systems-cover", title: "Building Agile Organizations", detail: "The original deck's illustration and typography, adapted for this showcase.", status: "Methodology", layout: "wide", embeddedTitle: true },
+  { id: "business-process", title: "Process Overview", detail: "Map the organization, identify problems and design solutions, then deploy, assess, and adapt. The sequence behind the rest of the framework.", status: "Methodology", document: "building-agile-organizations.pdf", page: 2, embeddedTitle: true },
   { id: "systems-processes-procedures", title: "Systems, Processes & Procedures", detail: "Move from core business functions to the processes that connect them, then document the procedures that make each task repeatable.", status: "Methodology", document: "building-agile-organizations.pdf", page: 5 },
   { id: "agile-execution", title: "Agile Execution", detail: "Prioritize and assign work, monitor execution, then use retrospectives and performance measures to refine the next cycle.", status: "Methodology", document: "building-agile-organizations.pdf", page: 9 },
   { id: "organization-overview", title: "Organizational Structure", detail: "A high-level model of reporting, oversight, and functional ownership across the organization.", status: "Methodology", document: "building-agile-organizations.pdf", page: 11 },
@@ -30,8 +31,7 @@ const artifacts: Artifact[] = [
   { id: "lead-to-customer", title: "Lead to Customer Transition", detail: "Connecting account management, implementation, and ongoing support so a closed deal becomes a supported customer.", status: "Methodology", document: "building-agile-organizations.pdf", page: 21, embeddedTitle: true },
   { id: "tech-stack", title: "Optimizing Tech Stack", detail: "Mapping departmental tools and shared infrastructure before deciding what to connect, replace, or automate.", status: "Methodology", document: "building-agile-organizations.pdf", page: 18, embeddedTitle: true },
   { id: "implementation", title: "Implementation", detail: "A delivery sequence with account ownership, handoffs, setup, activation, and the outputs needed at each stage.", status: "Methodology", document: "building-agile-organizations.pdf", page: 29, embeddedTitle: true },
-  { id: "reporting", title: "Reporting", detail: "Connect departmental measures to strategic targets and a regular reporting cadence, so results inform the next decision.", status: "Methodology", document: "building-agile-organizations.pdf", page: 15, layout: "wide", embeddedTitle: true },
-  { id: "bytespace-org-chart", title: "Bytespace org chart", detail: "A Bytespace org-design snapshot connecting functional owners, team handoffs, and customer feedback. Dashed roles show planned hires, not filled positions.", status: "Organization design / Roles and handoffs", layout: "wide" },
+  { id: "reporting", title: "Reporting", detail: "Connect departmental measures to strategic targets and a regular reporting cadence, so results inform the next decision.", status: "Methodology", document: "building-agile-organizations.pdf", page: 15, embeddedTitle: true },
   { id: "healthcare-system", title: "The full patient lifecycle", detail: "Connecting acquisition, care delivery, billing, and follow-up in one system. The four flows below unpack how each part could operate.", status: "Proposed workflow", document: "healthcare-workflow-design.pdf", page: 1, layout: "wide" },
   { id: "patient-journey", title: "The patient journey", detail: "Mapping the gaps between a first inquiry and the next visit, then considering where automation could support staff and patients.", status: "Proposed workflow", document: "healthcare-workflow-design.pdf", page: 2 },
   { id: "doctor-journey", title: "The doctor's journey", detail: "A proposed visit workflow, including documentation assistance, clinician approval, eligibility checks, and follow-up.", status: "Proposed workflow", document: "healthcare-workflow-design.pdf", page: 3 },
@@ -53,19 +53,29 @@ type ArtifactGroup = {
   title: string;
   description?: string;
   context?: string;
+  paragraphs?: string[];
   items: Artifact["id"][];
   columns?: 3;
 };
 
 const businessGroups: ArtifactGroup[] = [
-  { id: "the-method", title: "The method", items: ["business-process", "systems-processes-procedures", "agile-execution"] },
-  { id: "structure-responsibility", title: "Structure & responsibility", items: ["organization-overview", "role-fundamentals"] },
+  {
+    id: "structure-responsibility", title: "People & responsibility",
+    paragraphs: [
+      "Before I map an organization, I think about three kinds of work.",
+      "Entrepreneurial work looks ahead. Where are we going, and why should anyone care? Managerial work turns that direction into something repeatable. It uses past results to improve how the team operates. Technical work gets things done today. Serving customers, building the product, and keeping the organization moving.",
+      "These aren't three different kinds of people. Everyone does some of each. What changes is the balance, depending on their role and what the organization needs at that stage.",
+      "That balance helps me think about how to structure a team and where each person can contribute most.",
+    ],
+    items: ["role-fundamentals", "organization-overview"],
+  },
+  { id: "the-method", title: "Mapping the work", items: ["business-process", "systems-processes-procedures"] },
   { id: "the-revenue-system", title: "The revenue system", items: ["revenue-machine", "marketing-system", "sales-system", "lead-to-customer"], columns: 3 },
-  { id: "execution-feedback", title: "Execution & feedback", items: ["tech-stack", "implementation", "reporting"] },
+  { id: "execution-feedback", title: "Making it work", items: ["tech-stack", "implementation", "agile-execution", "reporting"] },
 ];
 
 const sections: ArtifactGroup[] = [
-  { id: "business-systems", title: "Business systems", items: businessGroups.flatMap((group) => group.items) },
+  { id: "business-systems", title: "Business systems", items: ["business-systems-cover", ...businessGroups.flatMap((group) => group.items)] },
   { id: "workflow-planning", title: "Workflows & delivery", context: "Healthcare / Anonymized proposals", items: ["healthcare-system", "patient-journey", "doctor-journey", "revenue-cycle", "marketing-acquisition"] },
   { id: "ai-architecture", title: "AI systems", context: "Conceptual architecture", items: ["agent-operating-model", "human-agent-architecture", "research-workflow", "shared-memory"] },
   { id: "product-design", title: "Product design", description: "Eventually, someone has to use all of this. I like working through how a complicated system becomes something a person can understand and act on.", items: ["bytespace-interface"] },
@@ -94,8 +104,10 @@ const iconButton = "inline-flex h-10 w-10 shrink-0 items-center justify-center b
 
 export function PortfolioCollection({ collection, children }: { collection: "systems" | "product"; children?: ReactNode }) {
   const isProduct = collection === "product";
-  const collectionArtifacts = artifacts.filter((artifact) => productArtifactIds.has(artifact.id) === isProduct);
   const collectionSections = sections.filter((section) => (section.id === "product-design") === isProduct);
+  const collectionArtifacts = isProduct
+    ? artifacts.filter((artifact) => productArtifactIds.has(artifact.id))
+    : collectionSections.flatMap((section) => section.items.map((id) => artifacts.find((artifact) => artifact.id === id)!));
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [zoom, setZoom] = useState(1);
   const dialog = useRef<HTMLDialogElement>(null);
@@ -209,19 +221,22 @@ export function PortfolioCollection({ collection, children }: { collection: "sys
           </div>}
           {section.id === "business-systems" ? (
             <>
+              <div className="mb-10 sm:mb-12">{renderArtifact("business-systems-cover")}</div>
               <div className="space-y-10 sm:space-y-12">
                 {businessGroups.map((group, index) => (
-                  <section key={group.id} aria-labelledby={`${group.id}-title`}>
+                  <section key={group.id} id={group.id} aria-labelledby={`${group.id}-title`} className="scroll-mt-24">
                     <div className="mb-4">
                       <h4 id={`${group.id}-title`} className="flex items-baseline gap-3 text-sm font-medium text-ink"><span aria-hidden="true" className="font-mono text-xs text-graphite/50">{String(index + 1).padStart(2, "0")}</span>{group.title}</h4>
                     </div>
+                    {group.paragraphs && <div className="mb-6 max-w-4xl space-y-4 text-base leading-7 text-graphite sm:mb-8">
+                      {group.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                    </div>}
                     <div className={`grid items-start gap-x-5 gap-y-6 sm:grid-cols-2 ${group.columns === 3 ? "md:grid-cols-3" : ""}`}>
                       {group.items.map((id) => renderArtifact(id))}
                     </div>
                   </section>
                 ))}
               </div>
-              <div className="mt-10 sm:mt-12">{renderArtifact("bytespace-org-chart")}</div>
             </>
           ) : (
             <div className="grid items-start gap-x-5 gap-y-8 sm:grid-cols-2">
