@@ -119,6 +119,23 @@ const sections: ArtifactGroup[] = [
 const completeDesigns = artifacts.filter((artifact) => artifact.poster);
 const productArtifactIds = new Set<Artifact["id"]>(["bytespace-interface", ...completeDesigns.map((artifact) => artifact.id)]);
 
+function SystemsIntroDetails() {
+  return <>
+    <p>
+      For a business, the system is how teams, tools, and responsibilities
+      fit together. Bringing a new customer onboard is one process within
+      it. The instructions for setting up their account and handing it
+      over to the right team are the procedures. People might handle some
+      steps. Software might handle others. It all needs to work together.
+    </p>
+    <p>
+      And putting it on paper is only the beginning. You try it. See where
+      people get stuck. Look at the results and adjust. I like that part
+      just as much as designing the thing in the first place.
+    </p>
+  </>;
+}
+
 function artifactImage(id: Artifact["id"], full = false) {
   if (id in designAssets) {
     const versions = designAssets[id as keyof typeof designAssets];
@@ -213,18 +230,7 @@ export function PortfolioCollection({ collection, children }: { collection: "sys
               they&apos;re arranged that way. What are we trying to accomplish?
               Where does it get unnecessarily complicated?
             </p>
-            <p>
-              For a business, the system is how teams, tools, and responsibilities
-              fit together. Bringing a new customer onboard is one process within
-              it. The instructions for setting up their account and handing it
-              over to the right team are the procedures. People might handle some
-              steps. Software might handle others. It all needs to work together.
-            </p>
-            <p>
-              And putting it on paper is only the beginning. You try it. See where
-              people get stuck. Look at the results and adjust. I like that part
-              just as much as designing the thing in the first place.
-            </p>
+            <div className="hidden space-y-4 sm:block"><SystemsIntroDetails /></div>
           </>
         )}
       </div>
@@ -242,7 +248,7 @@ export function PortfolioCollection({ collection, children }: { collection: "sys
       </nav>
 
       {collectionSections.map((section) => (
-        <section key={section.id} id={section.id} aria-labelledby={`${section.id}-title`} className="mt-12 scroll-mt-6 border-t border-ink/15 pt-6 sm:mt-16 sm:pt-7">
+        <section key={section.id} id={section.id} aria-labelledby={`${section.id}-title`} className={`${section.id === "business-systems" ? "mt-7" : "mt-12"} scroll-mt-6 border-t border-ink/15 pt-6 sm:mt-16 sm:pt-7`}>
           {isProduct ? <div className="mb-8 grid gap-3 sm:mb-10 sm:grid-cols-[11rem_1fr] sm:gap-6">
             <h3 id={`${section.id}-title`} className="font-mono text-sm font-medium text-ink">{section.title}</h3>
             <p className="text-sm leading-6 text-graphite">{section.description}</p>
@@ -255,7 +261,8 @@ export function PortfolioCollection({ collection, children }: { collection: "sys
           </div>}
           {section.id === "business-systems" ? (
             <>
-              <div className="mb-10 sm:mb-12">{renderArtifact("business-systems-cover")}</div>
+              <div className="mb-7 sm:mb-12">{renderArtifact("business-systems-cover")}</div>
+              <div className="mb-10 space-y-4 text-base leading-7 text-graphite sm:hidden"><SystemsIntroDetails /></div>
               <div className="space-y-10 sm:space-y-12">
                 {businessGroups.map((group, index) => (
                   <section key={group.id} id={group.id} aria-labelledby={`${group.id}-title`} className="scroll-mt-24">

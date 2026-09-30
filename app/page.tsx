@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Fragment } from "react";
 import Link from "next/link";
 import localFont from "next/font/local";
 import { ArrowRight } from "lucide-react";
@@ -230,18 +231,44 @@ const workCollageClasses = [
   "col-span-1 aspect-[4/3] sm:col-span-2",
   "col-span-1 aspect-[4/3] sm:col-span-2",
   "col-span-1 aspect-[4/3] sm:col-span-3",
-  "col-span-1 aspect-[4/3] sm:col-span-3",
+  "col-span-2 aspect-[1179/664] sm:col-span-3 sm:aspect-[4/3]",
 ];
+
+function ArchiveIntroDetails() {
+  return <>
+    <p>
+      The common thread has usually been people and what technology
+      could make possible for them. At Bytespace, that meant getting
+      people out of soul-crushing, repetitive work. Building tools
+      that could take things off their plate and help them think
+      through what came next.
+    </p>
+    <p>
+      At 6x7 Networks, I was fascinated by what telecommunications
+      could unlock for people. Internet access could put the
+      world&apos;s accumulated knowledge within reach for more people.
+      Learning shouldn&apos;t depend so heavily on where you were
+      born or what you could afford.
+    </p>
+    <p>
+      At Paladin Partners, it was helping companies make complicated
+      technology easier to understand. Connecting what they were
+      building with the people who could actually use it.
+    </p>
+    <p>These are some photos from the journey so far.</p>
+  </>;
+}
 
 function WorkPhotoCollage({ sections }: { sections: MediaSection[] }) {
   const [section] = sections;
   const [hero, ...items] = section.items;
-  const collageItems = items.slice(0, -3);
+  const [fieldWork, networkBuild, startupEvent, ...otherPhotos] = items.slice(0, -3);
+  const collageItems = [fieldWork, startupEvent, networkBuild, ...otherPhotos];
   const [equipmentInventory, mobileRack, proclamation] = items.slice(-3);
 
   return (
-    <div className="mt-5 grid gap-4 border-t border-ink/10 py-5 sm:grid-cols-[8rem_1fr]">
-      <div className="space-y-2">
+    <div className="mt-6 grid gap-4 pb-5 sm:mt-5 sm:grid-cols-[8rem_1fr] sm:border-t sm:border-ink/10 sm:py-5">
+      <div className="hidden space-y-2 sm:block">
         <p className="font-mono text-xs leading-6 uppercase text-graphite/50">
           {section.label}
         </p>
@@ -262,27 +289,36 @@ function WorkPhotoCollage({ sections }: { sections: MediaSection[] }) {
         />
         <div className="grid grid-cols-2 gap-1 sm:grid-cols-6">
           {collageItems.map((artifact, index) => (
-            <div
-              key={artifact.src}
-              className={`overflow-hidden border border-ink/10 bg-ink/[0.03] ${
-                workCollageClasses[index] ?? "col-span-1 aspect-[4/3] sm:col-span-2"
-              }`}
-            >
-              <Image
-                src={artifact.src}
-                alt={artifact.alt}
-                width={artifact.width}
-                height={artifact.height}
-                unoptimized
-                sizes="(min-width: 640px) 256px, 50vw"
-                className="h-full w-full object-cover"
-                style={
-                  artifact.objectPosition
-                    ? { objectPosition: artifact.objectPosition }
-                    : undefined
-                }
-              />
-            </div>
+            <Fragment key={artifact.src}>
+              <div
+                className={`overflow-hidden border border-ink/10 bg-ink/[0.03] ${
+                  workCollageClasses[index] ?? "col-span-1 aspect-[4/3] sm:col-span-2"
+                }`}
+              >
+                <Image
+                  src={artifact.src}
+                  alt={artifact.alt}
+                  width={artifact.width}
+                  height={artifact.height}
+                  unoptimized
+                  loading={index < 2 ? "eager" : "lazy"}
+                  sizes={index === 6 ? "(min-width: 640px) 256px, 100vw" : "(min-width: 640px) 256px, 50vw"}
+                  className="h-full w-full object-cover"
+                  style={
+                    artifact.objectPosition
+                      ? { objectPosition: artifact.objectPosition }
+                      : undefined
+                  }
+                />
+              </div>
+              {index === 1 && <div className="col-span-full py-7 sm:hidden">
+                <div className="space-y-4 text-base leading-7 text-graphite"><ArchiveIntroDetails /></div>
+                <div className="mt-7 space-y-2 border-t border-ink/10 pt-5">
+                  <p className="font-mono text-xs leading-6 uppercase text-graphite/50">{section.label}</p>
+                  <p className="text-sm leading-6 text-graphite/55">{section.description}</p>
+                </div>
+              </div>}
+            </Fragment>
           ))}
           <div className="col-span-2 grid grid-cols-1 gap-1 sm:col-span-6 sm:grid-cols-3">
             {[equipmentInventory, mobileRack].map((artifact) => (
@@ -780,19 +816,10 @@ export default async function Home({ searchParams }: HomeProps) {
                     clicked.
                   </p>
                   <p>
-                    I&apos;ve always had a thousand things going on in my head.
-                    Getting them onto paper gave me a way to see how they
-                    connected, instead of trying to hold everything at once.
-                  </p>
-                  <p>
-                    There&apos;s something about working with a pen or standing in
-                    front of a whiteboard. It slows me down. I have to think about
-                    how one idea relates to the next. Sometimes drawing the
-                    connection is what helps me understand it.
-                  </p>
-                  <p>
-                    These are some of the sketches, whiteboards, half-formed
-                    plans, and books that have helped me think along the way.
+                    Putting ideas on paper slows me down and helps me see how
+                    they connect. These are some of the sketches, whiteboards,
+                    half-formed plans, and books that have helped me think along
+                    the way.
                   </p>
                 </div>
                 <nav aria-label="Notebook views" className="mt-5 flex gap-6 border-b border-ink/10 font-mono text-sm">
@@ -851,26 +878,7 @@ export default async function Home({ searchParams }: HomeProps) {
                     I&apos;ve spent a lot of time moving between very different
                     worlds.
                   </p>
-                  <p>
-                    The common thread has usually been people and what technology
-                    could make possible for them. At Bytespace, that meant getting
-                    people out of soul-crushing, repetitive work. Building tools
-                    that could take things off their plate and help them think
-                    through what came next.
-                  </p>
-                  <p>
-                    At 6x7 Networks, I was fascinated by what telecommunications
-                    could unlock for people. Internet access could put the
-                    world&apos;s accumulated knowledge within reach for more people.
-                    Learning shouldn&apos;t depend so heavily on where you were
-                    born or what you could afford.
-                  </p>
-                  <p>
-                    At Paladin Partners, it was helping companies make complicated
-                    technology easier to understand. Connecting what they were
-                    building with the people who could actually use it.
-                  </p>
-                  <p>These are some photos from the journey so far.</p>
+                  <div className="hidden space-y-4 sm:block"><ArchiveIntroDetails /></div>
                 </div>
                 <WorkPhotoCollage sections={workArtifactSections} />
                 <ArchiveTalks />

@@ -33,13 +33,31 @@ test("the personal page intro leads into bot0 and cmd0 without a Labs chapter", 
   const introStart = source.indexOf('<div className={styles.intro}>');
   const navStart = source.indexOf('<nav aria-label="Product and design sections"');
   assert.ok(introStart > 0 && introStart < navStart && navStart < botStart);
-  const intro = source.slice(introStart, navStart);
-  assert.equal([...intro.matchAll(/<p>/g)].length, 4);
+  const intro = source.slice(introStart, navStart) + source.slice(source.indexOf("function ProductDetailCopy"), source.indexOf("export function ProductDesign"));
+  assert.equal([...intro.matchAll(/<p\b/g)].length, 4);
   assert.match(intro, /I love designing products and user experiences\./);
   assert.doesNotMatch(intro, /I fucking love product and design\./);
-  assert.match(intro, /<p>A clever idea doesn&apos;t mean much if using it is a pain in the ass\.<\/p>/);
+  assert.match(intro, /<p className=\{styles.introDesktop\}>A clever idea doesn&apos;t mean much if using it is a pain in the ass\.<\/p>/);
   assert.match(intro, /I can lose hours to the smallest details\./);
   assert.match(intro, /Below are two products from that work\. bot0, an agent workspace originally designed for researchers\. And cmd0, my favorite, a Chrome extension that brings browser automation and world-building together\./);
+});
+
+test("phone product copy keeps the opening thought and bot0 artwork together, with design details beside the demo", async () => {
+  const source = await readFile(path.join(root, "components/ProductDesign.tsx"), "utf8");
+  const bot = source.slice(source.indexOf('<section id="bot0"'), source.indexOf('<section id="product-design"'));
+  assert.match(bot, /className=\{styles.octopus\} \/><\/div>\s*<ChapterHeader/);
+  assert.ok(bot.indexOf('title="bot0 interactive product showcase"') < bot.indexOf("styles.interfaceReflection"));
+  assert.ok(bot.indexOf("styles.interfaceReflection") < bot.indexOf("styles.botIdentity"));
+  const opening = source.slice(source.indexOf('<div className={styles.intro}>'), source.indexOf('<nav aria-label="Product and design sections"'));
+  assert.match(opening, /<p>I love designing[^<]+It&apos;s also an exercise in psychology[^<]+<\/p>/);
+  assert.equal(source.match(/images\["bot-octopus"\]\.preview/g)?.length, 1);
+  assert.equal(source.match(/<ProductDetailCopy \/>/g)?.length, 2);
+  const css = await readFile(path.join(root, "components/ProductDesign.module.css"), "utf8");
+  assert.match(css, /\.interfaceReflection \{ display: none; \}/);
+  const mobile = css.slice(css.indexOf("@media (max-width: 639px)"));
+  assert.match(mobile, /\.introDesktop \{ display: none; \}/);
+  assert.match(mobile, /\.interfaceReflection \{ display: block;/);
+  assert.match(mobile, /\.botIntro \.chapterHeader \{ order: 0;/);
 });
 
 test("bot0 retains the full research triptych separately from its feature illustrations", async () => {

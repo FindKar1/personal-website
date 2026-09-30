@@ -3,6 +3,7 @@
 .chapterHeader h2 { font-family: var(--product-display-font); font-weight: 400; text-transform: uppercase; text-wrap: balance; }
 .intro { max-width: 54rem; font-size: 16px; line-height: 1.75; color: var(--graphite); }
 .intro p + p { margin-top: 16px; }
+.interfaceReflection { display: none; }
 .sectionNav { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 20px; font-size: 13px; }
 .sectionNav a { display: inline-flex; align-items: center; gap: 5px; padding: 4px 0; color: var(--graphite); text-decoration: underline; text-decoration-color: #d6d5d0; text-underline-offset: 5px; }
 .sectionNav a:hover { color: var(--ink); text-decoration-color: var(--ink); }
@@ -250,6 +251,15 @@
 @media (max-width: 360px) {
   .chapterHeader h2 { font-size: 36px; }
   .octopus { left: calc(50% - 185px); width: 460px; }
+}
+@media (max-width: 639px) {
+  .introDesktop { display: none; }
+  .interfaceReflection { display: block; margin-top: 28px; }
+  .botChapter { margin-top: 16px; padding-top: 0; border-top: 0; }
+  .botIntro { padding-top: 0; }
+  .botIntro .chapterHeader { order: 0; margin: 24px 0 28px; }
+  .octopusField { width: min(100vw, 480px); height: auto; aspect-ratio: 3 / 4; margin: 0; }
+  .octopus { position: relative; top: auto; left: auto; width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
   .artImage, .expandIcon { transition: none; }

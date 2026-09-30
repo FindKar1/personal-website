@@ -95,6 +95,10 @@ function ChapterHeader({ number, id, title, category, children, href }: {
   </header>;
 }
 
+function ProductDetailCopy() {
+  return <>I can lose hours to the smallest details. How a button responds. The rhythm of an animation. What a color makes you feel. Even the skeleton loader someone sees while they&apos;re waiting. Those details shape how a product feels long before someone can explain why they like it. That&apos;s the part I obsess over.</>;
+}
+
 export function ProductDesign({ children }: { children?: ReactNode }) {
   const [active, setActive] = useState<ImageId | null>(null);
   const [zoom, setZoom] = useState(1);
@@ -161,15 +165,15 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
   return <div className={styles.portfolio}>
     <div className={styles.intro}>
       <p>I love designing products and user experiences. It&apos;s where all the brainstorming and theorizing finally becomes something someone can touch, feel, and use. It&apos;s also an exercise in psychology. You have to understand how people think, not just how your system works.</p>
-      <p>A clever idea doesn&apos;t mean much if using it is a pain in the ass.</p>
-      <p>I can lose hours to the smallest details. How a button responds. The rhythm of an animation. What a color makes you feel. Even the skeleton loader someone sees while they&apos;re waiting. Those details shape how a product feels long before someone can explain why they like it. That&apos;s the part I obsess over.</p>
-      <p>Below are two products from that work. bot0, an agent workspace originally designed for researchers. And cmd0, my favorite, a Chrome extension that brings browser automation and world-building together.</p>
+      <p className={styles.introDesktop}>A clever idea doesn&apos;t mean much if using it is a pain in the ass.</p>
+      <p className={styles.introDesktop}><ProductDetailCopy /></p>
+      <p className={styles.introDesktop}>Below are two products from that work. bot0, an agent workspace originally designed for researchers. And cmd0, my favorite, a Chrome extension that brings browser automation and world-building together.</p>
     </div>
     <nav aria-label="Product and design sections" className={styles.sectionNav}>
       <a href="#bot0">bot0</a><a href="#product-design">cmd0 <ArrowDown size={13} aria-hidden="true" /></a>
     </nav>
 
-    <section id="bot0" aria-labelledby="bot0-title" className={styles.chapter}>
+    <section id="bot0" aria-labelledby="bot0-title" className={`${styles.chapter} ${styles.botChapter}`}>
       <div className={styles.botIntro}>
         <div className={styles.octopusField}><Image {...images["bot-octopus"].preview} alt="" unoptimized loading="eager" className={styles.octopus} /></div>
         <ChapterHeader number="01" id="bot0" title="bot0" category="Research workspace" href="https://bot0.dev">
@@ -182,6 +186,10 @@ export function ProductDesign({ children }: { children?: ReactNode }) {
           {!demoLoaded && <p className={styles.loading} role="status">Loading interface...</p>}
           <iframe ref={attachDemo} src="/showcases/bot0/index.html" title="bot0 interactive product showcase" onLoad={() => setDemoLoaded(true)} loading="lazy" />
         </div>
+      </div>
+      <div className={`${styles.intro} ${styles.interfaceReflection}`}>
+        <p>A clever idea doesn&apos;t mean much if using it is a pain in the ass.</p>
+        <p><ProductDetailCopy /></p>
       </div>
       <div className={styles.botIdentity}>
         {(["bot-models", "bot-data", "bot-compute", "bot-team"] as ImageId[]).map(id => artwork(id, { surface: styles.botIllustration }))}

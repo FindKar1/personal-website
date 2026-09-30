@@ -5,7 +5,8 @@ import test from "node:test";
 const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
 const archive = page.slice(page.indexOf('{activeTab === "archive" && ('), page.indexOf('{activeTab === "notebook" && notebookView === "notes"'));
 const intro = archive.slice(0, archive.indexOf("<WorkPhotoCollage"));
-const paragraphs = [...intro.matchAll(/<p>([\s\S]*?)<\/p>/g)].map(match => match[1].replace(/\s+/g, " ").trim());
+const details = page.slice(page.indexOf("function ArchiveIntroDetails"), page.indexOf("function WorkPhotoCollage"));
+const paragraphs = [...`${intro}${details}`.matchAll(/<p>([\s\S]*?)<\/p>/g)].map(match => match[1].replace(/\s+/g, " ").trim());
 
 test("Archive introduces the motivations behind the work in five paragraphs", () => {
   assert.equal(paragraphs.length, 5);
@@ -24,4 +25,24 @@ test("Archive keeps shared intro typography and its existing media order", () =>
   for (let index = 1; index < media.length; index++) {
     assert.ok(archive.indexOf(media[index - 1]) < archive.indexOf(media[index]));
   }
+});
+
+test("Archive moves the shared continuation after its opening three photos only on phones", () => {
+  assert.match(intro, /className="hidden space-y-4 sm:block"><ArchiveIntroDetails/);
+  const collage = page.slice(page.indexOf("function WorkPhotoCollage"), page.indexOf("const readingSections"));
+  assert.match(collage, /const collageItems = \[fieldWork, startupEvent, networkBuild, \.\.\.otherPhotos\]/);
+  assert.match(collage, /const \[fieldWork, networkBuild, startupEvent, \.\.\.otherPhotos\] = items.slice\(0, -3\)/);
+  assert.match(collage, /index === 1 && <div className="col-span-full py-7 sm:hidden">/);
+  assert.match(collage, /<ArchiveIntroDetails \/>/);
+  assert.equal(collage.match(/src=\{hero.src\}/g)?.length, 1);
+  assert.ok(collage.indexOf("src={artifact.src}") < collage.indexOf("<ArchiveIntroDetails"));
+});
+
+test("Startup Grind fills the last phone row without changing the desktop collage", () => {
+  const classes = [...page.match(/const workCollageClasses = \[([\s\S]*?)\];/)[1].matchAll(/"([^"]+)"/g)].map(match => match[1]);
+  assert.equal(classes.length, 7);
+  assert.deepEqual(classes.map(value => Number(value.match(/^col-span-(\d+)/)[1])), [1, 1, 1, 1, 1, 1, 2]);
+  assert.deepEqual(classes.map(value => Number(value.match(/sm:col-span-(\d+)/)[1])), [3, 3, 2, 2, 2, 3, 3]);
+  assert.match(classes[6], /aspect-\[1179\/664\].*sm:aspect-\[4\/3\]/);
+  assert.match(page, /sizes=\{index === 6 \? "\(min-width: 640px\) 256px, 100vw"/);
 });

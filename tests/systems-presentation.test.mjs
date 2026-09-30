@@ -49,6 +49,18 @@ test("all Systems diagrams remain accessible without duplicate slide titles", ()
   assert.match(markup, /aria-label="Enlarge Process Overview"/);
 });
 
+test("Systems keeps the personal opening together and introduces the business example after its cover on mobile", () => {
+  assert.equal(markup.match(/My morning routine/g)?.length, 1);
+  assert.ok(markup.indexOf("My morning routine") < markup.indexOf('<nav aria-label="Systems sections"'));
+  assert.match(markup, /class="hidden space-y-4 sm:block"><p>For a business/);
+  const business = markup.slice(markup.indexOf('<section id="business-systems"'), markup.indexOf('<section id="ai-architecture"'));
+  assert.doesNotMatch(business, /My morning routine/);
+  assert.ok(business.indexOf('Enlarge Building Agile Organizations') < business.indexOf("For a business"));
+  assert.ok(business.indexOf("For a business") < business.indexOf('id="structure-responsibility"'));
+  assert.match(business, /class="mb-10 space-y-4 text-base leading-7 text-graphite sm:hidden"><p>For a business/);
+  assert.equal(business.match(/aria-label="Enlarge Building Agile Organizations"/g)?.length, 1);
+});
+
 test("Product and Design retains its artifact captions", () => {
   const productMarkup = renderToStaticMarkup(createElement(compiled.exports.PortfolioCollection, { collection: "product" }));
   assert.match(productMarkup, /<figcaption\b/);

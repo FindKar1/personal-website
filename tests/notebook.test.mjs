@@ -85,13 +85,22 @@ test("Notebook has a shared introduction and each view starts with its collectio
   const paragraphs = [...intro.matchAll(/<p>([\s\S]*?)<\/p>/g)].map(match => match[1].replace(/\s+/g, " ").trim());
   assert.deepEqual(paragraphs, [
     "I remember the first time I made a mind map. Everything clicked.",
-    "I&apos;ve always had a thousand things going on in my head. Getting them onto paper gave me a way to see how they connected, instead of trying to hold everything at once.",
-    "There&apos;s something about working with a pen or standing in front of a whiteboard. It slows me down. I have to think about how one idea relates to the next. Sometimes drawing the connection is what helps me understand it.",
-    "These are some of the sketches, whiteboards, half-formed plans, and books that have helped me think along the way.",
+    "Putting ideas on paper slows me down and helps me see how they connect. These are some of the sketches, whiteboards, half-formed plans, and books that have helped me think along the way.",
   ]);
   assert.match(intro, /max-w-4xl space-y-4 text-base leading-7 text-graphite/);
+  assert.ok(paragraphs.join(" ").split(/\s+/).length <= 50);
+  assert.doesNotMatch(intro, /hidden|sm:block/);
+  assert.doesNotMatch(source, /NotebookIntroDetails/);
   assert.doesNotMatch(source, /I like getting ideas out of my head and onto paper/);
   assert.doesNotMatch(source, /Before an idea becomes something useful|A partial, imperfectly remembered record/);
   assert.match(source, /notebookView === "reading"[\s\S]*?className="w-full">\s*<div className="space-y-10">/);
   assert.match(source, /notebookView === "notes"[\s\S]*?className="w-full">\s*<NotebookCollage/);
+});
+
+test("Notebook opens with the same whiteboard and does not interrupt either collection with prose", async () => {
+  assert.match(collage.match(/<img\b[^>]*>/)?.[0] ?? "", /notes-whiteboard-systems.webp/);
+  assert.doesNotMatch(collage, /<p\b/);
+  const source = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
+  const reading = source.slice(source.indexOf('{activeTab === "notebook" && notebookView === "reading"'), source.indexOf('{activeTab === "archive" && ('));
+  assert.doesNotMatch(reading, /Putting ideas on paper|mind map|index === 0|sm:hidden/);
 });
